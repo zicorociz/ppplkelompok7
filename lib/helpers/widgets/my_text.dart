@@ -436,9 +436,13 @@ class MyText extends StatelessWidget {
           MyTextStyle.getStyle(
             textStyle: style,
             color: color,
-            fontWeight: fontWeight ?? MyTextStyle.defaultTextFontWeight[textType] ?? 500,
+            fontWeight: fontWeight ??
+                MyTextStyle.defaultTextFontWeight[textType] ??
+                500,
             muted: muted,
-            letterSpacing: letterSpacing ?? MyTextStyle.defaultLetterSpacing[textType] ?? 0.15,
+            letterSpacing: letterSpacing ??
+                MyTextStyle.defaultLetterSpacing[textType] ??
+                0.15,
             height: height,
             xMuted: xMuted,
             decoration: decoration,

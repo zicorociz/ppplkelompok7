@@ -66,11 +66,14 @@ class _HomeScreenState extends State<HomeScreen> with UIMixin {
                             return Builder(
                               builder: (BuildContext context) {
                                 return InkWell(
-                                  onTap: controller.goToHotelDetail,
+                                  onTap: () => controller
+                                      .goToHotelDetail(controller.hotel[0]),
                                   child: Container(
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(4),
-                                      image: DecorationImage(image: AssetImage(url), fit: BoxFit.cover),
+                                      image: DecorationImage(
+                                          image: AssetImage(url),
+                                          fit: BoxFit.cover),
                                     ),
                                   ),
                                 );
@@ -95,11 +98,13 @@ class _HomeScreenState extends State<HomeScreen> with UIMixin {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              MyText.bodyMedium("Popular Destination", fontWeight: 600),
+                              MyText.bodyMedium("Popular Destination",
+                                  fontWeight: 600),
                               MySpacing.height(24),
                               popularDestination(),
                               MySpacing.height(24),
-                              MyText.bodyMedium("Special Offer", fontWeight: 600),
+                              MyText.bodyMedium("Special Offer",
+                                  fontWeight: 600),
                               MySpacing.height(24),
                               specialOffer(),
                             ],
@@ -133,7 +138,8 @@ class _HomeScreenState extends State<HomeScreen> with UIMixin {
                 CircleAvatar(
                   radius: 20,
                   backgroundColor: contentTheme.primary,
-                  child: Icon(LucideIcons.map_pin, size: 16, color: Colors.white),
+                  child:
+                      Icon(LucideIcons.map_pin, size: 16, color: Colors.white),
                 ),
                 MyText.bodySmall(controller.destinations[index]),
               ],
@@ -186,7 +192,7 @@ class _HomeScreenState extends State<HomeScreen> with UIMixin {
               itemBuilder: (context, index) {
                 HotelModel hotel = controller.hotel[index];
                 return MyContainer.bordered(
-                  onTap: controller.goToHotelDetail,
+                  onTap: () => controller.goToHotelDetail(hotel),
                   width: 300,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

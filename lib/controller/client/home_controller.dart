@@ -6,8 +6,21 @@ import 'package:stay_place/model/room_model.dart';
 class HomeController extends MyController {
   List<HotelModel> hotel = [];
   List<RoomModel> room = [];
-  final List<String> destinations = ['New York', 'Los Angeles', 'Paris', 'Tokyo', 'London'];
-  final List<String> offers = ['10% OFF', 'Free Breakfast', 'Free Cancellation', 'Early Check-in', 'Late Check-out', 'Free Wi-Fi'];
+  final List<String> destinations = [
+    'New York',
+    'Los Angeles',
+    'Paris',
+    'Tokyo',
+    'London'
+  ];
+  final List<String> offers = [
+    '10% OFF',
+    'Free Breakfast',
+    'Free Cancellation',
+    'Early Check-in',
+    'Late Check-out',
+    'Free Wi-Fi'
+  ];
 
   final List<String> featuredImages = [
     'assets/images/dummy/hotel/hotel_1.jpg',
@@ -31,11 +44,11 @@ class HomeController extends MyController {
     super.onInit();
   }
 
-  void goToHotelDetail() {
-    Get.toNamed('/admin/hotel/detail');
+  void goToHotelDetail(HotelModel hotel) {
+    Get.toNamed('/hotel_detail', arguments: hotel);
   }
 
   void goToRoomDetail() {
-    Get.toNamed('/admin/room/detail');
+    Get.toNamed('/room_detail', arguments: room);
   }
 }

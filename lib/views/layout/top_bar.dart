@@ -256,6 +256,10 @@ class _TopBarState extends State<TopBar>
     );
   }
 
+  // lib/views/layout/top_bar.dart
+
+// ...
+
   Widget buildAccountMenu() {
     return MyContainer.bordered(
       paddingAll: 0,
@@ -268,12 +272,12 @@ class _TopBarState extends State<TopBar>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // Tombol "My Profile"
                 MyButton(
                   onPressed: () {
-                    Get.toNamed('/admin/setting');
-                    setState(() {});
+                    // Arahkan ke halaman profil umum
+                    Get.toNamed('/profile');
                   },
-                  // onPressed: () =>
                   tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   borderRadiusAll: AppStyle.buttonRadius.medium,
                   padding: MySpacing.xy(8, 4),
@@ -295,11 +299,12 @@ class _TopBarState extends State<TopBar>
                   ),
                 ),
                 MySpacing.height(4),
+                // Tombol "Edit Profile" (diarahkan ke halaman yang sama untuk saat ini)
                 MyButton(
                   tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   onPressed: () {
-                    Get.toNamed('/admin/setting');
-                    setState(() {});
+                    // Arahkan juga ke halaman profil umum
+                    Get.toNamed('/profile');
                   },
                   borderRadiusAll: AppStyle.buttonRadius.medium,
                   padding: MySpacing.xy(8, 4),
@@ -327,16 +332,15 @@ class _TopBarState extends State<TopBar>
             height: 1,
             thickness: 1,
           ),
+          // Tombol "Log out"
           Padding(
             padding: MySpacing.xy(8, 8),
             child: MyButton(
               tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-              // --- UBAH BAGIAN INI ---
               onPressed: () {
-                // Panggil method logout dari AuthService
+                // Panggil method logout yang sudah benar
                 AuthService.logout();
               },
-              // -----------------------
               borderRadiusAll: AppStyle.buttonRadius.medium,
               padding: MySpacing.xy(8, 4),
               splashColor: contentTheme.danger.withAlpha(28),

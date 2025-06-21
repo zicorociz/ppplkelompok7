@@ -1,6 +1,10 @@
+// lib/views/layout/top_bar.dart
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 import 'package:stay_place/helpers/localizations/language.dart';
+import 'package:stay_place/helpers/services/auth_services.dart'; // <-- IMPORT BARU
 import 'package:stay_place/helpers/theme/app_notifire.dart';
 import 'package:stay_place/helpers/theme/app_style.dart';
 import 'package:stay_place/helpers/theme/app_themes.dart';
@@ -16,7 +20,6 @@ import 'package:stay_place/helpers/widgets/my_text.dart';
 import 'package:stay_place/images.dart';
 import 'package:stay_place/widgets/custom_pop_menu.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
-import 'package:provider/provider.dart';
 
 class TopBar extends StatefulWidget {
   const TopBar({super.key});
@@ -25,7 +28,8 @@ class TopBar extends StatefulWidget {
   _TopBarState createState() => _TopBarState();
 }
 
-class _TopBarState extends State<TopBar> with SingleTickerProviderStateMixin, UIMixin {
+class _TopBarState extends State<TopBar>
+    with SingleTickerProviderStateMixin, UIMixin {
   Function? languageHideFn;
 
   @override
@@ -39,25 +43,23 @@ class _TopBarState extends State<TopBar> with SingleTickerProviderStateMixin, UI
       child: Row(
         children: [
           InkWell(
-              splashColor: theme.colorScheme.onSurface,
-              highlightColor: theme.colorScheme.onSurface,
-              onTap: () {
-                ThemeCustomizer.toggleLeftBarCondensed();
-              },
-              child: Icon(
-                LucideIcons.menu,
-                color: topBarTheme.onBackground,
-              )),
+              onTap: () => ThemeCustomizer.toggleLeftBarCondensed(),
+              child: Icon(LucideIcons.menu, color: topBarTheme.onBackground)),
           Expanded(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 InkWell(
                   onTap: () {
-                    ThemeCustomizer.setTheme(ThemeCustomizer.instance.theme == ThemeMode.dark ? ThemeMode.light : ThemeMode.dark);
+                    ThemeCustomizer.setTheme(
+                        ThemeCustomizer.instance.theme == ThemeMode.dark
+                            ? ThemeMode.light
+                            : ThemeMode.dark);
                   },
                   child: Icon(
-                    ThemeCustomizer.instance.theme == ThemeMode.dark ? LucideIcons.sun : LucideIcons.moon,
+                    ThemeCustomizer.instance.theme == ThemeMode.dark
+                        ? LucideIcons.sun
+                        : LucideIcons.moon,
                     size: 18,
                     color: topBarTheme.onBackground,
                   ),
@@ -107,27 +109,36 @@ class _TopBarState extends State<TopBar> with SingleTickerProviderStateMixin, UI
                   onChange: (_) {},
                   offsetX: -60,
                   offsetY: 8,
-                  menu: Padding(
-                    padding: MySpacing.xy(8, 8),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        MyContainer.rounded(
-                            paddingAll: 0,
-                            child: Image.asset(
-                              Images.avatars[0],
-                              height: 28,
-                              width: 28,
-                              fit: BoxFit.cover,
-                            )),
-                        MySpacing.width(8),
-                        MyText.labelLarge("Alison")
-                      ],
-                    ),
-                  ),
+                  menu: Obx(() {
+                    // <-- BUNGKUS DENGAN Obx
+                    // Tampilkan menu hanya jika sudah login
+                    if (!AuthService.isLoggedIn) return const SizedBox.shrink();
+
+                    return Padding(
+                      padding: MySpacing.xy(8, 8),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          MyContainer.rounded(
+                              paddingAll: 0,
+                              child: Image.asset(
+                                Images.avatars[
+                                    0], // Kamu bisa ganti dengan foto profil dinamis nanti
+                                height: 28,
+                                width: 28,
+                                fit: BoxFit.cover,
+                              )),
+                          MySpacing.width(8),
+                          // Ambil nama dari state reaktif
+                          MyText.labelLarge(
+                              AuthService.loggedInUser.value!.name)
+                        ],
+                      ),
+                    );
+                  }),
                   menuBuilder: (_) => buildAccountMenu(),
-                  hideFn: (hide) => languageHideFn = hide,
                 ),
+                // ===========================================
               ],
             ),
           )
@@ -149,7 +160,8 @@ class _TopBarState extends State<TopBar> with SingleTickerProviderStateMixin, UI
                   splashColor: contentTheme.onBackground.withAlpha(20),
                   onPressed: () async {
                     languageHideFn?.call();
-                    await Provider.of<AppNotifier>(context, listen: false).changeLanguage(language, notify: true);
+                    await Provider.of<AppNotifier>(context, listen: false)
+                        .changeLanguage(language, notify: true);
                     ThemeCustomizer.notify();
                     setState(() {});
                   },
@@ -178,7 +190,11 @@ class _TopBarState extends State<TopBar> with SingleTickerProviderStateMixin, UI
     Widget buildNotification(String title, String description) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [MyText.labelLarge(title), MySpacing.height(4), MyText.bodySmall(description)],
+        children: [
+          MyText.labelLarge(title),
+          MySpacing.height(4),
+          MyText.bodySmall(description)
+        ],
       );
     }
 
@@ -192,19 +208,23 @@ class _TopBarState extends State<TopBar> with SingleTickerProviderStateMixin, UI
             padding: MySpacing.xy(16, 12),
             child: MyText.titleMedium("Notification", fontWeight: 600),
           ),
-          MyDashedDivider(height: 1, color: theme.dividerColor, dashSpace: 4, dashWidth: 6),
+          MyDashedDivider(
+              height: 1, color: theme.dividerColor, dashSpace: 4, dashWidth: 6),
           Padding(
             padding: MySpacing.xy(16, 12),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                buildNotification("Your order is received", "Order #1232 is ready to deliver"),
+                buildNotification("Your order is received",
+                    "Order #1232 is ready to deliver"),
                 MySpacing.height(12),
-                buildNotification("Account Security ", "Your account password changed 1 hour ago"),
+                buildNotification("Account Security ",
+                    "Your account password changed 1 hour ago"),
               ],
             ),
           ),
-          MyDashedDivider(height: 1, color: theme.dividerColor, dashSpace: 4, dashWidth: 6),
+          MyDashedDivider(
+              height: 1, color: theme.dividerColor, dashSpace: 4, dashWidth: 6),
           Padding(
             padding: MySpacing.xy(13, 8),
             child: Row(
@@ -311,10 +331,12 @@ class _TopBarState extends State<TopBar> with SingleTickerProviderStateMixin, UI
             padding: MySpacing.xy(8, 8),
             child: MyButton(
               tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              // --- UBAH BAGIAN INI ---
               onPressed: () {
-                languageHideFn?.call();
-                // Get.offAll(LoginScreen());
+                // Panggil method logout dari AuthService
+                AuthService.logout();
               },
+              // -----------------------
               borderRadiusAll: AppStyle.buttonRadius.medium,
               padding: MySpacing.xy(8, 4),
               splashColor: contentTheme.danger.withAlpha(28),

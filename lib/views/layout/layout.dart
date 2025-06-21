@@ -1,6 +1,9 @@
-import'package:flutter/material.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
+// lib/views/layout/layout.dart
+
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:stay_place/controller/layout/layout_controller.dart';
+import 'package:stay_place/helpers/services/auth_services.dart';
 import 'package:stay_place/helpers/theme/admin_theme.dart';
 import 'package:stay_place/helpers/theme/app_style.dart';
 import 'package:stay_place/helpers/theme/app_themes.dart';
@@ -15,7 +18,6 @@ import 'package:stay_place/helpers/widgets/responsive.dart';
 import 'package:stay_place/views/layout/left_bar.dart';
 import 'package:stay_place/views/layout/right_bar.dart';
 import 'package:stay_place/views/layout/top_bar.dart';
-import 'package:stay_place/widgets/custom_pop_menu.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
 
 class Layout extends StatelessWidget {
@@ -44,50 +46,78 @@ class Layout extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         centerTitle: true,
-        title: Row(
-          children: [
-            Row(
-              children: [
-                buildTopBar(LucideIcons.map_pin, contentTheme.success),
-                MySpacing.width(12),
-                buildTopBar(LucideIcons.shopping_bag, contentTheme.warning),
-                MySpacing.width(12),
-                buildTopBar(LucideIcons.badge_percent, contentTheme.danger),
-              ],
-            ),
-          ],
-        ),
-        actions: [
-          Row(
-            children: [
-              MyContainer.roundBordered(
-                paddingAll: 8,
-                child: Icon(LucideIcons.shopping_cart, size: 20),
-              ),
-              CustomPopupMenu(
-                backdrop: true,
-                onChange: (_) {},
-                offsetX: -110,
-                offsetY: 0,
-                menu: Padding(
-                  padding: MySpacing.xy(8, 8),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: const [
-                      MyContainer.roundBordered(paddingAll: 8, child: Icon(LucideIcons.user, size: 20)),
-                    ],
-                  ),
-                ),
-                menuBuilder: (_) => buildAccountMenu(),
-              ),
-            ],
-          ),
-        ],
+        title: Row(),
+        actions: [],
       ),
-      drawer: LeftBar(),
+      // ----- GUNAKAN Obx DENGAN VALUEKEY -----
+      drawer: Obx(() {
+        if (!AuthService.isLoggedIn) {
+          return const SizedBox.shrink();
+        }
+        // ValueKey akan memaksa widget dihancurkan dan dibuat ulang jika role berubah
+        return LeftBar(
+          key:
+              ValueKey(AuthService.loggedInUser.value!.role), // <-- KUNCI UTAMA
+          isAdmin: AuthService.loggedInUser.value!.isAdmin(),
+        );
+      }),
+      // -----------------------------------------
       body: SingleChildScrollView(
         key: controller.scrollKey,
         child: child,
+      ),
+    );
+  }
+
+  Widget largeScreen() {
+    return Scaffold(
+      key: controller.scaffoldKey,
+      endDrawer: RightBar(),
+      body: Row(
+        children: [
+          // ----- GUNAKAN Obx DENGAN VALUEKEY -----
+          Obx(() {
+            if (!AuthService.isLoggedIn) {
+              return const SizedBox.shrink();
+            }
+            // ValueKey akan memaksa widget dihancurkan dan dibuat ulang jika role berubah
+            return LeftBar(
+              key: ValueKey(
+                  AuthService.loggedInUser.value!.role), // <-- KUNCI UTAMA
+              isCondensed: ThemeCustomizer.instance.leftBarCondensed,
+              isAdmin: AuthService.loggedInUser.value!.isAdmin(),
+            );
+          }),
+          // ------------------------------------------
+          Expanded(
+            child: Stack(
+              children: [
+                Positioned(
+                  top: 0,
+                  right: 0,
+                  left: 0,
+                  bottom: 0,
+                  child: SingleChildScrollView(
+                    padding:
+                        MySpacing.fromLTRB(0, 58 + flexSpacing, 0, flexSpacing),
+                    key: controller.scrollKey,
+                    child: child,
+                  ),
+                ),
+                // Pastikan TopBar juga reaktif jika menampilkan nama user
+                Obx(() => Positioned(
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      child: TopBar(
+                        key: ValueKey(AuthService.loggedInUser.value?.email ??
+                            'logged_out'),
+                      ),
+                    )),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -103,40 +133,16 @@ class Layout extends StatelessWidget {
     );
   }
 
-  Widget largeScreen() {
-    return Scaffold(
-      key: controller.scaffoldKey,
-      endDrawer: RightBar(),
-      body: Row(
-        children: [
-          LeftBar(isCondensed: ThemeCustomizer.instance.leftBarCondensed),
-          Expanded(
-              child: Stack(
-            children: [
-              Positioned(
-                top: 0,
-                right: 0,
-                left: 0,
-                bottom: 0,
-                child: SingleChildScrollView(
-                  padding: MySpacing.fromLTRB(0, 58 + flexSpacing, 0, flexSpacing),
-                  key: controller.scrollKey,
-                  child: child,
-                ),
-              ),
-              Positioned(top: 0, left: 0, right: 0, child: TopBar()),
-            ],
-          )),
-        ],
-      ),
-    );
-  }
-
+  // ... (Sisa kode buildNotifications dan buildAccountMenu tidak perlu diubah)
   Widget buildNotifications() {
     Widget buildNotification(String title, String description) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [MyText.labelLarge(title), MySpacing.height(4), MyText.bodySmall(description)],
+        children: [
+          MyText.labelLarge(title),
+          MySpacing.height(4),
+          MyText.bodySmall(description)
+        ],
       );
     }
 
@@ -150,19 +156,23 @@ class Layout extends StatelessWidget {
             padding: MySpacing.xy(16, 12),
             child: MyText.titleMedium("Notification", fontWeight: 600),
           ),
-          MyDashedDivider(height: 1, color: theme.dividerColor, dashSpace: 4, dashWidth: 6),
+          MyDashedDivider(
+              height: 1, color: theme.dividerColor, dashSpace: 4, dashWidth: 6),
           Padding(
             padding: MySpacing.xy(16, 12),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                buildNotification("Your order is received", "Order #1232 is ready to deliver"),
+                buildNotification("Your order is received",
+                    "Order #1232 is ready to deliver"),
                 MySpacing.height(12),
-                buildNotification("Account Security ", "Your account password changed 1 hour ago"),
+                buildNotification("Account Security ",
+                    "Your account password changed 1 hour ago"),
               ],
             ),
           ),
-          MyDashedDivider(height: 1, color: theme.dividerColor, dashSpace: 4, dashWidth: 6),
+          MyDashedDivider(
+              height: 1, color: theme.dividerColor, dashSpace: 4, dashWidth: 6),
           Padding(
             padding: MySpacing.xy(16, 0),
             child: Row(

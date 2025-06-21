@@ -16,7 +16,8 @@ class RegisterAccountScreen extends StatefulWidget {
   State<RegisterAccountScreen> createState() => _RegisterAccountScreenState();
 }
 
-class _RegisterAccountScreenState extends State<RegisterAccountScreen> with UIMixin {
+class _RegisterAccountScreenState extends State<RegisterAccountScreen>
+    with UIMixin {
   RegisterAccountController controller = Get.put(RegisterAccountController());
 
   @override
@@ -33,21 +34,26 @@ class _RegisterAccountScreenState extends State<RegisterAccountScreen> with UIMi
               children: [
                 MyText.titleLarge("Register", fontWeight: 600),
                 MySpacing.height(24),
-                MyText.bodyMedium("we're excited to have you on board,please activate your account by filling the details below",
-                    fontWeight: 600, xMuted: true),
+                MyText.bodyMedium(
+                    "we're excited to have you on board,please activate your account by filling the details below",
+                    fontWeight: 600,
+                    xMuted: true),
                 MySpacing.height(24),
                 Row(
                   children: [
                     Expanded(
                       child: TextFormField(
-                        validator: controller.basicValidator.getValidation('first_name'),
-                        controller: controller.basicValidator.getController('first_name'),
+                        validator: controller.basicValidator
+                            .getValidation('first_name'),
+                        controller: controller.basicValidator
+                            .getController('first_name'),
                         keyboardType: TextInputType.name,
                         style: MyTextStyle.labelMedium(),
                         decoration: InputDecoration(
                           labelText: "First Name",
                           labelStyle: MyTextStyle.bodySmall(xMuted: true),
-                          border: OutlineInputBorder(borderSide: BorderSide.none),
+                          border:
+                              OutlineInputBorder(borderSide: BorderSide.none),
                           prefixIcon: const Icon(LucideIcons.user, size: 16),
                           fillColor: contentTheme.secondary.withAlpha(36),
                           filled: true,
@@ -61,14 +67,17 @@ class _RegisterAccountScreenState extends State<RegisterAccountScreen> with UIMi
                     MySpacing.width(24),
                     Expanded(
                       child: TextFormField(
-                        validator: controller.basicValidator.getValidation('last_name'),
-                        controller: controller.basicValidator.getController('last_name'),
+                        validator: controller.basicValidator
+                            .getValidation('last_name'),
+                        controller: controller.basicValidator
+                            .getController('last_name'),
                         keyboardType: TextInputType.name,
                         style: MyTextStyle.labelMedium(),
                         decoration: InputDecoration(
                           labelText: "Last Name",
                           labelStyle: MyTextStyle.bodySmall(xMuted: true),
-                          border: OutlineInputBorder(borderSide: BorderSide.none),
+                          border:
+                              OutlineInputBorder(borderSide: BorderSide.none),
                           prefixIcon: const Icon(LucideIcons.user, size: 16),
                           filled: true,
                           fillColor: contentTheme.secondary.withAlpha(36),
@@ -102,8 +111,10 @@ class _RegisterAccountScreenState extends State<RegisterAccountScreen> with UIMi
                 ),
                 MySpacing.height(24),
                 TextFormField(
-                  validator: controller.basicValidator.getValidation('password'),
-                  controller: controller.basicValidator.getController('password'),
+                  validator:
+                      controller.basicValidator.getValidation('password'),
+                  controller:
+                      controller.basicValidator.getController('password'),
                   keyboardType: TextInputType.visiblePassword,
                   obscureText: !controller.showPassword,
                   style: MyTextStyle.labelMedium(),
@@ -121,7 +132,9 @@ class _RegisterAccountScreenState extends State<RegisterAccountScreen> with UIMi
                       suffixIcon: InkWell(
                         onTap: controller.onChangeShowPassword,
                         child: Icon(
-                          controller.showPassword ? Icons.visibility_outlined : Icons.visibility_off_outlined,
+                          controller.showPassword
+                              ? Icons.visibility_outlined
+                              : Icons.visibility_off_outlined,
                           size: 16,
                         ),
                       ),
@@ -132,14 +145,15 @@ class _RegisterAccountScreenState extends State<RegisterAccountScreen> with UIMi
                 MySpacing.height(30),
                 Center(
                   child: MyButton.rounded(
-                    onPressed: controller.onLogin,
+                    onPressed: controller.onRegister,
                     elevation: 0,
                     padding: MySpacing.xy(20, 16),
                     backgroundColor: contentTheme.primary,
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        MyText.bodySmall('Register', color: contentTheme.onPrimary),
+                        MyText.bodySmall('Register',
+                            color: contentTheme.onPrimary),
                       ],
                     ),
                   ),

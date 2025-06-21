@@ -1,3 +1,5 @@
+// lib/controller/auth/login_controller.dart
+
 import 'package:flutter/material.dart';
 import 'package:stay_place/helpers/services/auth_services.dart';
 import 'package:stay_place/helpers/widgets/my_form_validator.dart';
@@ -10,7 +12,7 @@ class LoginController extends MyController {
 
   bool showPassword = false, isChecked = false;
 
-  final String _dummyEmail = "stayplace@getappui.com";
+  final String _dummyEmail = "admin@stayplace.com";
   final String _dummyPassword = "1234567";
 
   var greeting = "Good Morning";
@@ -18,10 +20,18 @@ class LoginController extends MyController {
 
   @override
   void onInit() {
-    basicValidator.addField('email', required: true, label: "Email", validators: [MyEmailValidator()], controller: TextEditingController(text: _dummyEmail));
+    super.onInit();
+    basicValidator.addField('email',
+        required: true,
+        label: "Email",
+        validators: [MyEmailValidator()],
+        controller: TextEditingController(text: _dummyEmail));
 
     basicValidator.addField('password',
-        required: true, label: "Password", validators: [MyLengthValidator(min: 6, max: 10)], controller: TextEditingController(text: _dummyPassword));
+        required: true,
+        label: "Password",
+        validators: [MyLengthValidator(min: 6, max: 10)],
+        controller: TextEditingController(text: _dummyPassword));
 
     if ((currentTime < 6) || (currentTime > 21)) {
       greeting = 'Good Night';
@@ -32,7 +42,6 @@ class LoginController extends MyController {
     } else if (currentTime < 22) {
       greeting = 'Good Evening';
     }
-    super.onInit();
   }
 
   void onChangeCheckBox(bool? value) {
@@ -48,16 +57,23 @@ class LoginController extends MyController {
   Future<void> onLogin() async {
     if (basicValidator.validateForm()) {
       update();
-      var errors = await AuthService.loginUser(basicValidator.getData());
-      if (errors != null) {
-        basicValidator.addErrors(errors);
+      var user = await AuthService.login(basicValidator.getData());
+
+      if (user == null) {
+        basicValidator
+            .addErrors({"password": "Email or Password is incorrect"});
         basicValidator.validateForm();
         basicValidator.clearErrors();
       } else {
-        String nextUrl = Uri.parse(ModalRoute.of(Get.context!)?.settings.name ?? "").queryParameters['next'] ?? "/home";
-        Get.toNamed(
-          nextUrl,
-        );
+        // ========== LOGIKA SUPER SIMPEL & FINAL ==========
+        if (user.isAdmin()) {
+          // Jika admin, paksa ke dashboard admin.
+          Get.offAllNamed('/admin/dashboard');
+        } else {
+          // Jika bukan admin (client), paksa ke home.
+          Get.offAllNamed('/home');
+        }
+        // ===============================================
       }
       update();
     }

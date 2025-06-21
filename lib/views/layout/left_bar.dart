@@ -1,3 +1,5 @@
+// lib/views/layout/left_bar.dart
+
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:stay_place/helpers/services/url_service.dart';
@@ -33,23 +35,19 @@ class LeftbarObserver {
 
 class LeftBar extends StatefulWidget {
   final bool isCondensed;
+  final bool isAdmin;
 
-  const LeftBar({super.key, this.isCondensed = false});
+  const LeftBar({super.key, this.isCondensed = false, required this.isAdmin});
 
   @override
   _LeftBarState createState() => _LeftBarState();
 }
 
-class _LeftBarState extends State<LeftBar> with SingleTickerProviderStateMixin, UIMixin {
+class _LeftBarState extends State<LeftBar>
+    with SingleTickerProviderStateMixin, UIMixin {
   final ThemeCustomizer customizer = ThemeCustomizer.instance;
-
   bool isCondensed = false;
   String path = UrlService.getCurrentUrl();
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,14 +62,27 @@ class _LeftBarState extends State<LeftBar> with SingleTickerProviderStateMixin, 
           SizedBox(
             height: 56,
             child: InkWell(
-              onTap: () => Get.toNamed('/home'),
+              onTap: () =>
+                  Get.toNamed(widget.isAdmin ? '/admin/dashboard' : '/home'),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset(ThemeCustomizer.instance.theme == ThemeMode.light ? Images.logoLight : Images.logoDark, height: 40, width: 40, fit: BoxFit.cover),
-                  if (!widget.isCondensed) Flexible(fit: FlexFit.loose, child: MySpacing.width(12)),
-                  if (!widget.isCondensed) Flexible(child: MyText.titleLarge("Stay Place", maxLines: 1, fontWeight: 700, color: contentTheme.primary)),
+                  Image.asset(
+                      ThemeCustomizer.instance.theme == ThemeMode.light
+                          ? Images.logoLight
+                          : Images.logoDark,
+                      height: 40,
+                      width: 40,
+                      fit: BoxFit.cover),
+                  if (!widget.isCondensed)
+                    Flexible(fit: FlexFit.loose, child: MySpacing.width(12)),
+                  if (!widget.isCondensed)
+                    Flexible(
+                        child: MyText.titleLarge("Stay Place",
+                            maxLines: 1,
+                            fontWeight: 700,
+                            color: contentTheme.primary)),
                 ],
               ),
             ),
@@ -79,178 +90,113 @@ class _LeftBarState extends State<LeftBar> with SingleTickerProviderStateMixin, 
           MySpacing.height(12),
           Expanded(
             child: ScrollConfiguration(
-              behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+              behavior:
+                  ScrollConfiguration.of(context).copyWith(scrollbars: false),
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    LabelWidget(isCondensed: isCondensed, label: "CLIENT PANEL"),
-                    NavigationItem(iconData: LucideIcons.house, title: "Home", isCondensed: isCondensed, route: '/home'),
-                    NavigationItem(iconData: LucideIcons.building, title: "Room Selection", isCondensed: isCondensed, route: '/room_selection'),
-                    NavigationItem(iconData: LucideIcons.archive, title: "Booking Form", isCondensed: isCondensed, route: '/booking_form'),
-                    NavigationItem(iconData: LucideIcons.ticket, title: "My Bookings", isCondensed: isCondensed, route: '/my_booking'),
-                    NavigationItem(iconData: LucideIcons.credit_card, title: "Payment History", isCondensed: isCondensed, route: '/payment_history'),
-                    NavigationItem(iconData: LucideIcons.map_pin, title: "Location Map", isCondensed: isCondensed, route: '/location_map'),
-                    LabelWidget(isCondensed: isCondensed, label: "ADMIN PANEL"),
-                    NavigationItem(iconData: LucideIcons.layout_dashboard, title: "Dashboard", isCondensed: isCondensed, route: '/dashboard'),
-                    MenuWidget(
-                      iconData: LucideIcons.hotel,
-                      isCondensed: isCondensed,
-                      title: "Manage Hotels",
-                      children: [
-                        MenuItem(title: "List", isCondensed: isCondensed, route: '/admin/hotel/list'),
-                        MenuItem(title: "Detail", isCondensed: isCondensed, route: '/admin/hotel/detail'),
-                        MenuItem(title: "Add", isCondensed: isCondensed, route: '/admin/hotel/add'),
-                        MenuItem(title: "Edit", isCondensed: isCondensed, route: '/admin/hotel/edit'),
-                      ],
-                    ),
-                    MenuWidget(
-                      iconData: LucideIcons.bed,
-                      isCondensed: isCondensed,
-                      title: "Manage Room",
-                      children: [
-                        MenuItem(title: "List", isCondensed: isCondensed, route: '/admin/room/list'),
-                        MenuItem(title: "Detail", isCondensed: isCondensed, route: '/admin/room/detail'),
-                        MenuItem(title: "Add", isCondensed: isCondensed, route: '/admin/room/add'),
-                        MenuItem(title: "Edit", isCondensed: isCondensed, route: '/admin/room/edit'),
-                      ],
-                    ),
-                    MenuWidget(
-                      iconData: LucideIcons.user,
-                      isCondensed: isCondensed,
-                      title: "Guest Management",
-                      children: [
-                        MenuItem(title: "List", isCondensed: isCondensed, route: '/admin/guest/list'),
-                        MenuItem(title: "Add", isCondensed: isCondensed, route: '/admin/guest/add'),
-                        MenuItem(title: "Edit", isCondensed: isCondensed, route: '/admin/guest/edit'),
-                      ],
-                    ),
-                    NavigationItem(iconData: LucideIcons.calendar_days, title: "Manage Booking", isCondensed: isCondensed, route: '/admin/booking/list'),
-                    NavigationItem(iconData: LucideIcons.credit_card, title: "Payment Management", isCondensed: isCondensed, route: '/admin/payment'),
-                    labelWidget("UI"),
-                    MenuWidget(
-                      iconData: LucideIcons.key,
-                      isCondensed: isCondensed,
-                      title: "Auth",
-                      children: [
-                        MenuItem(title: 'Login', route: '/auth/login', isCondensed: widget.isCondensed),
-                        MenuItem(title: 'Register Password', route: '/auth/register_account', isCondensed: widget.isCondensed),
-                        MenuItem(title: 'Forgot Password', route: '/auth/forgot_password', isCondensed: widget.isCondensed),
-                        MenuItem(title: 'Reset Password', route: '/auth/reset_password', isCondensed: widget.isCondensed),
-                      ],
-                    ),
-                    MenuWidget(
-                      iconData: LucideIcons.archive,
-                      isCondensed: isCondensed,
-                      title: "Widgets",
-                      children: [
-                        MenuItem(title: "Buttons", route: '/widgets/buttons', isCondensed: widget.isCondensed),
-                        MenuItem(title: "Toast", route: '/widgets/toast', isCondensed: widget.isCondensed),
-                        MenuItem(title: "Modal", route: '/widgets/modal', isCondensed: widget.isCondensed),
-                        MenuItem(title: "Tabs", route: '/widgets/tabs', isCondensed: widget.isCondensed),
-                        MenuItem(title: "Cards", route: '/widgets/cards', isCondensed: widget.isCondensed),
-                        MenuItem(title: "Loaders", route: '/widgets/loader', isCondensed: widget.isCondensed),
-                        MenuItem(title: "Dialog", route: '/widgets/dialog', isCondensed: widget.isCondensed),
-                        MenuItem(title: "Carousels", route: '/widgets/carousel', isCondensed: widget.isCondensed),
-                        MenuItem(title: "Drag & Drop", route: '/widgets/drag_n_drop', isCondensed: widget.isCondensed),
-                        MenuItem(title: "Notifications", route: '/widgets/notification', isCondensed: widget.isCondensed),
-                      ],
-                    ),
-                    MenuWidget(
-                      iconData: LucideIcons.pen_tool,
-                      title: "Form",
-                      isCondensed: isCondensed,
-                      children: [
-                        MenuItem(title: "Basic Input", route: '/form/basic_input', isCondensed: widget.isCondensed),
-                        MenuItem(title: "Custom Option", route: '/form/custom_option', isCondensed: widget.isCondensed),
-                        MenuItem(title: "Editor", route: '/form/editor', isCondensed: widget.isCondensed),
-                        MenuItem(title: "File Upload", route: '/form/file_upload', isCondensed: widget.isCondensed),
-                        MenuItem(title: "Slider", route: '/form/slider', isCondensed: widget.isCondensed),
-                        MenuItem(title: "Validation", route: '/form/validation', isCondensed: widget.isCondensed),
-                        MenuItem(title: "Mask", route: '/form/mask', isCondensed: widget.isCondensed),
-                      ],
-                    ),
-                    MenuWidget(
-                      iconData: LucideIcons.octagon_alert,
-                      isCondensed: isCondensed,
-                      title: "Error",
-                      children: [
-                        MenuItem(title: 'Error 404', route: '/error/404', isCondensed: widget.isCondensed),
-                        MenuItem(title: 'Error 500', route: '/error/500', isCondensed: widget.isCondensed),
-                        MenuItem(title: 'Coming Soon', route: '/error/coming_soon', isCondensed: widget.isCondensed),
-                      ],
-                    ),
-                    MenuWidget(
-                      iconData: LucideIcons.circle_plus,
-                      isCondensed: isCondensed,
-                      title: "Extra Pages",
-                      children: [
-                        MenuItem(title: 'FAQs', route: '/extra/faqs', isCondensed: widget.isCondensed),
-                        MenuItem(title: 'Pricing', route: '/extra/pricing', isCondensed: widget.isCondensed),
-                        MenuItem(title: 'Time Line', route: '/extra/time_line', isCondensed: widget.isCondensed),
-                      ],
-                    ),
-                    NavigationItem(
-                      iconData: LucideIcons.table,
-                      title: "Basic Table",
-                      isCondensed: isCondensed,
-                      route: '/other/basic_table',
-                    ),
-                    NavigationItem(
-                      iconData: LucideIcons.map_pin,
-                      title: "Google Map",
-                      isCondensed: isCondensed,
-                      route: '/other/google_map',
-                    ),
-                    MySpacing.height(20),
-                    if (!isCondensed)
-                      InkWell(
-                        onTap: () {
-                          UrlService.goToPagger();
-                        },
-                        child: Padding(
-                            padding: MySpacing.x(16),
-                            child: Container(
-                              padding: EdgeInsets.symmetric(vertical: 16),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8), // color: contentTheme.primary.withAlpha(40),
-                                  gradient: LinearGradient(
-                                      colors: const [Colors.deepPurple, Colors.lightBlue], begin: Alignment.topLeft, end: Alignment.bottomRight)),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Container(
-                                    padding: EdgeInsets.all(8),
-                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.white.withAlpha(32)),
-                                    child: Icon(LucideIcons.layout_dashboard, color: Colors.white),
-                                  ),
-                                  SizedBox(height: 16),
-                                  MyText.bodyLarge("Ready to use page for any Flutter Project", color: Colors.white, textAlign: TextAlign.center),
-                                  SizedBox(height: 16),
-                                  Container(
-                                    padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(4), color: Colors.white),
-                                    child: MyText.bodyMedium("Free Download", color: Colors.black, fontWeight: 600),
-                                  )
-                                ],
-                              ),
-                            )),
+                    // =================== LOGIKA UTAMA ===================
+                    if (widget.isAdmin) ...[
+                      // TAMPILKAN HANYA MENU ADMIN
+                      LabelWidget(
+                          isCondensed: isCondensed, label: "ADMIN PANEL"),
+                      NavigationItem(
+                          iconData: LucideIcons.layout_dashboard,
+                          title: "Dashboard",
+                          isCondensed: isCondensed,
+                          route: '/admin/dashboard'),
+                      MenuWidget(
+                        iconData: LucideIcons.hotel,
+                        isCondensed: isCondensed,
+                        title: "Manage Hotels",
+                        children: [
+                          MenuItem(
+                              title: "List",
+                              isCondensed: isCondensed,
+                              route: '/admin/hotel/list'),
+                          MenuItem(
+                              title: "Add",
+                              isCondensed: isCondensed,
+                              route: '/admin/hotel/add'),
+                        ],
                       ),
-                    if (isCondensed)
-                      InkWell(
-                        onTap: () => UrlService.goToPagger(),
-                        child: Padding(
-                            padding: MySpacing.x(16),
-                            child: Container(
-                              padding: EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(4), // color: contentTheme.primary.withAlpha(40),
-                                  gradient: LinearGradient(
-                                      colors: const [Colors.deepPurple, Colors.lightBlue], begin: Alignment.topLeft, end: Alignment.bottomRight)),
-                              child: Icon(LucideIcons.download, color: Colors.white, size: 20),
-                            )),
+                      MenuWidget(
+                        iconData: LucideIcons.bed,
+                        isCondensed: isCondensed,
+                        title: "Manage Room",
+                        children: [
+                          MenuItem(
+                              title: "List",
+                              isCondensed: isCondensed,
+                              route: '/admin/room/list'),
+                          MenuItem(
+                              title: "Add",
+                              isCondensed: isCondensed,
+                              route: '/admin/room/add'),
+                        ],
                       ),
-                    MySpacing.height(20),
+                      MenuWidget(
+                        iconData: LucideIcons.user,
+                        isCondensed: isCondensed,
+                        title: "Guest Management",
+                        children: [
+                          MenuItem(
+                              title: "List",
+                              isCondensed: isCondensed,
+                              route: '/admin/guest/list'),
+                          MenuItem(
+                              title: "Add",
+                              isCondensed: isCondensed,
+                              route: '/admin/guest/add'),
+                        ],
+                      ),
+                      NavigationItem(
+                          iconData: LucideIcons.calendar_days,
+                          title: "Manage Booking",
+                          isCondensed: isCondensed,
+                          route: '/admin/booking/list'),
+                      NavigationItem(
+                          iconData: LucideIcons.credit_card,
+                          title: "Payment History",
+                          isCondensed: isCondensed,
+                          route: '/admin/payment'),
+                    ] else ...[
+                      // TAMPILKAN HANYA MENU CLIENT
+                      LabelWidget(
+                          isCondensed: isCondensed, label: "CLIENT PANEL"),
+                      NavigationItem(
+                          iconData: LucideIcons.house,
+                          title: "Home",
+                          isCondensed: isCondensed,
+                          route: '/home'),
+                      NavigationItem(
+                          iconData: LucideIcons.building,
+                          title: "Room Selection",
+                          isCondensed: isCondensed,
+                          route: '/room_selection'),
+                      NavigationItem(
+                          iconData: LucideIcons.archive,
+                          title: "Booking Form",
+                          isCondensed: isCondensed,
+                          route: '/booking_form'),
+                      NavigationItem(
+                          iconData: LucideIcons.ticket,
+                          title: "My Bookings",
+                          isCondensed: isCondensed,
+                          route: '/my_booking'),
+                      NavigationItem(
+                          iconData: LucideIcons.credit_card,
+                          title: "Payment History",
+                          isCondensed: isCondensed,
+                          route: '/payment_history'),
+                      NavigationItem(
+                          iconData: LucideIcons.map_pin,
+                          title: "Location Map",
+                          isCondensed: isCondensed,
+                          route: '/location_map'),
+                    ],
+                    // =====================================================
                   ],
                 ),
               ),
@@ -266,8 +212,12 @@ class _LeftBarState extends State<LeftBar> with SingleTickerProviderStateMixin, 
         ? MySpacing.empty()
         : Container(
             padding: MySpacing.xy(24, 8),
-            child:
-                MyText.labelSmall(label.toUpperCase(), color: leftBarTheme.labelColor, muted: true, maxLines: 1, overflow: TextOverflow.clip, fontWeight: 700),
+            child: MyText.labelSmall(label.toUpperCase(),
+                color: leftBarTheme.labelColor,
+                muted: true,
+                maxLines: 1,
+                overflow: TextOverflow.clip,
+                fontWeight: 700),
           );
   }
 }
@@ -276,14 +226,17 @@ class LabelWidget extends StatelessWidget {
   final bool isCondensed;
   final String label;
 
-  const LabelWidget({super.key, required this.isCondensed, required this.label});
+  const LabelWidget(
+      {super.key, required this.isCondensed, required this.label});
 
   @override
   Widget build(BuildContext context) {
     if (isCondensed) {
       return SizedBox();
     }
-    return Container(margin: MySpacing.fromLTRB(16, 0, 16, 8), child: MyText.labelSmall(label, xMuted: true, fontWeight: 700));
+    return Container(
+        margin: MySpacing.fromLTRB(16, 0, 16, 8),
+        child: MyText.labelSmall(label, xMuted: true, fontWeight: 700));
   }
 }
 
@@ -294,13 +247,20 @@ class MenuWidget extends StatefulWidget {
   final bool active;
   final List<MenuItem> children;
 
-  const MenuWidget({super.key, required this.iconData, required this.title, this.isCondensed = false, this.active = false, this.children = const []});
+  const MenuWidget(
+      {super.key,
+      required this.iconData,
+      required this.title,
+      this.isCondensed = false,
+      this.active = false,
+      this.children = const []});
 
   @override
   _MenuWidgetState createState() => _MenuWidgetState();
 }
 
-class _MenuWidgetState extends State<MenuWidget> with UIMixin, SingleTickerProviderStateMixin {
+class _MenuWidgetState extends State<MenuWidget>
+    with UIMixin, SingleTickerProviderStateMixin {
   bool isHover = false;
   bool isActive = false;
   late Animation<double> _iconTurns;
@@ -311,8 +271,10 @@ class _MenuWidgetState extends State<MenuWidget> with UIMixin, SingleTickerProvi
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(duration: const Duration(milliseconds: 300), vsync: this);
-    _iconTurns = _controller.drive(Tween<double>(begin: 0.0, end: 0.5).chain(CurveTween(curve: Curves.easeIn)));
+    _controller = AnimationController(
+        duration: const Duration(milliseconds: 300), vsync: this);
+    _iconTurns = _controller.drive(Tween<double>(begin: 0.0, end: 0.5)
+        .chain(CurveTween(curve: Curves.easeIn)));
     LeftbarObserver.attachListener(widget.title, onChangeMenuActive);
   }
 
@@ -370,12 +332,16 @@ class _MenuWidgetState extends State<MenuWidget> with UIMixin, SingleTickerProvi
           },
           child: MyContainer.transparent(
             margin: MySpacing.fromLTRB(16, 0, 16, 8),
-            color: isActive || isHover ? leftBarTheme.activeItemBackground : Colors.transparent,
+            color: isActive || isHover
+                ? leftBarTheme.activeItemBackground
+                : Colors.transparent,
             padding: MySpacing.xy(8, 8),
             child: Center(
               child: Icon(
                 widget.iconData,
-                color: (isHover || isActive) ? leftBarTheme.activeItemColor : leftBarTheme.onBackground,
+                color: (isHover || isActive)
+                    ? leftBarTheme.activeItemColor
+                    : leftBarTheme.onBackground,
                 size: 20,
               ),
             ),
@@ -437,7 +403,9 @@ class _MenuWidgetState extends State<MenuWidget> with UIMixin, SingleTickerProvi
                     Icon(
                       widget.iconData,
                       size: 20,
-                      color: isHover || isActive ? leftBarTheme.activeItemColor : leftBarTheme.onBackground,
+                      color: isHover || isActive
+                          ? leftBarTheme.activeItemColor
+                          : leftBarTheme.onBackground,
                     ),
                     MySpacing.width(18),
                     Expanded(
@@ -446,7 +414,9 @@ class _MenuWidgetState extends State<MenuWidget> with UIMixin, SingleTickerProvi
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.start,
-                        color: isHover || isActive ? leftBarTheme.activeItemColor : leftBarTheme.onBackground,
+                        color: isHover || isActive
+                            ? leftBarTheme.activeItemColor
+                            : leftBarTheme.onBackground,
                       ),
                     ),
                   ],
@@ -515,7 +485,9 @@ class _MenuItemState extends State<MenuItem> with UIMixin {
         },
         child: MyContainer.transparent(
           margin: MySpacing.fromLTRB(4, 0, 8, 4),
-          color: isActive || isHover ? leftBarTheme.activeItemBackground : Colors.transparent,
+          color: isActive || isHover
+              ? leftBarTheme.activeItemBackground
+              : Colors.transparent,
           width: MediaQuery.of(context).size.width,
           padding: MySpacing.xy(18, 7),
           child: MyText.bodySmall(
@@ -524,7 +496,9 @@ class _MenuItemState extends State<MenuItem> with UIMixin {
             maxLines: 1,
             textAlign: TextAlign.left,
             fontSize: 12.5,
-            color: isActive || isHover ? leftBarTheme.activeItemColor : leftBarTheme.onBackground,
+            color: isActive || isHover
+                ? leftBarTheme.activeItemColor
+                : leftBarTheme.onBackground,
             fontWeight: isActive || isHover ? 600 : 500,
           ),
         ),
@@ -539,7 +513,12 @@ class NavigationItem extends StatefulWidget {
   final bool isCondensed;
   final String? route;
 
-  const NavigationItem({super.key, this.iconData, required this.title, this.isCondensed = false, this.route});
+  const NavigationItem(
+      {super.key,
+      this.iconData,
+      required this.title,
+      this.isCondensed = false,
+      this.route});
 
   @override
   _NavigationItemState createState() => _NavigationItemState();
@@ -573,7 +552,9 @@ class _NavigationItemState extends State<NavigationItem> with UIMixin {
         },
         child: MyContainer(
           margin: MySpacing.fromLTRB(16, 0, 16, 8),
-          color: isActive || isHover ? leftBarTheme.activeItemBackground : Colors.transparent,
+          color: isActive || isHover
+              ? leftBarTheme.activeItemBackground
+              : Colors.transparent,
           padding: MySpacing.xy(8, 8),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -582,7 +563,9 @@ class _NavigationItemState extends State<NavigationItem> with UIMixin {
                 Center(
                   child: Icon(
                     widget.iconData,
-                    color: (isHover || isActive) ? leftBarTheme.activeItemColor : leftBarTheme.onBackground,
+                    color: (isHover || isActive)
+                        ? leftBarTheme.activeItemColor
+                        : leftBarTheme.onBackground,
                     size: 20,
                   ),
                 ),
@@ -598,7 +581,9 @@ class _NavigationItemState extends State<NavigationItem> with UIMixin {
                     widget.title,
                     overflow: TextOverflow.clip,
                     maxLines: 1,
-                    color: isActive || isHover ? leftBarTheme.activeItemColor : leftBarTheme.onBackground,
+                    color: isActive || isHover
+                        ? leftBarTheme.activeItemColor
+                        : leftBarTheme.onBackground,
                   ),
                 )
             ],

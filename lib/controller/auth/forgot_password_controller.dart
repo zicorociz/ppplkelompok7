@@ -1,5 +1,7 @@
+// lib/controller/auth/forgot_password_controller.dart
+
 import 'package:flutter/material.dart';
-import 'package:stay_place/helpers/services/auth_services.dart';
+// import 'package:stay_place/helpers/services/auth_services.dart'; // Kita tidak butuh ini lagi di sini
 import 'package:stay_place/helpers/widgets/my_form_validator.dart';
 import 'package:stay_place/helpers/widgets/my_validators.dart';
 import 'package:get/get.dart';
@@ -14,6 +16,7 @@ class ForgotPasswordController extends MyController {
 
   @override
   void onInit() {
+    super.onInit(); // Panggil super.onInit() di awal
     basicValidator.addField(
       'email',
       required: true,
@@ -31,22 +34,26 @@ class ForgotPasswordController extends MyController {
     } else if (currentTime < 22) {
       greeting = 'Good Evening';
     }
-    super.onInit();
   }
 
-  Future<void> onLogin() async {
+  // Nama fungsi diubah agar lebih sesuai.
+  // Logika di dalamnya disederhanakan agar tidak error.
+  Future<void> onForgotPassword() async {
     if (basicValidator.validateForm()) {
-      update();
-      var errors = await AuthService.loginUser(basicValidator.getData());
-      if (errors != null) {
-        basicValidator.validateForm();
-        basicValidator.clearErrors();
-      }
+      // Logika untuk mengirim email reset password akan ditambahkan di sini nanti.
+      // Untuk sekarang, kita hanya akan mencetak pesan ke konsol
+      // dan langsung mengarahkan pengguna.
+
+      print(
+          "Proses Lupa Password untuk email: ${basicValidator.getData()['email']}");
+
+      // Mengarahkan pengguna ke halaman selanjutnya
       Get.toNamed('/auth/reset_password');
       update();
     }
   }
 
+  // Fungsi untuk kembali ke halaman login
   void gotoLogIn() {
     Get.toNamed('/auth/login');
   }

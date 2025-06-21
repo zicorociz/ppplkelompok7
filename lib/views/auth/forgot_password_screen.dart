@@ -16,7 +16,8 @@ class ForgotPasswordScreen extends StatefulWidget {
   State<ForgotPasswordScreen> createState() => _ForgotPasswordScreenState();
 }
 
-class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> with UIMixin {
+class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
+    with UIMixin {
   ForgotPasswordController controller = Get.put(ForgotPasswordController());
 
   @override
@@ -40,7 +41,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> with UIMixi
                   MySpacing.height(24),
                   TextFormField(
                     validator: controller.basicValidator.getValidation('email'),
-                    controller: controller.basicValidator.getController('email'),
+                    controller:
+                        controller.basicValidator.getController('email'),
                     keyboardType: TextInputType.emailAddress,
                     style: MyTextStyle.labelMedium(),
                     decoration: InputDecoration(
@@ -59,11 +61,12 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> with UIMixi
                   MySpacing.height(24),
                   Center(
                     child: MyButton.rounded(
-                      onPressed: controller.onLogin,
+                      onPressed: controller.onForgotPassword,
                       elevation: 0,
                       padding: MySpacing.xy(24, 16),
                       backgroundColor: contentTheme.primary,
-                      child: MyText.labelMedium('Forgot Password', color: contentTheme.onPrimary),
+                      child: MyText.labelMedium('Forgot Password',
+                          color: contentTheme.onPrimary),
                     ),
                   ),
                   Center(
@@ -71,8 +74,10 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> with UIMixi
                       onPressed: controller.gotoLogIn,
                       elevation: 0,
                       padding: MySpacing.x(24),
-                      splashColor: contentTheme.secondary.withValues(alpha: 0.1),
-                      child: MyText.labelMedium('Back to log in', color: contentTheme.secondary),
+                      splashColor:
+                          contentTheme.secondary.withValues(alpha: 0.1),
+                      child: MyText.labelMedium('Back to log in',
+                          color: contentTheme.secondary),
                     ),
                   ),
                 ],

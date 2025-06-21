@@ -1,5 +1,7 @@
+// lib/controller/auth/register_account_controller.dart
+
 import 'package:flutter/material.dart';
-import 'package:stay_place/helpers/services/auth_services.dart';
+// import 'package:stay_place/helpers/services/auth_services.dart';
 import 'package:stay_place/helpers/widgets/my_form_validator.dart';
 import 'package:stay_place/helpers/widgets/my_validators.dart';
 import 'package:get/get.dart';
@@ -14,6 +16,7 @@ class RegisterAccountController extends MyController {
 
   @override
   void onInit() {
+    super.onInit(); // Panggil super.onInit() di awal
     basicValidator.addField(
       'email',
       required: true,
@@ -48,19 +51,21 @@ class RegisterAccountController extends MyController {
     } else if (currentTime < 22) {
       greeting = 'Good Evening';
     }
-    super.onInit();
   }
 
-  Future<void> onLogin() async {
+  // Nama fungsi diubah agar lebih sesuai.
+  // Logika di dalamnya disederhanakan agar tidak error.
+  Future<void> onRegister() async {
     if (basicValidator.validateForm()) {
-      update();
-      var errors = await AuthService.loginUser(basicValidator.getData());
-      if (errors != null) {
-        basicValidator.addErrors(errors);
-        basicValidator.validateForm();
-        basicValidator.clearErrors();
-      }
-      Get.toNamed('/starter');
+      // Logika untuk mendaftarkan pengguna baru akan ditambahkan di sini nanti.
+      // Untuk sekarang, kita hanya akan mencetak pesan ke konsol
+      // dan langsung mengarahkan pengguna ke halaman login.
+
+      print("Mendaftarkan pengguna: ${basicValidator.getData()}");
+
+      // Mengarahkan pengguna ke halaman login setelah "berhasil" mendaftar
+      Get.offAndToNamed(
+          '/auth/login'); // Gunakan offAndToNamed agar tidak bisa kembali
       update();
     }
   }

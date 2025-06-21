@@ -1,0 +1,222 @@
+[
+  {
+    "id": 1,
+    "first_name": "John",
+    "last_name": "Doe",
+    "email": "john.doe@example.com",
+    "phone": "+1234567890",
+    "address": {
+      "street": "123 Main St",
+      "city": "Springfield",
+      "state": "IL",
+      "zip_code": "62701",
+      "country": "USA"
+    },
+    "reservation": {
+      "check_in": "2024-12-15",
+      "check_out": "2024-12-20",
+      "room_type": "Double",
+      "number_of_guests": 2,
+      "payment_status": "Paid",
+      "special_requests": "High floor, non-smoking"
+    }
+  },
+  {
+    "id": 2,
+    "first_name": "Alice",
+    "last_name": "Johnson",
+    "email": "alice.johnson@example.com",
+    "phone": "+1987654321",
+    "address": {
+      "street": "456 Oak St",
+      "city": "Chicago",
+      "state": "IL",
+      "zip_code": "60601",
+      "country": "USA"
+    },
+    "reservation": {
+      "check_in": "2024-12-18",
+      "check_out": "2024-12-22",
+      "room_type": "Single",
+      "number_of_guests": 1,
+      "payment_status": "Pending",
+      "special_requests": "Late check-in"
+    }
+  },
+  {
+    "id": 3,
+    "first_name": "Michael",
+    "last_name": "Smith",
+    "email": "michael.smith@example.com",
+    "phone": "+1122334455",
+    "address": {
+      "street": "789 Pine St",
+      "city": "New York",
+      "state": "NY",
+      "zip_code": "10001",
+      "country": "USA"
+    },
+    "reservation": {
+      "check_in": "2024-12-10",
+      "check_out": "2024-12-15",
+      "room_type": "Suite",
+      "number_of_guests": 3,
+      "payment_status": "Paid",
+      "special_requests": "Early check-in"
+    }
+  },
+  {
+    "id": 4,
+    "first_name": "Sarah",
+    "last_name": "Williams",
+    "email": "sarah.williams@example.com",
+    "phone": "+1345678901",
+    "address": {
+      "street": "101 Maple St",
+      "city": "Los Angeles",
+      "state": "CA",
+      "zip_code": "90001",
+      "country": "USA"
+    },
+    "reservation": {
+      "check_in": "2024-12-05",
+      "check_out": "2024-12-08",
+      "room_type": "Double",
+      "number_of_guests": 2,
+      "payment_status": "Paid",
+      "special_requests": "Near elevator"
+    }
+  },
+  {
+    "id": 5,
+    "first_name": "David",
+    "last_name": "Brown",
+    "email": "david.brown@example.com",
+    "phone": "+1456789012",
+    "address": {
+      "street": "202 Birch St",
+      "city": "Seattle",
+      "state": "WA",
+      "zip_code": "98101",
+      "country": "USA"
+    },
+    "reservation": {
+      "check_in": "2024-12-12",
+      "check_out": "2024-12-17",
+      "room_type": "Single",
+      "number_of_guests": 1,
+      "payment_status": "Paid",
+      "special_requests": "Quiet room"
+    }
+  },
+  {
+    "id": 6,
+    "first_name": "Emily",
+    "last_name": "Davis",
+    "email": "emily.davis@example.com",
+    "phone": "+1567890123",
+    "address": {
+      "street": "303 Cedar St",
+      "city": "San Francisco",
+      "state": "CA",
+      "zip_code": "94101",
+      "country": "USA"
+    },
+    "reservation": {
+      "check_in": "2024-12-20",
+      "check_out": "2024-12-23",
+      "room_type": "Suite",
+      "number_of_guests": 2,
+      "payment_status": "Pending",
+      "special_requests": "Pet-friendly room"
+    }
+  },
+  {
+    "id": 7,
+    "first_name": "Chris",
+    "last_name": "Martinez",
+    "email": "chris.martinez@example.com",
+    "phone": "+1678901234",
+    "address": {
+      "street": "404 Redwood St",
+      "city": "Austin",
+      "state": "TX",
+      "zip_code": "73301",
+      "country": "USA"
+    },
+    "reservation": {
+      "check_in": "2024-12-08",
+      "check_out": "2024-12-12",
+      "room_type": "Double",
+      "number_of_guests": 4,
+      "payment_status": "Paid",
+      "special_requests": "Close to pool"
+    }
+  },
+  {
+    "id": 8,
+    "first_name": "Jessica",
+    "last_name": "Wilson",
+    "email": "jessica.wilson@example.com",
+    "phone": "+1789012345",
+    "address": {
+      "street": "505 Elm St",
+      "city": "Dallas",
+      "state": "TX",
+      "zip_code": "75201",
+      "country": "USA"
+    },
+    "reservation": {
+      "check_in": "2024-12-18",
+      "check_out": "2024-12-22",
+      "room_type": "Single",
+      "number_of_guests": 1,
+      "payment_status": "Pending",
+      "special_requests": "Near gym"
+    }
+  },
+  {
+    "id": 9,
+    "first_name": "Robert",
+    "last_name": "Garcia",
+    "email": "robert.garcia@example.com",
+    "phone": "+1890123456",
+    "address": {
+      "street": "606 Pineapple St",
+      "city": "Miami",
+      "state": "FL",
+      "zip_code": "33101",
+      "country": "USA"
+    },
+    "reservation": {
+      "check_in": "2024-12-25",
+      "check_out": "2024-12-30",
+      "room_type": "Suite",
+      "number_of_guests": 3,
+      "payment_status": "Paid",
+      "special_requests": "Ocean view"
+    }
+  },
+  {
+    "id": 10,
+    "first_name": "Sophia",
+    "last_name": "Taylor",
+    "email": "sophia.taylor@example.com",
+    "phone": "+1901234567",
+    "address": {
+      "street": "707 Sunset Blvd",
+      "city": "San Diego",
+      "state": "CA",
+      "zip_code": "92101",
+      "country": "USA"
+    },
+    "reservation": {
+      "check_in": "2024-12-01",
+      "check_out": "2024-12-05",
+      "room_type": "Single",
+      "number_of_guests": 1,
+      "payment_status": "Paid",
+      "special_requests": "Breakfast included"
+    }
+  }
+]

@@ -30,6 +30,7 @@ import 'package:stay_place/views/client/my_booking_screen.dart';
 import 'package:stay_place/views/client/payment_history_screen.dart';
 import 'package:stay_place/views/client/room_selection_screen.dart';
 import 'package:stay_place/views/auth/profile_screen.dart';
+import 'package:stay_place/views/auth/edit_profile_screen.dart';
 // ... (Pastikan semua import screen lainnya sudah ada)
 
 // ================== DEFINISI MIDDLEWARE ==================
@@ -74,6 +75,19 @@ List<GetPage> getPageRoute() {
     GetPage(
         name: '/auth/reset_password', page: () => const ResetPasswordScreen()),
 
+    GetPage(
+      name: '/profile/edit',
+      page: () => const EditProfileScreen(),
+      middlewares: [AuthMiddleware()],
+    ),
+    GetPage(
+      name: '/profile', // Rute umum untuk semua user
+      page: () => const ProfileScreen(),
+      middlewares: [
+        AuthMiddleware()
+      ], // Dijaga agar hanya user login yang bisa akses
+    ),
+
     // ---------- RUTE CLIENT PANEL (Dijaga oleh AuthMiddleware) ----------
     GetPage(
         name: '/home',
@@ -99,14 +113,6 @@ List<GetPage> getPageRoute() {
         name: '/payment_history',
         page: () => PaymentHistoryScreen(),
         middlewares: [AuthMiddleware()]),
-
-    GetPage(
-      name: '/profile', // Rute umum untuk semua user
-      page: () => const ProfileScreen(),
-      middlewares: [
-        AuthMiddleware()
-      ], // Dijaga agar hanya user login yang bisa akses
-    ),
 
     // ---------- RUTE ADMIN PANEL (Dijaga oleh AuthMiddleware DAN AdminMiddleware) ----------
 

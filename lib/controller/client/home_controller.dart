@@ -44,11 +44,11 @@ class HomeController extends MyController {
     super.onInit();
   }
 
-  void goToHotelDetail(HotelModel hotel) {
-    Get.toNamed('/hotel_detail', arguments: hotel);
+  void goToHotelDetail() {
+    Get.toNamed('/admin/hotel/detail');
   }
 
   void goToRoomDetail() {
-    Get.toNamed('/room_detail', arguments: room);
+    Get.toNamed('/admin/room/detail');
   }
 }

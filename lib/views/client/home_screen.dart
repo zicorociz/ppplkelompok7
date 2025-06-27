@@ -66,8 +66,7 @@ class _HomeScreenState extends State<HomeScreen> with UIMixin {
                             return Builder(
                               builder: (BuildContext context) {
                                 return InkWell(
-                                  onTap: () => controller
-                                      .goToHotelDetail(controller.hotel[0]),
+                                  onTap: controller.goToHotelDetail,
                                   child: Container(
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(4),
@@ -192,7 +191,7 @@ class _HomeScreenState extends State<HomeScreen> with UIMixin {
               itemBuilder: (context, index) {
                 HotelModel hotel = controller.hotel[index];
                 return MyContainer.bordered(
-                  onTap: () => controller.goToHotelDetail(hotel),
+                  onTap: controller.goToHotelDetail,
                   width: 300,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

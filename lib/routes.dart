@@ -16,7 +16,8 @@ import 'package:stay_place/views/admin/manage_hotels/edit_hotel_screen.dart';
 import 'package:stay_place/views/admin/manage_hotels/hotel_detail_screen.dart';
 import 'package:stay_place/views/admin/manage_hotels/hotel_list_screen.dart';
 import 'package:stay_place/views/admin/manage_room/room_add_screen.dart';
-import 'package:stay_place/views/admin/manage_room/room_detail_screen.dart';
+import 'package:stay_place/views/admin/manage_room/room_detail_screen.dart'
+    as admin_room;
 import 'package:stay_place/views/admin/manage_room/room_edit_screen.dart';
 import 'package:stay_place/views/admin/manage_room/room_list_screen.dart';
 import 'package:stay_place/views/auth/forgot_password_screen.dart';
@@ -31,6 +32,7 @@ import 'package:stay_place/views/client/payment_history_screen.dart';
 import 'package:stay_place/views/client/room_selection_screen.dart';
 import 'package:stay_place/views/auth/profile_screen.dart';
 import 'package:stay_place/views/auth/edit_profile_screen.dart';
+import 'package:stay_place/views/client/room_detail_screen.dart';
 // ... (Pastikan semua import screen lainnya sudah ada)
 
 // ================== DEFINISI MIDDLEWARE ==================
@@ -114,6 +116,17 @@ List<GetPage> getPageRoute() {
         page: () => PaymentHistoryScreen(),
         middlewares: [AuthMiddleware()]),
 
+    GetPage(
+        name: '/room_detail',
+        page: () => const RoomDetailScreen(),
+        middlewares: [AuthMiddleware()] // Hanya perlu login untuk melihatnya
+        ),
+    GetPage(
+      name: '/booking_form',
+      page: () => const BookingFormScreen(),
+      middlewares: [AuthMiddleware()],
+    ),
+
     // ---------- RUTE ADMIN PANEL (Dijaga oleh AuthMiddleware DAN AdminMiddleware) ----------
 
     // Dashboard Admin
@@ -148,7 +161,7 @@ List<GetPage> getPageRoute() {
         middlewares: [AuthMiddleware(), AdminMiddleware()]),
     GetPage(
         name: '/admin/room/detail',
-        page: () => RoomDetailScreen(),
+        page: () => admin_room.RoomDetailScreen(),
         middlewares: [AuthMiddleware(), AdminMiddleware()]),
     GetPage(
         name: '/admin/room/add',

@@ -8,13 +8,13 @@ import 'package:stay_place/helpers/utils/ui_mixins.dart';
 import 'package:stay_place/helpers/widgets/my_breadcrumb.dart';
 import 'package:stay_place/helpers/widgets/my_breadcrumb_item.dart';
 import 'package:stay_place/helpers/widgets/my_card.dart';
-import 'package:stay_place/helpers/widgets/my_container.dart';
 import 'package:stay_place/helpers/widgets/my_flex.dart';
 import 'package:stay_place/helpers/widgets/my_flex_item.dart';
 import 'package:stay_place/helpers/widgets/my_spacing.dart';
 import 'package:stay_place/helpers/widgets/my_text.dart';
 import 'package:stay_place/helpers/widgets/responsive.dart';
 import 'package:stay_place/views/layout/layout.dart';
+import 'package:stay_place/helpers/widgets/my_button.dart';
 
 class RoomDetailScreen extends StatefulWidget {
   const RoomDetailScreen({super.key});
@@ -146,9 +146,12 @@ class _RoomDetailScreenState extends State<RoomDetailScreen> with UIMixin {
             ],
           ),
           MySpacing.height(24),
-          MyContainer(
-            paddingAll: 12,
-            color: contentTheme.primary,
+          MyButton.rounded(
+            onPressed: controller
+                .goToBookingForm, // <-- PANGGIL FUNGSI DARI CONTROLLER
+            elevation: 0,
+            padding: MySpacing.xy(20, 16),
+            backgroundColor: contentTheme.primary,
             child: MyText.bodyMedium("Book This Room",
                 fontWeight: 600, color: contentTheme.onPrimary),
           )

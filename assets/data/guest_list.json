@@ -1,112 +1,52 @@
 [
   {
     "id": 1,
-    "name": "John Doe",
-    "email": "johndoe@email.com",
-    "age": 34,
-    "destination": "Paris",
-    "arrivalDate": "2024-11-10",
-    "departureDate": "2024-11-20",
-    "numberOfGuests": 2,
-    "specialRequests": "Vegetarian meal"
+    "nama_pelanggan": "Budi Santoso",
+    "email": "budi.s@email.com",
+    "nomor_telepon": "081234567890",
+    "alamat_utama": "Jl. Mulyorejo No. 123, Surabaya",
+    "jumlah_pesanan": 5,
+    "tanggal_bergabung": "2024-01-15",
+    "status": "Aktif"
   },
   {
     "id": 2,
-    "name": "Jane Smith",
-    "email": "janesmith@email.com",
-    "age": 28,
-    "destination": "Tokyo",
-    "arrivalDate": "2024-11-12",
-    "departureDate": "2024-11-18",
-    "numberOfGuests": 1,
-    "specialRequests": "None"
+    "nama_pelanggan": "Citra Lestari",
+    "email": "citra.l@email.com",
+    "nomor_telepon": "085711223344",
+    "alamat_utama": "Jl. Dharmahusada Indah C-5, Surabaya",
+    "jumlah_pesanan": 2,
+    "tanggal_bergabung": "2024-02-20",
+    "status": "Aktif"
   },
   {
     "id": 3,
-    "name": "Michael Johnson",
-    "email": "michaeljohnson@email.com",
-    "age": 45,
-    "destination": "New York",
-    "arrivalDate": "2024-11-15",
-    "departureDate": "2024-11-25",
-    "numberOfGuests": 3,
-    "specialRequests": "Late check-in"
+    "nama_pelanggan": "Andi Wijaya",
+    "email": "andi.w@email.com",
+    "nomor_telepon": "089876543210",
+    "alamat_utama": "Jl. Basuki Rahmat No. 1, Surabaya",
+    "jumlah_pesanan": 8,
+    "tanggal_bergabung": "2024-03-01",
+    "status": "Nonaktif"
   },
   {
     "id": 4,
-    "name": "Emily Davis",
-    "email": "emilydavis@email.com",
-    "age": 30,
-    "destination": "Rome",
-    "arrivalDate": "2024-11-05",
-    "departureDate": "2024-11-12",
-    "numberOfGuests": 2,
-    "specialRequests": "Early check-out"
+    "nama_pelanggan": "Dewi Anggraini",
+    "email": "dewi.a@email.com",
+    "nomor_telepon": "082199887766",
+    "alamat_utama": "Jl. Jemursari Selatan IV/5, Surabaya",
+    "jumlah_pesanan": 1,
+    "tanggal_bergabung": "2024-04-10",
+    "status": "Aktif"
   },
   {
     "id": 5,
-    "name": "Daniel Lee",
-    "email": "daniellee@email.com",
-    "age": 40,
-    "destination": "London",
-    "arrivalDate": "2024-11-08",
-    "departureDate": "2024-11-15",
-    "numberOfGuests": 1,
-    "specialRequests": "None"
-  },
-  {
-    "id": 6,
-    "name": "Sophia Williams",
-    "email": "sophiawilliams@email.com",
-    "age": 26,
-    "destination": "Barcelona",
-    "arrivalDate": "2024-11-02",
-    "departureDate": "2024-11-10",
-    "numberOfGuests": 2,
-    "specialRequests": "Window seat"
-  },
-  {
-    "id": 7,
-    "name": "James Brown",
-    "email": "jamesbrown@email.com",
-    "age": 50,
-    "destination": "Los Angeles",
-    "arrivalDate": "2024-11-11",
-    "departureDate": "2024-11-17",
-    "numberOfGuests": 1,
-    "specialRequests": "None"
-  },
-  {
-    "id": 8,
-    "name": "Olivia Martinez",
-    "email": "oliviamartinez@email.com",
-    "age": 35,
-    "destination": "Amsterdam",
-    "arrivalDate": "2024-11-05",
-    "departureDate": "2024-11-13",
-    "numberOfGuests": 2,
-    "specialRequests": "High floor"
-  },
-  {
-    "id": 9,
-    "name": "Liam Harris",
-    "email": "liamharris@email.com",
-    "age": 22,
-    "destination": "Sydney",
-    "arrivalDate": "2024-11-15",
-    "departureDate": "2024-11-22",
-    "numberOfGuests": 4,
-    "specialRequests": "Baby cot"
-  },
-  {
-    "id": 10,
-    "name": "Ava Robinson",
-    "email": "avarobinson@email.com",
-    "age": 27,
-    "destination": "Dubai",
-    "arrivalDate": "2024-11-03",
-    "departureDate": "2024-11-12",
-    "numberOfGuests": 1,
-    "specialRequests": "Non-smoking room"
+    "nama_pelanggan": "Eko Prasetyo",
+    "email": "eko.p@email.com",
+    "nomor_telepon": "087755664433",
+    "alamat_utama": "Jl. Kenjeran No. 552, Surabaya",
+    "jumlah_pesanan": 12,
+    "tanggal_bergabung": "2024-05-05",
+    "status": "Diblokir"
   }
 ]

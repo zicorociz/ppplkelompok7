@@ -1,10 +1,10 @@
-import 'package:stay_place/controller/auth/reset_password_controller.dart';
-import 'package:stay_place/helpers/utils/ui_mixins.dart';
-import 'package:stay_place/helpers/widgets/my_button.dart';
-import 'package:stay_place/helpers/widgets/my_spacing.dart';
-import 'package:stay_place/helpers/widgets/my_text.dart';
-import 'package:stay_place/helpers/widgets/my_text_style.dart';
-import 'package:stay_place/views/layout/auth_layout.dart';
+import 'package:sikilap/controller/auth/reset_password_controller.dart';
+import 'package:sikilap/helpers/utils/ui_mixins.dart';
+import 'package:sikilap/helpers/widgets/my_button.dart';
+import 'package:sikilap/helpers/widgets/my_spacing.dart';
+import 'package:sikilap/helpers/widgets/my_text.dart';
+import 'package:sikilap/helpers/widgets/my_text_style.dart';
+import 'package:sikilap/views/layout/auth_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:get/get.dart';
@@ -32,7 +32,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> with UIMixin 
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                MyText.titleLarge("Reset Password", fontWeight: 600),
+                MyText.titleLarge("Setel Ulang Kata Sandi", fontWeight: 600),
                 MySpacing.height(24),
                 TextFormField(
                     validator: controller.basicValidator.getValidation('password'),
@@ -40,7 +40,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> with UIMixin 
                     keyboardType: TextInputType.visiblePassword,
                     style: MyTextStyle.labelMedium(),
                     decoration: InputDecoration(
-                        labelText: "Password",
+                        labelText: "Kata Sandi",
                         labelStyle: MyTextStyle.bodySmall(xMuted: true),
                         border: OutlineInputBorder(borderSide: BorderSide.none),
                         suffixIcon: InkWell(
@@ -62,7 +62,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> with UIMixin 
                   keyboardType: TextInputType.visiblePassword,
                   style: MyTextStyle.labelMedium(),
                   decoration: InputDecoration(
-                      labelText: "Confirm Password",
+                      labelText: "Konfirmasi Kata Sandi",
                       labelStyle: MyTextStyle.bodySmall(xMuted: true),
                       border: OutlineInputBorder(borderSide: BorderSide.none),
                       suffixIcon: InkWell(
@@ -85,7 +85,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> with UIMixin 
                     elevation: 0,
                     padding: MySpacing.xy(24, 16),
                     backgroundColor: contentTheme.primary,
-                    child: MyText.labelMedium('Reset Password', color: contentTheme.onPrimary),
+                    child: MyText.labelMedium('Setel Ulang Kata Sandi', color: contentTheme.onPrimary),
                   ),
                 ),
               ],

@@ -2,18 +2,18 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:stay_place/controller/auth/profile_controller.dart';
-import 'package:stay_place/helpers/utils/my_shadow.dart';
-import 'package:stay_place/helpers/utils/ui_mixins.dart';
-import 'package:stay_place/helpers/widgets/my_button.dart';
-import 'package:stay_place/helpers/widgets/my_card.dart';
-import 'package:stay_place/helpers/widgets/my_container.dart';
-import 'package:stay_place/helpers/widgets/my_flex.dart';
-import 'package:stay_place/helpers/widgets/my_flex_item.dart';
-import 'package:stay_place/helpers/widgets/my_spacing.dart';
-import 'package:stay_place/helpers/widgets/my_text.dart';
-import 'package:stay_place/images.dart';
-import 'package:stay_place/views/layout/layout.dart';
+import 'package:sikilap/controller/auth/profile_controller.dart';
+import 'package:sikilap/helpers/utils/my_shadow.dart';
+import 'package:sikilap/helpers/utils/ui_mixins.dart';
+import 'package:sikilap/helpers/widgets/my_button.dart';
+import 'package:sikilap/helpers/widgets/my_card.dart';
+import 'package:sikilap/helpers/widgets/my_container.dart';
+import 'package:sikilap/helpers/widgets/my_flex.dart';
+import 'package:sikilap/helpers/widgets/my_flex_item.dart';
+import 'package:sikilap/helpers/widgets/my_spacing.dart';
+import 'package:sikilap/helpers/widgets/my_text.dart';
+import 'package:sikilap/images.dart';
+import 'package:sikilap/views/layout/layout.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -71,13 +71,13 @@ class _ProfileScreenState extends State<ProfileScreen> with UIMixin {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        MyText.titleMedium("Profile Information",
+                        MyText.titleMedium("Informasi Profil",
                             fontWeight: 600),
                         MySpacing.height(24),
                         if (user != null) ...[
                           _buildProfileInfoRow(
                             icon: LucideIcons.user,
-                            title: "Full Name",
+                            title: "Nama Lengkap",
                             value: user.name,
                           ),
                           Divider(height: 32),
@@ -93,7 +93,7 @@ class _ProfileScreenState extends State<ProfileScreen> with UIMixin {
                             value: user.role.capitalizeFirst ?? '',
                           ),
                         ] else
-                          MyText.bodyLarge("User data not found."),
+                          MyText.bodyLarge("Data pengguna tidak ditemukan."),
                         MySpacing.height(24),
                         if (user != null && user.isAdmin())
                           MyContainer.none(
@@ -124,7 +124,7 @@ class _ProfileScreenState extends State<ProfileScreen> with UIMixin {
                             elevation: 0,
                             padding: MySpacing.xy(20, 16),
                             backgroundColor: contentTheme.primary,
-                            child: MyText.bodyMedium("Edit Profile",
+                            child: MyText.bodyMedium("Edit Profil",
                                 color: contentTheme.onPrimary),
                           ),
                         ),

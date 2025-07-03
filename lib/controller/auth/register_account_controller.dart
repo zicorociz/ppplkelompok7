@@ -1,11 +1,11 @@
 // lib/controller/auth/register_account_controller.dart
 
 import 'package:flutter/material.dart';
-// import 'package:stay_place/helpers/services/auth_services.dart';
-import 'package:stay_place/helpers/widgets/my_form_validator.dart';
-import 'package:stay_place/helpers/widgets/my_validators.dart';
+// import 'package:sikilap/helpers/services/auth_services.dart';
+import 'package:sikilap/helpers/widgets/my_form_validator.dart';
+import 'package:sikilap/helpers/widgets/my_validators.dart';
 import 'package:get/get.dart';
-import 'package:stay_place/controller/my_controller.dart';
+import 'package:sikilap/controller/my_controller.dart';
 
 class RegisterAccountController extends MyController {
   var greeting = "Good Morning";
@@ -34,6 +34,20 @@ class RegisterAccountController extends MyController {
       'last_name',
       required: true,
       label: 'Last Name',
+      controller: TextEditingController(),
+    );
+    basicValidator.addField(
+      'phone_number',
+      required: true,
+      label: "No. Telepon",
+      validators: [MyLengthValidator(min: 9, max: 15)], // Memastikan panjang nomor telepon wajar
+      controller: TextEditingController(),
+    );
+    basicValidator.addField(
+      'address',
+      required: true,
+      label: "Alamat",
+       validators: [MyLengthValidator(min: 10)], // Memastikan alamat tidak terlalu pendek
       controller: TextEditingController(),
     );
     basicValidator.addField(

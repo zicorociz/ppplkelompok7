@@ -2,18 +2,18 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:stay_place/controller/auth/edit_profile_controller.dart';
-import 'package:stay_place/helpers/utils/my_shadow.dart';
-import 'package:stay_place/helpers/utils/ui_mixins.dart';
-import 'package:stay_place/helpers/widgets/my_breadcrumb.dart';
-import 'package:stay_place/helpers/widgets/my_breadcrumb_item.dart';
-import 'package:stay_place/helpers/widgets/my_button.dart';
-import 'package:stay_place/helpers/widgets/my_card.dart';
-import 'package:stay_place/helpers/widgets/my_spacing.dart';
-import 'package:stay_place/helpers/widgets/my_text.dart';
-import 'package:stay_place/helpers/widgets/my_text_style.dart';
-import 'package:stay_place/helpers/widgets/responsive.dart';
-import 'package:stay_place/views/layout/layout.dart';
+import 'package:sikilap/controller/auth/edit_profile_controller.dart';
+import 'package:sikilap/helpers/utils/my_shadow.dart';
+import 'package:sikilap/helpers/utils/ui_mixins.dart';
+import 'package:sikilap/helpers/widgets/my_breadcrumb.dart';
+import 'package:sikilap/helpers/widgets/my_breadcrumb_item.dart';
+import 'package:sikilap/helpers/widgets/my_button.dart';
+import 'package:sikilap/helpers/widgets/my_card.dart';
+import 'package:sikilap/helpers/widgets/my_spacing.dart';
+import 'package:sikilap/helpers/widgets/my_text.dart';
+import 'package:sikilap/helpers/widgets/my_text_style.dart';
+import 'package:sikilap/helpers/widgets/responsive.dart';
+import 'package:sikilap/views/layout/layout.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({super.key});
@@ -46,11 +46,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> with UIMixin {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    MyText.titleMedium("Edit Profile",
+                    MyText.titleMedium("Edit Profil",
                         fontSize: 18, fontWeight: 600),
                     MyBreadcrumb(
                       children: [
-                        MyBreadcrumbItem(name: 'Profile'),
+                        MyBreadcrumbItem(name: 'Profil'),
                         MyBreadcrumbItem(name: 'Edit', active: true),
                       ],
                     ),
@@ -69,19 +69,19 @@ class _EditProfileScreenState extends State<EditProfileScreen> with UIMixin {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         _buildTextField(
-                          title: "First Name",
-                          hintText: "Enter First Name",
+                          title: "Nama Depan",
+                          hintText: "Masukkan Nama Depan",
                           controller: controller.firstNameController,
                           validator: (value) =>
-                              value!.isEmpty ? "First name is required" : null,
+                              value!.isEmpty ? "Nama depan diperlukan" : null,
                         ),
                         MySpacing.height(24),
                         _buildTextField(
-                          title: "Last Name",
-                          hintText: "Enter Last Name",
+                          title: "Nama Belakang",
+                          hintText: "Masukkan Nama Belakang",
                           controller: controller.lastNameController,
                           validator: (value) =>
-                              value!.isEmpty ? "Last name is required" : null,
+                              value!.isEmpty ? "Nama belakang diperlukan" : null,
                         ),
                         MySpacing.height(24),
                         // Email tidak bisa diedit
@@ -98,7 +98,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> with UIMixin {
                             elevation: 0,
                             padding: MySpacing.xy(20, 16),
                             backgroundColor: contentTheme.primary,
-                            child: MyText.bodyMedium("Save Changes",
+                            child: MyText.bodyMedium("Simpan Perubahan",
                                 color: contentTheme.onPrimary),
                           ),
                         )

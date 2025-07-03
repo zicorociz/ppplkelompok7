@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:stay_place/controller/my_controller.dart';
-import 'package:stay_place/model/guest_model.dart';
+import 'package:sikilap/controller/my_controller.dart';
+import 'package:sikilap/model/guest_model.dart';
 
 class GuestListController extends MyController {
   List<GuestModel> guest = [];
@@ -14,11 +14,11 @@ class GuestListController extends MyController {
     super.onInit();
   }
 
-  void editGuest() {
+  void editGuest(int id) {
     Get.toNamed('/admin/guest/edit');
   }
 
-  void addGuest() {
+  void addGuest(int id) {
     Get.toNamed('/admin/guest/add');
   }
 }

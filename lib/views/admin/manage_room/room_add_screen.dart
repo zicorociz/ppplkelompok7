@@ -1,22 +1,24 @@
+// lib/views/admin/manage_room/room_add_screen.dart
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:get/get.dart';
-import 'package:stay_place/controller/admin/manage_room/room_add_controller.dart';
-import 'package:stay_place/helpers/utils/my_shadow.dart';
-import 'package:stay_place/helpers/utils/ui_mixins.dart';
-import 'package:stay_place/helpers/utils/utils.dart';
-import 'package:stay_place/helpers/widgets/my_breadcrumb.dart';
-import 'package:stay_place/helpers/widgets/my_breadcrumb_item.dart';
-import 'package:stay_place/helpers/widgets/my_card.dart';
-import 'package:stay_place/helpers/widgets/my_container.dart';
-import 'package:stay_place/helpers/widgets/my_list_extension.dart';
-import 'package:stay_place/helpers/widgets/my_spacing.dart';
-import 'package:stay_place/helpers/widgets/my_text.dart';
-import 'package:stay_place/helpers/widgets/my_text_style.dart';
-import 'package:stay_place/helpers/widgets/responsive.dart';
-import 'package:stay_place/views/layout/layout.dart';
+import 'package:sikilap/controller/admin/manage_room/room_add_controller.dart';
+import 'package:sikilap/helpers/utils/my_shadow.dart';
+import 'package:sikilap/helpers/utils/ui_mixins.dart';
+import 'package:sikilap/helpers/utils/utils.dart';
+import 'package:sikilap/helpers/widgets/my_breadcrumb.dart';
+import 'package:sikilap/helpers/widgets/my_breadcrumb_item.dart';
+import 'package:sikilap/helpers/widgets/my_card.dart';
+import 'package:sikilap/helpers/widgets/my_container.dart';
+import 'package:sikilap/helpers/widgets/my_list_extension.dart';
+import 'package:sikilap/helpers/widgets/my_spacing.dart';
+import 'package:sikilap/helpers/widgets/my_text.dart';
+import 'package:sikilap/helpers/widgets/my_text_style.dart';
+import 'package:sikilap/helpers/widgets/responsive.dart';
+import 'package:sikilap/views/layout/layout.dart';
 
 class RoomAddScreen extends StatefulWidget {
   const RoomAddScreen({super.key});
@@ -44,14 +46,16 @@ class _RoomAddScreenState extends State<RoomAddScreen> with UIMixin {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     MyText.titleMedium(
-                      "Add Room",
+                      // --- UBAH ISI ---
+                      "Tambah Layanan Baru",
                       fontSize: 18,
                       fontWeight: 600,
                     ),
                     MyBreadcrumb(
                       children: [
                         MyBreadcrumbItem(name: 'Admin'),
-                        MyBreadcrumbItem(name: 'Add Room', active: true),
+                        // --- UBAH ISI ---
+                        MyBreadcrumbItem(name: 'Tambah Layanan', active: true),
                       ],
                     ),
                   ],
@@ -64,7 +68,8 @@ class _RoomAddScreenState extends State<RoomAddScreen> with UIMixin {
                     shadow: MyShadow(
                         elevation: 0.2, position: MyShadowPosition.bottom),
                     paddingAll: 24,
-                    child: roomDetail()),
+                    // --- UBAH ISI ---
+                    child: formTambahLayanan()), // Nama fungsi diubah
               )
             ],
           );
@@ -73,11 +78,16 @@ class _RoomAddScreenState extends State<RoomAddScreen> with UIMixin {
     );
   }
 
-  Widget roomDetail() {
+  // Widget ini sekarang menjadi form untuk menambah layanan baru
+  Widget formTambahLayanan() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        MyText.labelMedium('Hotel Category'),
+        // --- UBAH ISI ---
+        commonTextField("Nama Layanan", "Contoh: Cuci Exterior Premium"),
+        MySpacing.height(24),
+        // --- UBAH ISI ---
+        MyText.labelMedium('Kategori Layanan'),
         MySpacing.height(12),
         DropdownButtonFormField<RoomCategory>(
           dropdownColor: contentTheme.background,
@@ -91,7 +101,8 @@ class _RoomAddScreenState extends State<RoomAddScreen> with UIMixin {
           icon: Icon(LucideIcons.chevron_down, size: 20),
           style: MyTextStyle.bodySmall(),
           decoration: InputDecoration(
-            hintText: "Select State",
+            // --- UBAH ISI ---
+            hintText: "Pilih Kategori",
             hintStyle: MyTextStyle.bodySmall(),
             border:
                 OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
@@ -112,9 +123,14 @@ class _RoomAddScreenState extends State<RoomAddScreen> with UIMixin {
           onChanged: controller.basicValidator.onChanged<Object?>('State'),
         ),
         MySpacing.height(24),
-        commonTextField("Price", "Price", numbered: true),
+        // --- UBAH ISI ---
+        commonTextField("Harga Dasar (Rp)", "Contoh: 50000", numbered: true),
         MySpacing.height(24),
-        MyText.labelMedium("Room Description"),
+        // --- UBAH ISI ---
+        commonTextField("Estimasi Durasi (Menit)", "Contoh: 30", numbered: true),
+        MySpacing.height(24),
+        // --- UBAH ISI ---
+        MyText.labelMedium("Deskripsi Layanan"),
         MySpacing.height(12),
         MyCard(
           paddingAll: 0,
@@ -128,14 +144,14 @@ class _RoomAddScreenState extends State<RoomAddScreen> with UIMixin {
                 padding: MySpacing.all(24),
                 child: QuillEditor.basic(
                   controller: controller.quillController,
-                  config: QuillEditorConfig(autoFocus: true),
                 ),
               )
             ],
           ),
         ),
         MySpacing.height(24),
-        MyText.labelMedium("Upload Room Image here"),
+        // --- UBAH ISI ---
+        MyText.labelMedium("Unggah Foto Ikon Layanan"),
         MySpacing.height(12),
         uploadFile()
       ],
@@ -166,7 +182,8 @@ class _RoomAddScreenState extends State<RoomAddScreen> with UIMixin {
                     alignment: Alignment.center,
                     paddingAll: 0,
                     child: MyText.titleMedium(
-                      "Drop files here or click to upload.",
+                      // --- UBAH ISI ---
+                      "Letakkan file di sini atau klik untuk mengunggah.",
                       fontWeight: 600,
                       muted: true,
                       fontSize: 18,
@@ -177,7 +194,8 @@ class _RoomAddScreenState extends State<RoomAddScreen> with UIMixin {
                     alignment: Alignment.center,
                     width: 610,
                     child: MyText.titleMedium(
-                      "(This is just a demo dropzone. Selected files are not actually uploaded.)",
+                      // --- UBAH ISI ---
+                      "(Ini hanya demo. File yang dipilih tidak akan diunggah.)",
                       muted: true,
                       fontWeight: 500,
                       fontSize: 16,

@@ -2,15 +2,15 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
-import 'package:stay_place/helpers/services/url_service.dart';
-import 'package:stay_place/helpers/theme/theme_customizer.dart';
-import 'package:stay_place/helpers/utils/ui_mixins.dart';
-import 'package:stay_place/helpers/widgets/my_container.dart';
-import 'package:stay_place/helpers/widgets/my_router.dart';
-import 'package:stay_place/helpers/widgets/my_spacing.dart';
-import 'package:stay_place/helpers/widgets/my_text.dart';
-import 'package:stay_place/images.dart';
-import 'package:stay_place/widgets/custom_pop_menu.dart';
+import 'package:sikilap/helpers/services/url_service.dart';
+import 'package:sikilap/helpers/theme/theme_customizer.dart';
+import 'package:sikilap/helpers/utils/ui_mixins.dart';
+import 'package:sikilap/helpers/widgets/my_container.dart';
+import 'package:sikilap/helpers/widgets/my_router.dart';
+import 'package:sikilap/helpers/widgets/my_spacing.dart';
+import 'package:sikilap/helpers/widgets/my_text.dart';
+import 'package:sikilap/images.dart';
+import 'package:sikilap/widgets/custom_pop_menu.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
 
 typedef LeftbarMenuFunction = void Function(String key);
@@ -60,7 +60,7 @@ class _LeftBarState extends State<LeftBar>
       child: Column(
         children: [
           SizedBox(
-            height: 56,
+            height: 60,
             child: InkWell(
               onTap: () =>
                   Get.toNamed(widget.isAdmin ? '/admin/dashboard' : '/home'),
@@ -72,22 +72,14 @@ class _LeftBarState extends State<LeftBar>
                       ThemeCustomizer.instance.theme == ThemeMode.light
                           ? Images.logoLight
                           : Images.logoDark,
-                      height: 40,
-                      width: 40,
-                      fit: BoxFit.cover),
-                  if (!widget.isCondensed)
-                    Flexible(fit: FlexFit.loose, child: MySpacing.width(12)),
-                  if (!widget.isCondensed)
-                    Flexible(
-                        child: MyText.titleLarge("Stay Place",
-                            maxLines: 1,
-                            fontWeight: 700,
-                            color: contentTheme.primary)),
+                      height: 100,
+                      width: 100,
+                      fit: BoxFit.contain),
                 ],
               ),
             ),
           ),
-          MySpacing.height(12),
+          MySpacing.height(8),
           Expanded(
             child: ScrollConfiguration(
               behavior:
@@ -96,64 +88,60 @@ class _LeftBarState extends State<LeftBar>
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // =================== LOGIKA UTAMA ===================
+                    // =================== LOGIKA UTAMA (ADMIN & CLIENT MENU) ===================
                     if (widget.isAdmin) ...[
-                      // TAMPILKAN HANYA MENU ADMIN
+                      // --- MENU ADMIN (TIDAK DIUBAH) ---
                       LabelWidget(
                           isCondensed: isCondensed, label: "ADMIN PANEL"),
                       NavigationItem(
                           iconData: LucideIcons.layout_dashboard,
-                          title: "Dashboard",
+                          title: "Beranda",
                           isCondensed: isCondensed,
                           route: '/admin/dashboard'),
                       MenuWidget(
-                        iconData: LucideIcons.hotel,
+                        iconData: LucideIcons.user_cog,
                         isCondensed: isCondensed,
-                        title: "Manage Hotels",
+                        title: "Manage Mitra",
                         children: [
                           MenuItem(
-                              title: "List",
+                              title: "List Mitra",
                               isCondensed: isCondensed,
                               route: '/admin/hotel/list'),
                           MenuItem(
-                              title: "Add",
+                              title: "Tambah Mitra",
                               isCondensed: isCondensed,
                               route: '/admin/hotel/add'),
                         ],
                       ),
                       MenuWidget(
-                        iconData: LucideIcons.bed,
+                        iconData: LucideIcons.spray_can,
                         isCondensed: isCondensed,
-                        title: "Manage Room",
+                        title: "Manage Layanan",
                         children: [
                           MenuItem(
-                              title: "List",
+                              title: "List Layanan",
                               isCondensed: isCondensed,
                               route: '/admin/room/list'),
                           MenuItem(
-                              title: "Add",
+                              title: "Tambah Layanan",
                               isCondensed: isCondensed,
                               route: '/admin/room/add'),
                         ],
                       ),
                       MenuWidget(
-                        iconData: LucideIcons.user,
+                        iconData: LucideIcons.users,
                         isCondensed: isCondensed,
-                        title: "Guest Management",
+                        title: "Manage Pelanggan",
                         children: [
                           MenuItem(
-                              title: "List",
+                              title: "List Pelanggan",
                               isCondensed: isCondensed,
                               route: '/admin/guest/list'),
-                          MenuItem(
-                              title: "Add",
-                              isCondensed: isCondensed,
-                              route: '/admin/guest/add'),
                         ],
                       ),
                       NavigationItem(
-                          iconData: LucideIcons.calendar_days,
-                          title: "Manage Booking",
+                          iconData: LucideIcons.book_marked,
+                          title: "Manage Pesanan",
                           isCondensed: isCondensed,
                           route: '/admin/booking/list'),
                       NavigationItem(
@@ -162,41 +150,41 @@ class _LeftBarState extends State<LeftBar>
                           isCondensed: isCondensed,
                           route: '/admin/payment'),
                     ] else ...[
-                      // TAMPILKAN HANYA MENU CLIENT
+                      // --- MENU CLIENT (UBAH ISI DI SINI) ---
                       LabelWidget(
-                          isCondensed: isCondensed, label: "CLIENT PANEL"),
+                          isCondensed: isCondensed, label: "MENU PENGGUNA"),
                       NavigationItem(
-                          iconData: LucideIcons.house,
-                          title: "Home",
+                          iconData: LucideIcons.bomb,
+                          title: "Beranda", // Home -> Beranda
                           isCondensed: isCondensed,
                           route: '/home'),
                       NavigationItem(
-                          iconData: LucideIcons.building,
-                          title: "Room Selection",
+                          iconData: LucideIcons.spray_can, // Ikon lebih relevan
+                          title: "Pilih Layanan", // Room Selection -> Pilih Layanan
                           isCondensed: isCondensed,
                           route: '/room_selection'),
                       NavigationItem(
-                          iconData: LucideIcons.archive,
-                          title: "Booking Form",
+                          iconData: LucideIcons.shopping_cart, // Ikon lebih relevan
+                          title: "Pemesanan", // Booking Form -> Pemesanan
                           isCondensed: isCondensed,
                           route: '/booking_form'),
                       NavigationItem(
-                          iconData: LucideIcons.ticket,
-                          title: "My Bookings",
+                          iconData: LucideIcons.history, // Ikon lebih relevan
+                          title: "Pesanan Saya", // My Bookings -> Pesanan Saya
                           isCondensed: isCondensed,
                           route: '/my_booking'),
                       NavigationItem(
-                          iconData: LucideIcons.credit_card,
-                          title: "Payment History",
+                          iconData: LucideIcons.wallet, // Ikon lebih relevan
+                          title: "Pembayaran", // Payment History -> Pembayaran
                           isCondensed: isCondensed,
                           route: '/payment_history'),
                       NavigationItem(
-                          iconData: LucideIcons.map_pin,
-                          title: "Location Map",
+                          iconData: LucideIcons.map, // Ikon lebih relevan
+                          title: "Lokasi", // Location Map -> Lokasi
                           isCondensed: isCondensed,
                           route: '/location_map'),
                     ],
-                    // =====================================================
+                    // =======================================================================
                   ],
                 ),
               ),
@@ -221,6 +209,10 @@ class _LeftBarState extends State<LeftBar>
           );
   }
 }
+
+// =========================================================================
+// SISA KODE DI BAWAH INI TIDAK DIUBAH, CUKUP SALIN DAN TEMPEL SEPERTI ASLINYA
+// =========================================================================
 
 class LabelWidget extends StatelessWidget {
   final bool isCondensed;
@@ -534,7 +526,6 @@ class _NavigationItemState extends State<NavigationItem> with UIMixin {
       onTap: () {
         if (widget.route != null) {
           Get.toNamed(widget.route!);
-
           MyRouter.pushReplacementNamed(context, widget.route!, arguments: 1);
         }
       },

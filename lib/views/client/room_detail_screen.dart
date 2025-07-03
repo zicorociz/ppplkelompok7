@@ -2,19 +2,19 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:stay_place/controller/client/room_detail_controller.dart'; // <-- CONTROLLER CLIENT BARU
-import 'package:stay_place/helpers/utils/my_shadow.dart';
-import 'package:stay_place/helpers/utils/ui_mixins.dart';
-import 'package:stay_place/helpers/widgets/my_breadcrumb.dart';
-import 'package:stay_place/helpers/widgets/my_breadcrumb_item.dart';
-import 'package:stay_place/helpers/widgets/my_card.dart';
-import 'package:stay_place/helpers/widgets/my_flex.dart';
-import 'package:stay_place/helpers/widgets/my_flex_item.dart';
-import 'package:stay_place/helpers/widgets/my_spacing.dart';
-import 'package:stay_place/helpers/widgets/my_text.dart';
-import 'package:stay_place/helpers/widgets/responsive.dart';
-import 'package:stay_place/views/layout/layout.dart';
-import 'package:stay_place/helpers/widgets/my_button.dart';
+import 'package:sikilap/controller/client/room_detail_controller.dart'; // <-- CONTROLLER CLIENT BARU
+import 'package:sikilap/helpers/utils/my_shadow.dart';
+import 'package:sikilap/helpers/utils/ui_mixins.dart';
+import 'package:sikilap/helpers/widgets/my_breadcrumb.dart';
+import 'package:sikilap/helpers/widgets/my_breadcrumb_item.dart';
+import 'package:sikilap/helpers/widgets/my_card.dart';
+import 'package:sikilap/helpers/widgets/my_flex.dart';
+import 'package:sikilap/helpers/widgets/my_flex_item.dart';
+import 'package:sikilap/helpers/widgets/my_spacing.dart';
+import 'package:sikilap/helpers/widgets/my_text.dart';
+import 'package:sikilap/helpers/widgets/responsive.dart';
+import 'package:sikilap/views/layout/layout.dart';
+import 'package:sikilap/helpers/widgets/my_button.dart';
 
 class RoomDetailScreen extends StatefulWidget {
   const RoomDetailScreen({super.key});
@@ -135,7 +135,7 @@ class _RoomDetailScreenState extends State<RoomDetailScreen> with UIMixin {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          MyText.bodyMedium("Price", fontWeight: 600),
+          MyText.bodyMedium("Harga Mulai Dari", fontWeight: 600),
           MySpacing.height(12),
           Row(
             children: [
@@ -148,11 +148,11 @@ class _RoomDetailScreenState extends State<RoomDetailScreen> with UIMixin {
           MySpacing.height(24),
           MyButton.rounded(
             onPressed: controller
-                .goToBookingForm, // <-- PANGGIL FUNGSI DARI CONTROLLER
+                .goToRoomSelection, // <-- PANGGIL FUNGSI DARI CONTROLLER
             elevation: 0,
             padding: MySpacing.xy(20, 16),
             backgroundColor: contentTheme.primary,
-            child: MyText.bodyMedium("Book This Room",
+            child: MyText.bodyMedium("Pilih Layanan",
                 fontWeight: 600, color: contentTheme.onPrimary),
           )
         ],

@@ -4,28 +4,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:stay_place/helpers/localizations/app_localization_delegate.dart';
-import 'package:stay_place/helpers/localizations/language.dart';
-import 'package:stay_place/helpers/services/auth_services.dart'; // <-- IMPORT BARU
-import 'package:stay_place/helpers/services/navigation_service.dart';
-import 'package:stay_place/helpers/storage/local_storage.dart';
-import 'package:stay_place/helpers/theme/app_notifire.dart';
-import 'package:stay_place/helpers/theme/app_style.dart';
-import 'package:stay_place/helpers/theme/theme_customizer.dart';
-import 'package:stay_place/routes.dart';
+import 'package:flutter_quill/flutter_quill.dart'; // <-- IMPORT BARU YANG PENTING
+import 'package:sikilap/helpers/localizations/app_localization_delegate.dart';
+import 'package:sikilap/helpers/localizations/language.dart';
+import 'package:sikilap/helpers/services/auth_services.dart';
+import 'package:sikilap/helpers/services/booking_service.dart';
+import 'package:sikilap/helpers/services/payment_service.dart';
+import 'package:sikilap/helpers/services/navigation_service.dart';
+import 'package:sikilap/helpers/storage/local_storage.dart';
+import 'package:sikilap/helpers/theme/app_notifire.dart';
+import 'package:sikilap/helpers/theme/app_style.dart';
+import 'package:sikilap/helpers/theme/theme_customizer.dart';
+import 'package:sikilap/routes.dart';
 import 'package:url_strategy/url_strategy.dart';
 
 Future<void> main() async {
-  // Pastikan semua binding Flutter siap
   WidgetsFlutterBinding.ensureInitialized();
   setPathUrlStrategy();
 
-  // Inisialisasi LocalStorage dan tunggu sampai selesai.
-  // Ini akan memanggil `AuthService.loadUserFromStorage()` di dalamnya.
-  await LocalStorage.init();
+  Get.lazyPut(() => AuthService(), fenix: true);
+  Get.lazyPut(() => BookingService(), fenix: true);
+  Get.lazyPut(() => PaymentService(), fenix: true);
 
-  // Inisialisasi service lain
+  await LocalStorage.init();
   AppStyle.init();
   await ThemeCustomizer.init();
 
@@ -42,20 +43,16 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<AppNotifier>(
       builder: (_, notifier, ___) {
-        // ========== LOGIKA PENENTUAN RUTE AWAL ==========
         String initialRoute;
         if (AuthService.isLoggedIn) {
-          // Jika sudah login, cek perannya
           if (AuthService.loggedInUser.value!.isAdmin()) {
-            initialRoute = '/admin/dashboard'; // Arahkan admin ke dashboardnya
+            initialRoute = '/admin/dashboard';
           } else {
-            initialRoute = '/home'; // Arahkan client ke home
+            initialRoute = '/home';
           }
         } else {
-          // Jika belum login, arahkan ke halaman login
           initialRoute = '/auth/login';
         }
-        // ================================================
 
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
@@ -63,7 +60,7 @@ class MyApp extends StatelessWidget {
           darkTheme: AppTheme.darkTheme,
           themeMode: ThemeCustomizer.instance.theme,
           navigatorKey: NavigationService.navigatorKey,
-          initialRoute: initialRoute, // <-- GUNAKAN RUTE YANG SUDAH DITENTUKAN
+          initialRoute: initialRoute,
           getPages: getPageRoute(),
           builder: (context, child) {
             NavigationService.registerContext(context);
@@ -71,13 +68,20 @@ class MyApp extends StatelessWidget {
                 textDirection: AppTheme.textDirection,
                 child: child ?? Container());
           },
+          // ========== TAMBAHKAN DELEGATE DI SINI ==========
           localizationsDelegates: [
             AppLocalizationsDelegate(context),
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
+            FlutterQuillLocalizations.delegate, // <-- BARIS BARU
           ],
-          supportedLocales: Language.getLocales(),
+          // ================================================
+          supportedLocales: [
+            ...Language.getLocales(),
+            const Locale(
+                'en', 'US'), // Pastikan bahasa Inggris didukung untuk Quill
+          ],
         );
       },
     );

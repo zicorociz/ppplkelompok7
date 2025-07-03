@@ -1,9 +1,9 @@
 // lib/controller/client/room_detail_controller.dart
 
 import 'package:get/get.dart';
-import 'package:stay_place/controller/my_controller.dart';
-import 'package:stay_place/model/hotel_model.dart'; // <-- IMPORT BARU
-import 'package:stay_place/model/room_model.dart';
+import 'package:sikilap/controller/my_controller.dart';
+import 'package:sikilap/model/hotel_model.dart'; // <-- IMPORT BARU
+import 'package:sikilap/model/room_model.dart';
 
 class RoomDetailController extends MyController {
   final RoomModel? room;
@@ -33,15 +33,13 @@ class RoomDetailController extends MyController {
   }
 
   // FUNGSI BARU UNTUK NAVIGASI
-  void goToBookingForm() {
-    if (room != null && hotel != null) {
-      // Siapkan data yang akan dikirim
-      Map<String, dynamic> bookingData = {
-        'hotel': hotel,
-        'room': room,
-      };
-      // Navigasi ke booking form
-      Get.toNamed('/booking_form', arguments: bookingData);
+  void goToRoomSelection() {
+    // Pastikan kita punya data Mitra sebelum navigasi
+    if (hotel != null) {
+      // Arahkan ke halaman pemilihan layanan dan kirim data Mitra
+      Get.toNamed('/room_selection', arguments: hotel);
+    } else {
+      Get.snackbar("Error", "Informasi mitra tidak ditemukan.");
     }
   }
 }

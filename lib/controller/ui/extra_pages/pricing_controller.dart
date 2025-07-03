@@ -8,3 +8,4 @@ class PricingController extends MyController {
     update();
   }
 }
+//as

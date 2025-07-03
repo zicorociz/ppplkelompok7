@@ -12,6 +12,7 @@ enum HotelCategory {
   business,
 }
 
+//as
 enum RoomCategory {
   single,
   double,
@@ -23,14 +24,21 @@ enum RoomCategory {
 }
 
 class EditHotelController extends MyController {
-  TextEditingController hotelNameController = TextEditingController(text: "Eden Stay");
-  TextEditingController addressController = TextEditingController(text: "Kompl Duta Mas Fatmawati Bl D-2/15-16, Dki");
-  TextEditingController countryController = TextEditingController(text: "Indonesia");
-  TextEditingController stateController = TextEditingController(text: "Jakarta");
-  TextEditingController cityController = TextEditingController(text: "Jakarta Selatan");
+  TextEditingController hotelNameController =
+      TextEditingController(text: "Eden Stay");
+  TextEditingController addressController =
+      TextEditingController(text: "Kompl Duta Mas Fatmawati Bl D-2/15-16, Dki");
+  TextEditingController countryController =
+      TextEditingController(text: "Indonesia");
+  TextEditingController stateController =
+      TextEditingController(text: "Jakarta");
+  TextEditingController cityController =
+      TextEditingController(text: "Jakarta Selatan");
   TextEditingController zipController = TextEditingController(text: "12150");
-  TextEditingController contactNumberController = TextEditingController(text: "0-217-883-6262");
-  TextEditingController roomPriceController = TextEditingController(text: "\$120.00");
+  TextEditingController contactNumberController =
+      TextEditingController(text: "0-217-883-6262");
+  TextEditingController roomPriceController =
+      TextEditingController(text: "\$120.00");
 
   QuillController quillController = QuillController.basic();
   MyFormValidator basicValidator = MyFormValidator();
@@ -42,7 +50,8 @@ class EditHotelController extends MyController {
   FileType type = FileType.any;
 
   Future<void> pickFiles() async {
-    var result = await FilePicker.platform.pickFiles(allowMultiple: selectMultipleFile, type: type);
+    var result = await FilePicker.platform
+        .pickFiles(allowMultiple: selectMultipleFile, type: type);
     if (result?.files.isNotEmpty ?? false) {
       files.addAll(result!.files);
     }

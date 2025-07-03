@@ -14,6 +14,7 @@ class HotelListController extends MyController {
     super.onInit();
   }
 
+//as
   void addHotel() {
     Get.toNamed('/admin/hotel/add');
   }

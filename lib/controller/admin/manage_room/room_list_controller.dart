@@ -14,6 +14,7 @@ class RoomListController extends MyController {
     super.onInit();
   }
 
+//as
   void gotoAddRoom() {
     Get.toNamed('/admin/room/add');
   }

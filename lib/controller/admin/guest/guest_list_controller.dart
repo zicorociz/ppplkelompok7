@@ -14,6 +14,7 @@ class GuestListController extends MyController {
     super.onInit();
   }
 
+//as
   void editGuest(int id) {
     Get.toNamed('/admin/guest/edit');
   }

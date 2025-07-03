@@ -3,7 +3,8 @@ import 'package:sikilap/controller/my_controller.dart';
 import 'package:sikilap/helpers/widgets/my_text_utils.dart';
 
 class RoomDetailController extends MyController {
-  List<String> dummyTexts = List.generate(12, (index) => MyTextUtils.getDummyText(60));
+  List<String> dummyTexts =
+      List.generate(12, (index) => MyTextUtils.getDummyText(60));
 
   List amenities = [
     {"icon": LucideIcons.spray_can, "name": "Cuci Tekanan Tinggi"},
@@ -13,3 +14,4 @@ class RoomDetailController extends MyController {
     {"icon": LucideIcons.bomb, "name": "Datang Langsung ke Rumah"},
   ];
 }
+//as

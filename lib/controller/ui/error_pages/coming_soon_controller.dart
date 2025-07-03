@@ -17,7 +17,8 @@ class ComingSoonController extends MyController {
   }
 
   void startTimer() {
-    countdownTimer = Timer.periodic(Duration(seconds: 1), (_) => setCountDown());
+    countdownTimer =
+        Timer.periodic(Duration(seconds: 1), (_) => setCountDown());
   }
 
   @override
@@ -30,3 +31,4 @@ class ComingSoonController extends MyController {
     Get.back();
   }
 }
+//hh

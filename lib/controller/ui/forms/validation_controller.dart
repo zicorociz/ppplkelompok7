@@ -12,16 +12,27 @@ class GenderValidator extends MyFieldValidatorRule<Gender> {
   }
 }
 
+//as
 class ValidationController extends MyController {
   MyFormValidator basicValidator = MyFormValidator();
 
   ValidationController() {
-    basicValidator.addField('full_name', required: true, label: "Nama Lengkap", controller: TextEditingController());
+    basicValidator.addField('full_name',
+        required: true,
+        label: "Nama Lengkap",
+        controller: TextEditingController());
 
-    basicValidator.addField('email', required: true, label: "Email", validators: [MyEmailValidator()], controller: TextEditingController());
+    basicValidator.addField('email',
+        required: true,
+        label: "Email",
+        validators: [MyEmailValidator()],
+        controller: TextEditingController());
 
     basicValidator.addField('password',
-        required: true, label: "Kata Sandi", validators: [MyLengthValidator(min: 6, max: 10)], controller: TextEditingController());
+        required: true,
+        label: "Kata Sandi",
+        validators: [MyLengthValidator(min: 6, max: 10)],
+        controller: TextEditingController());
 
     basicValidator.addField(
       'gender',

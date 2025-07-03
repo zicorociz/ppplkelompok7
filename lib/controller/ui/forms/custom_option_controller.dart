@@ -9,12 +9,14 @@ enum Gender {
   const Gender();
 }
 
+//as
 class CustomOptionController extends MyController {
   int selectRadioButton = 0;
   int customRadioButton = 0;
   int customImageRadioButton = 0;
   Gender selectedGender = Gender.male;
-  List<String> dummyTexts = List.generate(12, (index) => MyTextUtils.getDummyText(60, withEmoji: true));
+  List<String> dummyTexts = List.generate(
+      12, (index) => MyTextUtils.getDummyText(60, withEmoji: true));
 
   void onChangeCustomButton(id) {
     customRadioButton = id ?? customRadioButton;

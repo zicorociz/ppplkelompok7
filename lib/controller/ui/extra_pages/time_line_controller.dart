@@ -4,7 +4,8 @@ import 'package:sikilap/controller/my_controller.dart';
 
 class TimeLineController extends MyController {
   List<DragNDropModel> timeline = [];
-  List<String> dummyTexts = List.generate(12, (index) => MyTextUtils.getDummyText(60));
+  List<String> dummyTexts =
+      List.generate(12, (index) => MyTextUtils.getDummyText(60));
 
   @override
   void onInit() {
@@ -15,3 +16,4 @@ class TimeLineController extends MyController {
     super.onInit();
   }
 }
+//as

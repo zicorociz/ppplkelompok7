@@ -11,6 +11,7 @@ enum HotelCategory {
   business,
 }
 
+//as
 enum RoomCategory {
   single,
   double,
@@ -32,7 +33,8 @@ class AddHotelController extends MyController {
   FileType type = FileType.any;
 
   Future<void> pickFiles() async {
-    var result = await FilePicker.platform.pickFiles(allowMultiple: selectMultipleFile, type: type);
+    var result = await FilePicker.platform
+        .pickFiles(allowMultiple: selectMultipleFile, type: type);
     if (result?.files.isNotEmpty ?? false) {
       files.addAll(result!.files);
     }

@@ -15,7 +15,9 @@ class HotelDetailController extends MyController {
     mapController = controller;
   }
 
-  List<String> dummyTexts = List.generate(12, (index) => MyTextUtils.getDummyText(60));
+//as
+  List<String> dummyTexts =
+      List.generate(12, (index) => MyTextUtils.getDummyText(60));
 
   List hotelImage = [
     "assets/images/dummy/hotel/hotel_1.jpg",
@@ -27,11 +29,30 @@ class HotelDetailController extends MyController {
     "assets/images/dummy/hotel/hotel_7.jpg",
   ];
 
-  List basicFacility = ["Free Wi-Fi", "Room Service", "Elevator Lift", "Laundry Service", "Power Backup", "Free Parking"];
+  List basicFacility = [
+    "Free Wi-Fi",
+    "Room Service",
+    "Elevator Lift",
+    "Laundry Service",
+    "Power Backup",
+    "Free Parking"
+  ];
 
-  List paymentMode = ["Visa Card", "Master Card", "American express", "Debit Card", "Cash", "Online Banking"];
+  List paymentMode = [
+    "Visa Card",
+    "Master Card",
+    "American express",
+    "Debit Card",
+    "Cash",
+    "Online Banking"
+  ];
 
-  List security = ["Security Guard", "CCTV", "Emergency Exit", "Doctor On Call"];
+  List security = [
+    "Security Guard",
+    "CCTV",
+    "Emergency Exit",
+    "Doctor On Call"
+  ];
 
   List foodAndDrinks = ["Restaurant", "Bar"];
 

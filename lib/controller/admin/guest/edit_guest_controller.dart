@@ -8,8 +8,9 @@ class EditGuestController extends MyController {
   Uint8List? fileBytes;
 
   Future<void> pickImage() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(type: FileType.image);
-
+    FilePickerResult? result =
+        await FilePicker.platform.pickFiles(type: FileType.image);
+//as
     if (result != null) {
       fileName = result.files.single.name;
 

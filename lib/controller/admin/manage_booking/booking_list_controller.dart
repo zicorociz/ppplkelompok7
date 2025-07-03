@@ -34,3 +34,4 @@ class BookingListController extends MyController {
     // Contoh: Get.toNamed('/admin/booking/detail', arguments: id);
   }
 }
+//as

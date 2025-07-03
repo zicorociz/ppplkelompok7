@@ -14,11 +14,13 @@ enum RoomCategory {
   tween;
 }
 
+//as
 class RoomEditController extends MyController {
   MyFormValidator basicValidator = MyFormValidator();
 
   QuillController quillController = QuillController.basic();
-  TextEditingController roomPriceController = TextEditingController(text: "\$120.00");
+  TextEditingController roomPriceController =
+      TextEditingController(text: "\$120.00");
 
   List<PlatformFile> files = [];
   List<PlatformFile> multipleFiles = [];
@@ -27,7 +29,8 @@ class RoomEditController extends MyController {
   FileType type = FileType.any;
 
   Future<void> pickFiles() async {
-    var result = await FilePicker.platform.pickFiles(allowMultiple: selectMultipleFile, type: type);
+    var result = await FilePicker.platform
+        .pickFiles(allowMultiple: selectMultipleFile, type: type);
     if (result?.files.isNotEmpty ?? false) {
       files.addAll(result!.files);
     }

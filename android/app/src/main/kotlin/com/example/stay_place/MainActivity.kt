@@ -1,4 +1,4 @@
-package com.example.stay_place
+package com.example.sikilap
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -21,7 +21,7 @@ class BookingListScreen extends StatefulWidget {
   State<BookingListScreen> createState() => _BookingListScreenState();
 }
 
-// Tambahkan TickerProviderStateMixin untuk animasi
+// Tambahkan TickerProviderStateMixin untuk animasiss
 class _BookingListScreenState extends State<BookingListScreen>
     with UIMixin, TickerProviderStateMixin {
   BookingListController controller = Get.put(BookingListController());
@@ -113,7 +113,7 @@ class _BookingListScreenState extends State<BookingListScreen>
                                           MyText.bodyMedium(booking.kodePesanan,
                                               fontWeight: 700,
                                               color: statusColor),
-                                          
+
                                           // --- PERUBAHAN DI SINI ---
                                           // Selalu gunakan BlinkingStatus untuk menampilkan status
                                           BlinkingStatus(
@@ -150,7 +150,8 @@ class _BookingListScreenState extends State<BookingListScreen>
                                                         booking.namaPelanggan,
                                                         fontWeight: 600),
                                                     MyText.bodySmall(
-                                                        booking.teleponPelanggan,
+                                                        booking
+                                                            .teleponPelanggan,
                                                         muted: true),
                                                   ],
                                                 ),
@@ -172,8 +173,8 @@ class _BookingListScreenState extends State<BookingListScreen>
                                               Expanded(
                                                   child: MyText.bodySmall(
                                                       booking.jenisLayanan,
-                                                      overflow:
-                                                          TextOverflow.ellipsis)),
+                                                      overflow: TextOverflow
+                                                          .ellipsis)),
                                             ],
                                           ),
                                           MySpacing.height(8),
@@ -187,8 +188,8 @@ class _BookingListScreenState extends State<BookingListScreen>
                                               Expanded(
                                                   child: MyText.bodySmall(
                                                       booking.alamatLayanan,
-                                                      overflow:
-                                                          TextOverflow.ellipsis)),
+                                                      overflow: TextOverflow
+                                                          .ellipsis)),
                                             ],
                                           ),
                                           MySpacing.height(8),

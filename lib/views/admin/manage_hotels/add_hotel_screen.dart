@@ -1,4 +1,4 @@
-// lib/views/admin/manage_hotels/add_hotel_screen.dart
+// lib/views/admin/manage_hotels/add_hotel_screen.dartss
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -164,13 +164,15 @@ class _AddHotelScreenState extends State<AddHotelScreen> with UIMixin {
             MyFlexItem(
               sizes: 'md-6',
               // --- UBAH ISI ---
-              child: commonTextField("Kode Pos", "Contoh: 60111", numbered: true),
+              child:
+                  commonTextField("Kode Pos", "Contoh: 60111", numbered: true),
             ),
           ],
         ),
         MySpacing.height(24),
         // --- UBAH ISI ---
-        commonTextField("Nomor Telepon", "Contoh: 081234567890", numbered: true),
+        commonTextField("Nomor Telepon", "Contoh: 081234567890",
+            numbered: true),
       ],
     );
   }

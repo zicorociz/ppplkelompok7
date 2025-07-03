@@ -1,5 +1,5 @@
 import 'dart:io';
-
+//hh
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -60,7 +60,8 @@ class _EditGuestScreenState extends State<EditGuestScreen> with UIMixin {
               Padding(
                 padding: MySpacing.x(flexSpacing),
                 child: MyCard(
-                  shadow: MyShadow(elevation: 0.2, position: MyShadowPosition.bottom),
+                  shadow: MyShadow(
+                      elevation: 0.2, position: MyShadowPosition.bottom),
                   paddingAll: 24,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,7 +72,8 @@ class _EditGuestScreenState extends State<EditGuestScreen> with UIMixin {
                       MySpacing.height(24),
                       commonTextField("Email", "Email Address"),
                       MySpacing.height(24),
-                      commonTextField("Contact Number", "Contact Number", numbered: true),
+                      commonTextField("Contact Number", "Contact Number",
+                          numbered: true),
                       MySpacing.height(24),
                       commonTextField("Email", "Email Address"),
                       MySpacing.height(24),
@@ -87,7 +89,8 @@ class _EditGuestScreenState extends State<EditGuestScreen> with UIMixin {
     );
   }
 
-  Widget commonTextField(String title, String hintText, {bool numbered = false}) {
+  Widget commonTextField(String title, String hintText,
+      {bool numbered = false}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -95,16 +98,26 @@ class _EditGuestScreenState extends State<EditGuestScreen> with UIMixin {
         MySpacing.height(12),
         TextField(
           style: MyTextStyle.labelMedium(),
-          inputFormatters: numbered ? <TextInputFormatter>[FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))] : null,
+          inputFormatters: numbered
+              ? <TextInputFormatter>[
+                  FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))
+                ]
+              : null,
           decoration: InputDecoration(
             hintText: hintText,
             hintStyle: MyTextStyle.labelMedium(xMuted: true),
-            border: OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
-            focusedErrorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
-            enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
-            errorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
-            focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
-            disabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+            border:
+                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+            focusedErrorBorder:
+                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+            enabledBorder:
+                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+            errorBorder:
+                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+            focusedBorder:
+                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+            disabledBorder:
+                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
             contentPadding: MySpacing.all(14),
             isCollapsed: true,
             isDense: true,
@@ -123,9 +136,11 @@ class _EditGuestScreenState extends State<EditGuestScreen> with UIMixin {
       onTap: controller.pickImage,
       child: controller.fileName != null
           ? controller.fileBytes != null
-              ? Image.memory(controller.fileBytes!, height: 200, width: 200, fit: BoxFit.cover)
+              ? Image.memory(controller.fileBytes!,
+                  height: 200, width: 200, fit: BoxFit.cover)
               : controller.filePath != null
-                  ? Image.file(File(controller.filePath!), fit: BoxFit.cover, height: 200, width: 200)
+                  ? Image.file(File(controller.filePath!),
+                      fit: BoxFit.cover, height: 200, width: 200)
                   : SizedBox()
           : Image.asset(Images.dummy[0], fit: BoxFit.cover),
     );

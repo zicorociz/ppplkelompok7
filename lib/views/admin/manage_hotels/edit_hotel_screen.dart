@@ -89,6 +89,7 @@ class _EditHotelScreenState extends State<EditHotelScreen> with UIMixin {
     );
   }
 
+//as
   Widget addHotelDetail() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

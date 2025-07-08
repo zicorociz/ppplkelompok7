@@ -10,15 +10,15 @@ import 'package:sikilap/views/admin/dashboard_screen.dart';
 import 'package:sikilap/views/admin/guest/edit_guest_screen.dart';
 import 'package:sikilap/views/admin/guest/guest_list_screen.dart';
 import 'package:sikilap/views/admin/manage_booking/booking_list_screen.dart';
-import 'package:sikilap/views/admin/manage_hotels/add_hotel_screen.dart';
-import 'package:sikilap/views/admin/manage_hotels/edit_hotel_screen.dart';
-import 'package:sikilap/views/admin/manage_hotels/hotel_detail_screen.dart';
-import 'package:sikilap/views/admin/manage_hotels/hotel_list_screen.dart';
-import 'package:sikilap/views/admin/manage_room/room_add_screen.dart';
-import 'package:sikilap/views/admin/manage_room/room_detail_screen.dart'
+import 'package:sikilap/views/admin/manage_mitra/add_hotel_screen.dart';
+import 'package:sikilap/views/admin/manage_mitra/edit_hotel_screen.dart';
+import 'package:sikilap/views/admin/manage_mitra/hotel_detail_screen.dart';
+import 'package:sikilap/views/admin/manage_mitra/hotel_list_screen.dart';
+import 'package:sikilap/views/admin/manage_layanan/room_add_screen.dart';
+import 'package:sikilap/views/admin/manage_layanan/room_detail_screen.dart'
     as admin_room;
-import 'package:sikilap/views/admin/manage_room/room_edit_screen.dart';
-import 'package:sikilap/views/admin/manage_room/room_list_screen.dart';
+import 'package:sikilap/views/admin/manage_layanan/room_edit_screen.dart';
+import 'package:sikilap/views/admin/manage_layanan/room_list_screen.dart';
 import 'package:sikilap/views/auth/forgot_password_screen.dart';
 import 'package:sikilap/views/auth/login_screen.dart';
 import 'package:sikilap/views/auth/register_account_screen.dart';
@@ -137,37 +137,37 @@ List<GetPage> getPageRoute() {
 
     // Manage Hotel
     GetPage(
-        name: '/admin/hotel/list',
+        name: '/admin/mitra/list',
         page: () => HotelListScreen(),
         middlewares: [AuthMiddleware(), AdminMiddleware()]),
     GetPage(
-        name: '/admin/hotel/detail',
+        name: '/admin/mitra/detail',
         page: () => HotelDetailScreen(),
         middlewares: [AuthMiddleware(), AdminMiddleware()]),
     GetPage(
-        name: '/admin/hotel/add',
+        name: '/admin/mitra/add',
         page: () => AddHotelScreen(),
         middlewares: [AuthMiddleware(), AdminMiddleware()]),
     GetPage(
-        name: '/admin/hotel/edit',
+        name: '/admin/mitra/edit',
         page: () => EditHotelScreen(),
         middlewares: [AuthMiddleware(), AdminMiddleware()]),
 
     // Manage Room
     GetPage(
-        name: '/admin/room/list',
+        name: '/admin/layanan/list',
         page: () => RoomListScreen(),
         middlewares: [AuthMiddleware(), AdminMiddleware()]),
     GetPage(
-        name: '/admin/room/detail',
+        name: '/admin/layanan/detail',
         page: () => admin_room.RoomDetailScreen(),
         middlewares: [AuthMiddleware(), AdminMiddleware()]),
     GetPage(
-        name: '/admin/room/add',
+        name: '/admin/layanan/add',
         page: () => RoomAddScreen(),
         middlewares: [AuthMiddleware(), AdminMiddleware()]),
     GetPage(
-        name: '/admin/room/edit',
+        name: '/admin/layanan/edit',
         page: () => RoomEditScreen(),
         middlewares: [AuthMiddleware(), AdminMiddleware()]),
 

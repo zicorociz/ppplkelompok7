@@ -14,8 +14,8 @@ import 'package:sikilap/helpers/widgets/my_flex_item.dart';
 import 'package:sikilap/helpers/widgets/my_spacing.dart';
 import 'package:sikilap/helpers/widgets/my_text.dart';
 import 'package:sikilap/helpers/widgets/responsive.dart';
-import 'package:sikilap/model/hotel_model.dart';
-import 'package:sikilap/model/room_model.dart';
+import 'package:sikilap/model/mitra_model.dart';
+import 'package:sikilap/model/layanan_model.dart';
 import 'package:sikilap/views/layout/layout.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -96,9 +96,9 @@ class _HomeScreenState extends State<HomeScreen> with UIMixin {
         return Builder(
           builder: (BuildContext context) {
             return InkWell(
-              onTap: controller.hotel.isNotEmpty
+              onTap: controller.mitra.isNotEmpty
                   ? () => controller.goToMitraDetail(
-                      controller.hotel[index % controller.hotel.length])
+                      controller.mitra[index % controller.mitra.length])
                   : null,
               child: Container(
                 decoration: BoxDecoration(
@@ -181,10 +181,10 @@ class _HomeScreenState extends State<HomeScreen> with UIMixin {
           SizedBox(
             height: 300,
             child: ListView.separated(
-              itemCount: controller.hotel.length,
+              itemCount: controller.mitra.length,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
-                HotelModel mitra = controller.hotel[index];
+                MitraModel mitra = controller.mitra[index];
                 return MyContainer.bordered(
                   // ========== PANGGIL FUNGSI YANG BENAR ==========
                   onTap: () => controller.goToMitraDetail(mitra),
@@ -203,7 +203,7 @@ class _HomeScreenState extends State<HomeScreen> with UIMixin {
                       Row(children: [
                         Icon(LucideIcons.user_cog, size: 16),
                         MySpacing.width(8),
-                        MyText.bodyMedium(mitra.hotelName)
+                        MyText.bodyMedium(mitra.mitraName)
                       ]),
                       Row(children: [
                         Icon(LucideIcons.user, size: 16),
@@ -218,7 +218,7 @@ class _HomeScreenState extends State<HomeScreen> with UIMixin {
                       Row(children: [
                         Icon(LucideIcons.map_pin, size: 16),
                         MySpacing.width(8),
-                        MyText.bodyMedium(mitra.cityName)
+                        MyText.bodyMedium(mitra.alamatName)
                       ]),
                     ],
                   ),
@@ -243,10 +243,10 @@ class _HomeScreenState extends State<HomeScreen> with UIMixin {
           SizedBox(
             height: 300,
             child: ListView.separated(
-              itemCount: controller.allRooms.length,
+              itemCount: controller.allLayanan.length,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
-                RoomModel layanan = controller.allRooms[index];
+                LayananModel layanan = controller.allLayanan[index];
                 return MyContainer.bordered(
                   // ========== PANGGIL FUNGSI YANG BENAR ==========
                   onTap: () => controller.goToLayananSelection(layanan),
@@ -265,22 +265,22 @@ class _HomeScreenState extends State<HomeScreen> with UIMixin {
                       Row(children: [
                         Icon(LucideIcons.spray_can, size: 16),
                         MySpacing.width(8),
-                        MyText.bodyMedium(layanan.roomType)
+                        MyText.bodyMedium(layanan.layananType)
                       ]),
                       Row(children: [
                         Icon(LucideIcons.shield_check, size: 16),
                         MySpacing.width(8),
-                        MyText.bodyMedium(layanan.bedType)
+                        MyText.bodyMedium(layanan.kategori)
                       ]),
                       Row(children: [
                         Icon(LucideIcons.car, size: 16),
                         MySpacing.width(8),
-                        MyText.bodyMedium('${layanan.view}')
+                        MyText.bodyMedium('${layanan.jenisMobil}')
                       ]),
                       Row(children: [
                         Icon(LucideIcons.timer, size: 16),
                         MySpacing.width(8),
-                        MyText.bodyMedium('${layanan.floor} Menit')
+                        MyText.bodyMedium('${layanan.estimasiMenit} Menit')
                       ]),
                     ],
                   ),

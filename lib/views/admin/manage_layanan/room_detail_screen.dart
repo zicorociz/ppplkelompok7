@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sikilap/controller/admin/manage_room/room_detail_controller.dart';
+import 'package:sikilap/controller/admin/manage_layanan/layanan_detail_controller.dart';
 import 'package:sikilap/helpers/utils/my_shadow.dart';
 import 'package:sikilap/helpers/utils/ui_mixins.dart';
 import 'package:sikilap/helpers/widgets/my_breadcrumb.dart';
@@ -22,7 +22,7 @@ class RoomDetailScreen extends StatefulWidget {
 }
 
 class _RoomDetailScreenState extends State<RoomDetailScreen> with UIMixin {
-  RoomDetailController controller = Get.put(RoomDetailController());
+  LayananDetailController controller = Get.put(LayananDetailController());
 
   @override
   Widget build(BuildContext context) {
@@ -61,25 +61,44 @@ class _RoomDetailScreenState extends State<RoomDetailScreen> with UIMixin {
                     MyFlexItem(
                         sizes: 'lg-4',
                         child: MyCard(
-                            shadow: MyShadow(elevation: 0.2, position: MyShadowPosition.bottom),
+                            shadow: MyShadow(
+                                elevation: 0.2,
+                                position: MyShadowPosition.bottom),
                             paddingAll: 24,
-                            child: Image.asset('assets/images/dummy/room/hotel_room_1.jpg', height: 250, fit: BoxFit.cover))),
+                            child: Image.asset(
+                                'assets/images/dummy/layanan/hotel_room_1.jpg',
+                                height: 250,
+                                fit: BoxFit.cover))),
                     MyFlexItem(
                         sizes: 'lg-4',
                         child: MyCard(
-                            shadow: MyShadow(elevation: 0.2, position: MyShadowPosition.bottom),
+                            shadow: MyShadow(
+                                elevation: 0.2,
+                                position: MyShadowPosition.bottom),
                             paddingAll: 24,
-                            child: Image.asset('assets/images/dummy/room/hotel_room_2.jpg', height: 250, fit: BoxFit.cover))),
+                            child: Image.asset(
+                                'assets/images/dummy/layanan/hotel_room_2.jpg',
+                                height: 250,
+                                fit: BoxFit.cover))),
                     MyFlexItem(
                         sizes: 'lg-4',
                         child: MyCard(
-                            shadow: MyShadow(elevation: 0.2, position: MyShadowPosition.bottom),
+                            shadow: MyShadow(
+                                elevation: 0.2,
+                                position: MyShadowPosition.bottom),
                             paddingAll: 24,
-                            child: Image.asset('assets/images/dummy/room/hotel_room_3.jpg', height: 250, fit: BoxFit.cover))),
+                            child: Image.asset(
+                                'assets/images/dummy/layanan/hotel_room_3.jpg',
+                                height: 250,
+                                fit: BoxFit.cover))),
                     MyFlexItem(
                         sizes: 'lg-8',
                         child: Column(
-                          children: [masterSuiteRoom(), MySpacing.height(24), amenitiesRoom()],
+                          children: [
+                            masterSuiteRoom(),
+                            MySpacing.height(24),
+                            amenitiesRoom()
+                          ],
                         )),
                     MyFlexItem(sizes: 'lg-4', child: price()),
                   ],
@@ -165,7 +184,8 @@ class _RoomDetailScreenState extends State<RoomDetailScreen> with UIMixin {
           MySpacing.height(12),
           Row(
             children: [
-              MyText.titleLarge("\$120.00", fontWeight: 600, color: contentTheme.primary),
+              MyText.titleLarge("\$120.00",
+                  fontWeight: 600, color: contentTheme.primary),
               MySpacing.width(4),
               MyText.bodyMedium("per night", color: contentTheme.primary),
             ],
@@ -186,7 +206,8 @@ class _RoomDetailScreenState extends State<RoomDetailScreen> with UIMixin {
           MyContainer(
             paddingAll: 12,
             color: contentTheme.primary,
-            child: MyText.bodyMedium("Book Now", fontWeight: 600, color: contentTheme.onPrimary),
+            child: MyText.bodyMedium("Book Now",
+                fontWeight: 600, color: contentTheme.onPrimary),
           )
         ],
       ),

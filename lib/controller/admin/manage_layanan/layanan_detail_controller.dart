@@ -2,7 +2,7 @@ import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:sikilap/controller/my_controller.dart';
 import 'package:sikilap/helpers/widgets/my_text_utils.dart';
 
-class RoomDetailController extends MyController {
+class LayananDetailController extends MyController {
   List<String> dummyTexts =
       List.generate(12, (index) => MyTextUtils.getDummyText(60));
 

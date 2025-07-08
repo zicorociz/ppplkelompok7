@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sikilap/controller/client/room_detail_controller.dart'; // <-- CONTROLLER CLIENT BARU
+import 'package:sikilap/controller/client/layanan_detail_controller.dart'; // <-- CONTROLLER CLIENT BARU
 import 'package:sikilap/helpers/utils/my_shadow.dart';
 import 'package:sikilap/helpers/utils/ui_mixins.dart';
 import 'package:sikilap/helpers/widgets/my_breadcrumb.dart';
@@ -24,26 +24,26 @@ class RoomDetailScreen extends StatefulWidget {
 }
 
 class _RoomDetailScreenState extends State<RoomDetailScreen> with UIMixin {
-  late final RoomDetailController controller;
+  late final LayananDetailController controller;
 
   @override
   void initState() {
     super.initState();
     // Ambil data RoomModel yang dikirim dan buat controller
-    controller = Get.put(RoomDetailController(Get.arguments));
+    controller = Get.put(LayananDetailController(Get.arguments));
   }
 
   @override
   Widget build(BuildContext context) {
     return Layout(
-      child: GetBuilder<RoomDetailController>(
+      child: GetBuilder<LayananDetailController>(
         init: controller,
         builder: (controller) {
-          if (controller.room == null) {
+          if (controller.layanan == null) {
             return Center(child: CircularProgressIndicator());
           }
           // Ambil data kamar dari controller untuk kemudahan akses
-          final room = controller.room!;
+          final layanan = controller.layanan!;
 
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -53,7 +53,7 @@ class _RoomDetailScreenState extends State<RoomDetailScreen> with UIMixin {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    MyText.titleMedium(room.roomType,
+                    MyText.titleMedium(layanan.layananType,
                         fontSize: 18, fontWeight: 600), // Judul dinamis
                     MyBreadcrumb(
                       children: [
@@ -73,7 +73,7 @@ class _RoomDetailScreenState extends State<RoomDetailScreen> with UIMixin {
                         sizes: 'lg-4',
                         child: MyCard(
                             paddingAll: 0,
-                            child: Image.asset(room.image,
+                            child: Image.asset(layanan.image,
                                 height: 250, fit: BoxFit.cover))),
                     // Tampilkan gambar dummy atau gambar lain dari kamar jika ada
                     MyFlexItem(
@@ -81,7 +81,7 @@ class _RoomDetailScreenState extends State<RoomDetailScreen> with UIMixin {
                         child: MyCard(
                             paddingAll: 0,
                             child: Image.asset(
-                                'assets/images/dummy/room/hotel_room_2.jpg',
+                                'assets/images/dummy/layanan/hotel_room_2.jpg',
                                 height: 250,
                                 fit: BoxFit.cover))),
                     MyFlexItem(
@@ -89,7 +89,7 @@ class _RoomDetailScreenState extends State<RoomDetailScreen> with UIMixin {
                         child: MyCard(
                             paddingAll: 0,
                             child: Image.asset(
-                                'assets/images/dummy/room/hotel_room_3.jpg',
+                                'assets/images/dummy/layanan/hotel_room_3.jpg',
                                 height: 250,
                                 fit: BoxFit.cover))),
 
@@ -106,29 +106,30 @@ class _RoomDetailScreenState extends State<RoomDetailScreen> with UIMixin {
   }
 
   Widget masterSuiteRoom() {
-    final room = controller.room!;
+    final layanan = controller.layanan!;
     return MyCard(
       shadow: MyShadow(elevation: 0.2),
       paddingAll: 24,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          MyText.titleMedium(room.roomType, fontWeight: 600), // Judul dinamis
+          MyText.titleMedium(layanan.layananType,
+              fontWeight: 600), // Judul dinamis
           MySpacing.height(16),
-          MyText.labelMedium("Bed Type: ${room.bedType}"),
+          MyText.labelMedium("Bed Type: ${layanan.kategori}"),
           MySpacing.height(8),
-          MyText.labelMedium("Capacity: ${room.capacity} Guests"),
+          MyText.labelMedium("Capacity: ${layanan.capacity} Guests"),
           MySpacing.height(8),
-          MyText.labelMedium("Floor: ${room.floor}"),
+          MyText.labelMedium("Floor: ${layanan.estimasiMenit}"),
           MySpacing.height(16),
-          MyText.labelMedium("Amenities: ${room.amenities.join(', ')}"),
+          MyText.labelMedium("Amenities: ${layanan.amenities.join(', ')}"),
         ],
       ),
     );
   }
 
   Widget price() {
-    final room = controller.room!;
+    final layanan = controller.layanan!;
     return MyCard(
       shadow: MyShadow(elevation: 0.2),
       paddingAll: 24,
@@ -139,7 +140,7 @@ class _RoomDetailScreenState extends State<RoomDetailScreen> with UIMixin {
           MySpacing.height(12),
           Row(
             children: [
-              MyText.titleLarge("\$${room.pricePerNight}",
+              MyText.titleLarge("\$${layanan.harga}",
                   fontWeight: 600, color: contentTheme.primary),
               MySpacing.width(4),
               MyText.bodyMedium("per night", color: contentTheme.primary),
@@ -148,7 +149,7 @@ class _RoomDetailScreenState extends State<RoomDetailScreen> with UIMixin {
           MySpacing.height(24),
           MyButton.rounded(
             onPressed: controller
-                .goToRoomSelection, // <-- PANGGIL FUNGSI DARI CONTROLLER
+                .goToLayananSelection, // <-- PANGGIL FUNGSI DARI CONTROLLER
             elevation: 0,
             padding: MySpacing.xy(20, 16),
             backgroundColor: contentTheme.primary,

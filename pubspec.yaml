@@ -52,7 +52,6 @@ flutter:
     - assets/images/dummy/
     - assets/images/dummy/map/
     - assets/images/dummy/mitra/
-    - assets/images/dummy/room/
     - assets/images/logo/
 
 dependency_overrides:

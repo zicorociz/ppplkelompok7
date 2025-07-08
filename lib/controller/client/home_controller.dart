@@ -2,12 +2,12 @@
 
 import 'package:get/get.dart';
 import 'package:sikilap/controller/my_controller.dart';
-import 'package:sikilap/model/hotel_model.dart';
-import 'package:sikilap/model/room_model.dart';
+import 'package:sikilap/model/mitra_model.dart';
+import 'package:sikilap/model/layanan_model.dart';
 
 class HomeController extends MyController {
-  List<HotelModel> hotel = []; // Daftar Mitra
-  List<RoomModel> allRooms = []; // Daftar semua Layanan
+  List<MitraModel> mitra = []; // Daftar Mitra
+  List<LayananModel> allLayanan = []; // Daftar semua Layanan
 
   final List<String> destinations = [
     'New York',
@@ -25,33 +25,33 @@ class HomeController extends MyController {
     'Free Wi-Fi'
   ];
   final List<String> featuredImages = [
-    'assets/images/dummy/hotel/hotel_1.jpg',
-    'assets/images/dummy/hotel/hotel_2.jpg',
-    'assets/images/dummy/hotel/hotel_3.jpg',
-    'assets/images/dummy/hotel/hotel_4.jpg',
-    'assets/images/dummy/hotel/hotel_5.jpg',
+    'assets/images/dummy/mitra/hotel_1.jpg',
+    'assets/images/dummy/mitra/hotel_2.jpg',
+    'assets/images/dummy/mitra/hotel_3.jpg',
+    'assets/images/dummy/mitra/hotel_4.jpg',
+    'assets/images/dummy/mitra/hotel_5.jpg',
   ];
 
   @override
   void onInit() {
     super.onInit();
-    HotelModel.dummyList.then((value) {
-      hotel = value;
+    MitraModel.dummyList.then((value) {
+      mitra = value;
       update();
     });
-    RoomModel.dummyList.then((value) {
-      allRooms = value;
+    LayananModel.dummyList.then((value) {
+      allLayanan = value;
       update();
     });
   }
 
   /// Fungsi ini dipanggil saat pengguna mengklik sebuah MITRA.
   /// Tujuannya adalah langsung membuka detail untuk SATU LAYANAN UNGGULAN dari mitra itu.
-  void goToMitraDetail(HotelModel selectedMitra) {
-    if (allRooms.isNotEmpty) {
+  void goToMitraDetail(MitraModel selectedMitra) {
+    if (allLayanan.isNotEmpty) {
       // Cari layanan pertama yang dimiliki oleh mitra yang diklik
-      RoomModel? layananUnggulan = allRooms.firstWhereOrNull(
-        (layanan) => layanan.hotelId == selectedMitra.id,
+      LayananModel? layananUnggulan = allLayanan.firstWhereOrNull(
+        (layanan) => layanan.mitraId == selectedMitra.id,
       );
 
       if (layananUnggulan != null) {
@@ -66,12 +66,12 @@ class HomeController extends MyController {
 
   /// Fungsi ini dipanggil saat pengguna mengklik sebuah LAYANAN UNGGULAN.
   /// Tujuannya adalah membuka halaman PILIH LAYANAN untuk mitra yang memiliki layanan itu.
-  void goToLayananSelection(RoomModel selectedLayanan) {
-    if (hotel.isNotEmpty) {
+  void goToLayananSelection(LayananModel selectedLayanan) {
+    if (this.mitra.isNotEmpty) {
       // Cari mitra yang memiliki layanan ini
-      HotelModel? mitraPemilik = hotel.firstWhereOrNull(
-        (mitra) => mitra.id == selectedLayanan.hotelId,
-      );
+      MitraModel? mitraPemilik = this.mitra.firstWhereOrNull(
+            (mitra) => mitra.id == selectedLayanan.mitraId,
+          );
 
       if (mitraPemilik != null) {
         // Jika ditemukan, kirim data mitra ke halaman pemilihan layanan

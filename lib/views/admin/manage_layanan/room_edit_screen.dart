@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:get/get.dart';
-import 'package:sikilap/controller/admin/manage_hotels/edit_hotel_controller.dart';
+import 'package:sikilap/controller/admin/manage_layanan/layanan_edit_controller.dart';
 import 'package:sikilap/helpers/utils/my_shadow.dart';
 import 'package:sikilap/helpers/utils/ui_mixins.dart';
 import 'package:sikilap/helpers/utils/utils.dart';
@@ -11,8 +11,6 @@ import 'package:sikilap/helpers/widgets/my_breadcrumb.dart';
 import 'package:sikilap/helpers/widgets/my_breadcrumb_item.dart';
 import 'package:sikilap/helpers/widgets/my_card.dart';
 import 'package:sikilap/helpers/widgets/my_container.dart';
-import 'package:sikilap/helpers/widgets/my_flex.dart';
-import 'package:sikilap/helpers/widgets/my_flex_item.dart';
 import 'package:sikilap/helpers/widgets/my_list_extension.dart';
 import 'package:sikilap/helpers/widgets/my_spacing.dart';
 import 'package:sikilap/helpers/widgets/my_text.dart';
@@ -20,22 +18,22 @@ import 'package:sikilap/helpers/widgets/my_text_style.dart';
 import 'package:sikilap/helpers/widgets/responsive.dart';
 import 'package:sikilap/views/layout/layout.dart';
 
-class EditHotelScreen extends StatefulWidget {
-  const EditHotelScreen({super.key});
+class RoomEditScreen extends StatefulWidget {
+  const RoomEditScreen({super.key});
 
   @override
-  State<EditHotelScreen> createState() => _EditHotelScreenState();
+  State<RoomEditScreen> createState() => _RoomEditScreenState();
 }
 
-class _EditHotelScreenState extends State<EditHotelScreen> with UIMixin {
-  EditHotelController controller = Get.put(EditHotelController());
+class _RoomEditScreenState extends State<RoomEditScreen> with UIMixin {
+  LayananEditController controller = Get.put(LayananEditController());
 
   @override
   Widget build(BuildContext context) {
     return Layout(
       child: GetBuilder(
         init: controller,
-        tag: 'add_hotel_controller',
+        tag: 'room_edit_controller',
         builder: (controller) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,14 +44,14 @@ class _EditHotelScreenState extends State<EditHotelScreen> with UIMixin {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     MyText.titleMedium(
-                      "Hotel Edit",
+                      "Edit Room",
                       fontSize: 18,
                       fontWeight: 600,
                     ),
                     MyBreadcrumb(
                       children: [
                         MyBreadcrumbItem(name: 'Admin'),
-                        MyBreadcrumbItem(name: 'Hotel Edit', active: true),
+                        MyBreadcrumbItem(name: 'Edit Room', active: true),
                       ],
                     ),
                   ],
@@ -62,108 +60,16 @@ class _EditHotelScreenState extends State<EditHotelScreen> with UIMixin {
               MySpacing.height(flexSpacing),
               Padding(
                 padding: MySpacing.x(flexSpacing),
-                child: MyFlex(
-                  contentPadding: false,
-                  children: [
-                    MyFlexItem(
-                        child: MyCard(
-                      shadow: MyShadow(
-                          elevation: 0.2, position: MyShadowPosition.bottom),
-                      paddingAll: 24,
-                      child: addHotelDetail(),
-                    )),
-                    MyFlexItem(
-                        child: MyCard(
-                      shadow: MyShadow(
-                          elevation: 0.2, position: MyShadowPosition.bottom),
-                      paddingAll: 24,
-                      child: roomDetail(),
-                    )),
-                  ],
-                ),
+                child: MyCard(
+                    shadow: MyShadow(
+                        elevation: 0.2, position: MyShadowPosition.bottom),
+                    paddingAll: 24,
+                    child: roomDetail()),
               )
             ],
           );
         },
       ),
-    );
-  }
-
-//as
-  Widget addHotelDetail() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        commonTextField("Hotel Name", "Hotel Name",
-            controller: controller.hotelNameController),
-        MySpacing.height(24),
-        MyText.labelMedium('Hotel Category'),
-        MySpacing.height(12),
-        DropdownButtonFormField<HotelCategory>(
-          dropdownColor: contentTheme.background,
-          items: HotelCategory.values
-              .map(
-                (category) => DropdownMenuItem<HotelCategory>(
-                    value: category,
-                    child: MyText.labelMedium(category.name.capitalize!)),
-              )
-              .toList(),
-          icon: Icon(LucideIcons.chevron_down, size: 20),
-          style: MyTextStyle.bodySmall(),
-          decoration: InputDecoration(
-            hintText: "Select State",
-            hintStyle: MyTextStyle.bodySmall(),
-            border:
-                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
-            focusedErrorBorder:
-                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
-            enabledBorder:
-                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
-            errorBorder:
-                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
-            focusedBorder:
-                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
-            disabledBorder:
-                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
-            contentPadding: MySpacing.all(12),
-            isCollapsed: true,
-            isDense: true,
-          ),
-          onChanged: controller.basicValidator.onChanged<Object?>('State'),
-        ),
-        MySpacing.height(24),
-        commonTextField("Address", "Address",
-            controller: controller.addressController),
-        MySpacing.height(24),
-        MyFlex(
-          contentPadding: false,
-          children: [
-            MyFlexItem(
-              sizes: 'md-6',
-              child: commonTextField("Country", "Country",
-                  controller: controller.countryController),
-            ),
-            MyFlexItem(
-              sizes: 'md-6',
-              child: commonTextField("State", "State",
-                  controller: controller.stateController),
-            ),
-            MyFlexItem(
-              sizes: 'md-6',
-              child: commonTextField("City", "City",
-                  controller: controller.cityController),
-            ),
-            MyFlexItem(
-              sizes: 'md-6',
-              child: commonTextField("Zip", "Zip",
-                  numbered: true, controller: controller.zipController),
-            ),
-          ],
-        ),
-        MySpacing.height(24),
-        commonTextField("Contact Number", "Contact Number",
-            numbered: true, controller: controller.contactNumberController),
-      ],
     );
   }
 
@@ -173,11 +79,11 @@ class _EditHotelScreenState extends State<EditHotelScreen> with UIMixin {
       children: [
         MyText.labelMedium('Hotel Category'),
         MySpacing.height(12),
-        DropdownButtonFormField<RoomCategory>(
+        DropdownButtonFormField<LayananCategory>(
           dropdownColor: contentTheme.background,
-          items: RoomCategory.values
+          items: LayananCategory.values
               .map(
-                (category) => DropdownMenuItem<RoomCategory>(
+                (category) => DropdownMenuItem<LayananCategory>(
                     value: category,
                     child: MyText.labelMedium(category.name.capitalize!)),
               )
@@ -199,7 +105,7 @@ class _EditHotelScreenState extends State<EditHotelScreen> with UIMixin {
                 OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
             disabledBorder:
                 OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
-            contentPadding: MySpacing.all(12),
+            contentPadding: MySpacing.all(10),
             isCollapsed: true,
             isDense: true,
           ),
@@ -207,7 +113,7 @@ class _EditHotelScreenState extends State<EditHotelScreen> with UIMixin {
         ),
         MySpacing.height(24),
         commonTextField("Price", "Price",
-            numbered: true, controller: controller.roomPriceController),
+            numbered: true, controller: controller.layananPriceController),
         MySpacing.height(24),
         MyText.labelMedium("Room Description"),
         MySpacing.height(12),
@@ -232,45 +138,6 @@ class _EditHotelScreenState extends State<EditHotelScreen> with UIMixin {
         MyText.labelMedium("Upload Room Image here"),
         MySpacing.height(12),
         uploadFile()
-      ],
-    );
-  }
-
-  Widget commonTextField(String title, String hintText,
-      {bool numbered = false, TextEditingController? controller}) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        MyText.labelMedium(title),
-        MySpacing.height(12),
-        TextField(
-          controller: controller,
-          style: MyTextStyle.labelMedium(),
-          inputFormatters: numbered
-              ? <TextInputFormatter>[
-                  FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                ]
-              : null,
-          decoration: InputDecoration(
-            hintText: hintText,
-            hintStyle: MyTextStyle.labelMedium(xMuted: true),
-            border:
-                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
-            focusedErrorBorder:
-                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
-            enabledBorder:
-                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
-            errorBorder:
-                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
-            focusedBorder:
-                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
-            disabledBorder:
-                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
-            contentPadding: MySpacing.all(14),
-            isCollapsed: true,
-            isDense: true,
-          ),
-        )
       ],
     );
   }
@@ -375,6 +242,43 @@ class _EditHotelScreenState extends State<EditHotelScreen> with UIMixin {
       ],
     );
   }
-}
 
-class QuillEditorConfigurations {}
+  Widget commonTextField(String title, String hintText,
+      {bool numbered = false, TextEditingController? controller}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        MyText.labelMedium(title),
+        MySpacing.height(12),
+        TextFormField(
+          controller: controller,
+          style: MyTextStyle.labelMedium(),
+          inputFormatters: numbered
+              ? <TextInputFormatter>[
+                  FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                ]
+              : null,
+          decoration: InputDecoration(
+            hintText: hintText,
+            hintStyle: MyTextStyle.labelMedium(xMuted: true),
+            border:
+                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+            focusedErrorBorder:
+                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+            enabledBorder:
+                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+            errorBorder:
+                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+            focusedBorder:
+                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+            disabledBorder:
+                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+            contentPadding: MySpacing.all(12),
+            isCollapsed: true,
+            isDense: true,
+          ),
+        )
+      ],
+    );
+  }
+}

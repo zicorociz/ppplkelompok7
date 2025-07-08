@@ -1,9 +1,11 @@
+// lib/views/admin/manage_room/room_add_screen.dart
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:get/get.dart';
-import 'package:sikilap/controller/admin/manage_room/room_edit_controller.dart';
+import 'package:sikilap/controller/admin/manage_layanan/layanan_add_controller.dart';
 import 'package:sikilap/helpers/utils/my_shadow.dart';
 import 'package:sikilap/helpers/utils/ui_mixins.dart';
 import 'package:sikilap/helpers/utils/utils.dart';
@@ -18,22 +20,22 @@ import 'package:sikilap/helpers/widgets/my_text_style.dart';
 import 'package:sikilap/helpers/widgets/responsive.dart';
 import 'package:sikilap/views/layout/layout.dart';
 
-class RoomEditScreen extends StatefulWidget {
-  const RoomEditScreen({super.key});
+class RoomAddScreen extends StatefulWidget {
+  const RoomAddScreen({super.key});
 
   @override
-  State<RoomEditScreen> createState() => _RoomEditScreenState();
+  State<RoomAddScreen> createState() => _RoomAddScreenState();
 }
 
-class _RoomEditScreenState extends State<RoomEditScreen> with UIMixin {
-  RoomEditController controller = Get.put(RoomEditController());
+class _RoomAddScreenState extends State<RoomAddScreen> with UIMixin {
+  LayananAddController controller = Get.put(LayananAddController());
 
   @override
   Widget build(BuildContext context) {
     return Layout(
       child: GetBuilder(
         init: controller,
-        tag: 'room_edit_controller',
+        tag: 'room_add_controller',
         builder: (controller) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,14 +46,16 @@ class _RoomEditScreenState extends State<RoomEditScreen> with UIMixin {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     MyText.titleMedium(
-                      "Edit Room",
+                      // --- UBAH ISI ---
+                      "Tambah Layanan Baru",
                       fontSize: 18,
                       fontWeight: 600,
                     ),
                     MyBreadcrumb(
                       children: [
                         MyBreadcrumbItem(name: 'Admin'),
-                        MyBreadcrumbItem(name: 'Edit Room', active: true),
+                        // --- UBAH ISI ---
+                        MyBreadcrumbItem(name: 'Tambah Layanan', active: true),
                       ],
                     ),
                   ],
@@ -64,7 +68,8 @@ class _RoomEditScreenState extends State<RoomEditScreen> with UIMixin {
                     shadow: MyShadow(
                         elevation: 0.2, position: MyShadowPosition.bottom),
                     paddingAll: 24,
-                    child: roomDetail()),
+                    // --- UBAH ISI ---
+                    child: formTambahLayanan()), // Nama fungsi diubah
               )
             ],
           );
@@ -73,17 +78,22 @@ class _RoomEditScreenState extends State<RoomEditScreen> with UIMixin {
     );
   }
 
-  Widget roomDetail() {
+  // Widget ini sekarang menjadi form untuk menambah layanan baru
+  Widget formTambahLayanan() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        MyText.labelMedium('Hotel Category'),
+        // --- UBAH ISI ---
+        commonTextField("Nama Layanan", "Contoh: Cuci Exterior Premium"),
+        MySpacing.height(24),
+        // --- UBAH ISI ---
+        MyText.labelMedium('Kategori Layanan'),
         MySpacing.height(12),
-        DropdownButtonFormField<RoomCategory>(
+        DropdownButtonFormField<LayananCategory>(
           dropdownColor: contentTheme.background,
-          items: RoomCategory.values
+          items: LayananCategory.values
               .map(
-                (category) => DropdownMenuItem<RoomCategory>(
+                (category) => DropdownMenuItem<LayananCategory>(
                     value: category,
                     child: MyText.labelMedium(category.name.capitalize!)),
               )
@@ -91,7 +101,8 @@ class _RoomEditScreenState extends State<RoomEditScreen> with UIMixin {
           icon: Icon(LucideIcons.chevron_down, size: 20),
           style: MyTextStyle.bodySmall(),
           decoration: InputDecoration(
-            hintText: "Select State",
+            // --- UBAH ISI ---
+            hintText: "Pilih Kategori",
             hintStyle: MyTextStyle.bodySmall(),
             border:
                 OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
@@ -112,10 +123,15 @@ class _RoomEditScreenState extends State<RoomEditScreen> with UIMixin {
           onChanged: controller.basicValidator.onChanged<Object?>('State'),
         ),
         MySpacing.height(24),
-        commonTextField("Price", "Price",
-            numbered: true, controller: controller.roomPriceController),
+        // --- UBAH ISI ---
+        commonTextField("Harga Dasar (Rp)", "Contoh: 50000", numbered: true),
         MySpacing.height(24),
-        MyText.labelMedium("Room Description"),
+        // --- UBAH ISI ---
+        commonTextField("Estimasi Durasi (Menit)", "Contoh: 30",
+            numbered: true),
+        MySpacing.height(24),
+        // --- UBAH ISI ---
+        MyText.labelMedium("Deskripsi Layanan"),
         MySpacing.height(12),
         MyCard(
           paddingAll: 0,
@@ -135,7 +151,8 @@ class _RoomEditScreenState extends State<RoomEditScreen> with UIMixin {
           ),
         ),
         MySpacing.height(24),
-        MyText.labelMedium("Upload Room Image here"),
+        // --- UBAH ISI ---
+        MyText.labelMedium("Unggah Foto Ikon Layanan"),
         MySpacing.height(12),
         uploadFile()
       ],
@@ -166,7 +183,8 @@ class _RoomEditScreenState extends State<RoomEditScreen> with UIMixin {
                     alignment: Alignment.center,
                     paddingAll: 0,
                     child: MyText.titleMedium(
-                      "Drop files here or click to upload.",
+                      // --- UBAH ISI ---
+                      "Letakkan file di sini atau klik untuk mengunggah.",
                       fontWeight: 600,
                       muted: true,
                       fontSize: 18,
@@ -177,7 +195,8 @@ class _RoomEditScreenState extends State<RoomEditScreen> with UIMixin {
                     alignment: Alignment.center,
                     width: 610,
                     child: MyText.titleMedium(
-                      "(This is just a demo dropzone. Selected files are not actually uploaded.)",
+                      // --- UBAH ISI ---
+                      "(Ini hanya demo. File yang dipilih tidak akan diunggah.)",
                       muted: true,
                       fontWeight: 500,
                       fontSize: 16,
@@ -244,14 +263,13 @@ class _RoomEditScreenState extends State<RoomEditScreen> with UIMixin {
   }
 
   Widget commonTextField(String title, String hintText,
-      {bool numbered = false, TextEditingController? controller}) {
+      {bool numbered = false}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         MyText.labelMedium(title),
         MySpacing.height(12),
-        TextFormField(
-          controller: controller,
+        TextField(
           style: MyTextStyle.labelMedium(),
           inputFormatters: numbered
               ? <TextInputFormatter>[
@@ -273,7 +291,7 @@ class _RoomEditScreenState extends State<RoomEditScreen> with UIMixin {
                 OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
             disabledBorder:
                 OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
-            contentPadding: MySpacing.all(12),
+            contentPadding: MySpacing.all(14),
             isCollapsed: true,
             isDense: true,
           ),

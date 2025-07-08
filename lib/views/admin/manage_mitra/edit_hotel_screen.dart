@@ -1,11 +1,9 @@
-// lib/views/admin/manage_hotels/add_hotel_screen.dartss
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:get/get.dart';
-import 'package:sikilap/controller/admin/manage_hotels/add_hotel_controller.dart';
+import 'package:sikilap/controller/admin/manage_mitra/edit_mitra_controller.dart';
 import 'package:sikilap/helpers/utils/my_shadow.dart';
 import 'package:sikilap/helpers/utils/ui_mixins.dart';
 import 'package:sikilap/helpers/utils/utils.dart';
@@ -22,15 +20,15 @@ import 'package:sikilap/helpers/widgets/my_text_style.dart';
 import 'package:sikilap/helpers/widgets/responsive.dart';
 import 'package:sikilap/views/layout/layout.dart';
 
-class AddHotelScreen extends StatefulWidget {
-  const AddHotelScreen({super.key});
+class EditHotelScreen extends StatefulWidget {
+  const EditHotelScreen({super.key});
 
   @override
-  State<AddHotelScreen> createState() => _AddHotelScreenState();
+  State<EditHotelScreen> createState() => _EditHotelScreenState();
 }
 
-class _AddHotelScreenState extends State<AddHotelScreen> with UIMixin {
-  AddHotelController controller = Get.put(AddHotelController());
+class _EditHotelScreenState extends State<EditHotelScreen> with UIMixin {
+  EditMitraController controller = Get.put(EditMitraController());
 
   @override
   Widget build(BuildContext context) {
@@ -48,16 +46,14 @@ class _AddHotelScreenState extends State<AddHotelScreen> with UIMixin {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     MyText.titleMedium(
-                      // --- UBAH ISI ---
-                      "Tambah Mitra Baru",
+                      "Hotel Edit",
                       fontSize: 18,
                       fontWeight: 600,
                     ),
                     MyBreadcrumb(
                       children: [
                         MyBreadcrumbItem(name: 'Admin'),
-                        // --- UBAH ISI ---
-                        MyBreadcrumbItem(name: 'Tambah Mitra', active: true),
+                        MyBreadcrumbItem(name: 'Hotel Edit', active: true),
                       ],
                     ),
                   ],
@@ -74,16 +70,14 @@ class _AddHotelScreenState extends State<AddHotelScreen> with UIMixin {
                       shadow: MyShadow(
                           elevation: 0.2, position: MyShadowPosition.bottom),
                       paddingAll: 24,
-                      // --- UBAH ISI ---
-                      child: detailInformasiMitra(), // Nama fungsi diubah
+                      child: addHotelDetail(),
                     )),
                     MyFlexItem(
                         child: MyCard(
                       shadow: MyShadow(
                           elevation: 0.2, position: MyShadowPosition.bottom),
                       paddingAll: 24,
-                      // --- UBAH ISI ---
-                      child: detailLayananMitra(), // Nama fungsi diubah
+                      child: roomDetail(),
                     )),
                   ],
                 ),
@@ -95,22 +89,21 @@ class _AddHotelScreenState extends State<AddHotelScreen> with UIMixin {
     );
   }
 
-  // Widget untuk mengisi informasi dasar mitra
-  Widget detailInformasiMitra() {
+//as
+  Widget addHotelDetail() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // --- UBAH ISI ---
-        commonTextField("Nama Usaha Mitra", "Contoh: Kilap Abadi Wash"),
+        commonTextField("Hotel Name", "Hotel Name",
+            controller: controller.MitraNameController),
         MySpacing.height(24),
-        // --- UBAH ISI ---
-        MyText.labelMedium('Status Kemitraan'),
+        MyText.labelMedium('Hotel Category'),
         MySpacing.height(12),
-        DropdownButtonFormField<HotelCategory>(
+        DropdownButtonFormField<MitraCategory>(
           dropdownColor: contentTheme.background,
-          items: HotelCategory.values
+          items: MitraCategory.values
               .map(
-                (category) => DropdownMenuItem<HotelCategory>(
+                (category) => DropdownMenuItem<MitraCategory>(
                     value: category,
                     child: MyText.labelMedium(category.name.capitalize!)),
               )
@@ -118,8 +111,7 @@ class _AddHotelScreenState extends State<AddHotelScreen> with UIMixin {
           icon: Icon(LucideIcons.chevron_down, size: 20),
           style: MyTextStyle.bodySmall(),
           decoration: InputDecoration(
-            // --- UBAH ISI ---
-            hintText: "Pilih Status",
+            hintText: "Select State",
             hintStyle: MyTextStyle.bodySmall(),
             border:
                 OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
@@ -140,56 +132,52 @@ class _AddHotelScreenState extends State<AddHotelScreen> with UIMixin {
           onChanged: controller.basicValidator.onChanged<Object?>('State'),
         ),
         MySpacing.height(24),
-        // --- UBAH ISI ---
-        commonTextField("Alamat Utama Mitra", "Contoh: Jl. Mulyorejo No. 123"),
+        commonTextField("Address", "Address",
+            controller: controller.addressController),
         MySpacing.height(24),
         MyFlex(
           contentPadding: false,
           children: [
             MyFlexItem(
               sizes: 'md-6',
-              // --- UBAH ISI ---
-              child: commonTextField("Area Layanan", "Contoh: Surabaya Timur"),
+              child: commonTextField("Country", "Country",
+                  controller: controller.countryController),
             ),
             MyFlexItem(
               sizes: 'md-6',
-              // --- UBAH ISI ---
-              child: commonTextField("Kota", "Contoh: Surabaya"),
+              child: commonTextField("State", "State",
+                  controller: controller.stateController),
             ),
             MyFlexItem(
               sizes: 'md-6',
-              // --- UBAH ISI ---
-              child: commonTextField("Provinsi", "Contoh: Jawa Timur"),
+              child: commonTextField("City", "City",
+                  controller: controller.cityController),
             ),
             MyFlexItem(
               sizes: 'md-6',
-              // --- UBAH ISI ---
-              child:
-                  commonTextField("Kode Pos", "Contoh: 60111", numbered: true),
+              child: commonTextField("Zip", "Zip",
+                  numbered: true, controller: controller.zipController),
             ),
           ],
         ),
         MySpacing.height(24),
-        // --- UBAH ISI ---
-        commonTextField("Nomor Telepon", "Contoh: 081234567890",
-            numbered: true),
+        commonTextField("Contact Number", "Contact Number",
+            numbered: true, controller: controller.contactNumberController),
       ],
     );
   }
 
-  // Widget untuk menambah layanan yang ditawarkan mitra
-  Widget detailLayananMitra() {
+  Widget roomDetail() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // --- UBAH ISI ---
-        MyText.labelMedium('Kategori Layanan'),
+        MyText.labelMedium('Hotel Category'),
         MySpacing.height(12),
-        DropdownButtonFormField<RoomCategory>(
+        DropdownButtonFormField<LayananCategory>(
           dropdownColor: contentTheme.background,
-          items: RoomCategory.values
+          items: LayananCategory.values
               .map(
-                (category) => DropdownMenuItem<RoomCategory>(
+                (category) => DropdownMenuItem<LayananCategory>(
                     value: category,
                     child: MyText.labelMedium(category.name.capitalize!)),
               )
@@ -197,8 +185,7 @@ class _AddHotelScreenState extends State<AddHotelScreen> with UIMixin {
           icon: Icon(LucideIcons.chevron_down, size: 20),
           style: MyTextStyle.bodySmall(),
           decoration: InputDecoration(
-            // --- UBAH ISI ---
-            hintText: "Pilih Kategori",
+            hintText: "Select State",
             hintStyle: MyTextStyle.bodySmall(),
             border:
                 OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
@@ -212,18 +199,17 @@ class _AddHotelScreenState extends State<AddHotelScreen> with UIMixin {
                 OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
             disabledBorder:
                 OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
-            contentPadding: MySpacing.all(14),
+            contentPadding: MySpacing.all(12),
             isCollapsed: true,
             isDense: true,
           ),
           onChanged: controller.basicValidator.onChanged<Object?>('State'),
         ),
         MySpacing.height(24),
-        // --- UBAH ISI ---
-        commonTextField("Harga Layanan (Rp)", "Contoh: 50000", numbered: true),
+        commonTextField("Price", "Price",
+            numbered: true, controller: controller.layananPriceController),
         MySpacing.height(24),
-        // --- UBAH ISI ---
-        MyText.labelMedium("Deskripsi Layanan"),
+        MyText.labelMedium("Room Description"),
         MySpacing.height(12),
         MyCard(
           paddingAll: 0,
@@ -243,8 +229,7 @@ class _AddHotelScreenState extends State<AddHotelScreen> with UIMixin {
           ),
         ),
         MySpacing.height(24),
-        // --- UBAH ISI ---
-        MyText.labelMedium("Unggah Foto Hasil Pengerjaan"),
+        MyText.labelMedium("Upload Room Image here"),
         MySpacing.height(12),
         uploadFile()
       ],
@@ -252,13 +237,14 @@ class _AddHotelScreenState extends State<AddHotelScreen> with UIMixin {
   }
 
   Widget commonTextField(String title, String hintText,
-      {bool numbered = false}) {
+      {bool numbered = false, TextEditingController? controller}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         MyText.labelMedium(title),
         MySpacing.height(12),
         TextField(
+          controller: controller,
           style: MyTextStyle.labelMedium(),
           inputFormatters: numbered
               ? <TextInputFormatter>[
@@ -313,8 +299,7 @@ class _AddHotelScreenState extends State<AddHotelScreen> with UIMixin {
                     alignment: Alignment.center,
                     paddingAll: 0,
                     child: MyText.titleMedium(
-                      // --- UBAH ISI ---
-                      "Letakkan file di sini atau klik untuk mengunggah.",
+                      "Drop files here or click to upload.",
                       fontWeight: 600,
                       muted: true,
                       fontSize: 18,
@@ -325,8 +310,7 @@ class _AddHotelScreenState extends State<AddHotelScreen> with UIMixin {
                     alignment: Alignment.center,
                     width: 610,
                     child: MyText.titleMedium(
-                      // --- UBAH ISI ---
-                      "(Ini hanya demo. File yang dipilih tidak akan diunggah.)",
+                      "(This is just a demo dropzone. Selected files are not actually uploaded.)",
                       muted: true,
                       fontWeight: 500,
                       fontSize: 16,
@@ -393,4 +377,4 @@ class _AddHotelScreenState extends State<AddHotelScreen> with UIMixin {
   }
 }
 
-class QuillSimpleToolbarConfigurations {}
+class QuillEditorConfigurations {}

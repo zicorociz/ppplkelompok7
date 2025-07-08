@@ -5,38 +5,38 @@ import 'package:flutter/services.dart';
 import 'package:sikilap/helpers/services/json_decoder.dart';
 import 'package:sikilap/model/identifier_model.dart';
 
-class RoomModel extends IdentifierModel {
-  final int hotelId; // <-- TAMBAHKAN FIELD BARU
-  final String roomType, bedType, image, view;
-  final double pricePerNight;
+class LayananModel extends IdentifierModel {
+  final int mitraId; // <-- TAMBAHKAN FIELD BARU
+  final String layananType, kategori, image, jenisMobil;
+  final double harga;
   final List amenities, guestService, inclusion;
   final bool availability, smoking;
-  final int capacity, floor;
+  final int capacity, estimasiMenit;
   late bool isFavourite = false;
 
-  RoomModel(
+  LayananModel(
     super.id,
-    this.hotelId, // <-- TAMBAHKAN DI CONSTRUCTOR
-    this.roomType,
-    this.bedType,
-    this.pricePerNight,
+    this.mitraId, // <-- TAMBAHKAN DI CONSTRUCTOR
+    this.layananType,
+    this.kategori,
+    this.harga,
     this.amenities,
     this.availability,
     this.image,
     this.guestService,
     this.inclusion,
-    this.view,
+    this.jenisMobil,
     this.smoking,
     this.capacity,
-    this.floor,
+    this.estimasiMenit,
     this.isFavourite,
   );
 
-  static RoomModel fromJSON(Map<String, dynamic> json) {
+  static LayananModel fromJSON(Map<String, dynamic> json) {
     JSONDecoder decoder = JSONDecoder(json);
 
     int hotelId = decoder.getInt('hotel_id'); // <-- AMBIL NILAI hotel_id
-    String roomType = decoder.getString('room_type');
+    String layananType = decoder.getString('room_type');
     String bedType = decoder.getString('bed_type');
     String image = decoder.getString('image');
     String view = decoder.getString('view');
@@ -47,13 +47,13 @@ class RoomModel extends IdentifierModel {
     bool availability = decoder.getBool('availability');
     bool smoking = decoder.getBool('smoking');
     int capacity = decoder.getInt('capacity');
-    int floor = decoder.getInt('floor');
+    int jenisMobil = decoder.getInt('floor');
     bool isFavourite = decoder.getBool('isFavourite');
 
-    return RoomModel(
+    return LayananModel(
         decoder.getId,
         hotelId, // <-- MASUKKAN KE CONSTRUCTOR
-        roomType,
+        layananType,
         bedType,
         pricePerNight,
         amenities,
@@ -64,15 +64,15 @@ class RoomModel extends IdentifierModel {
         view,
         smoking,
         capacity,
-        floor,
+        jenisMobil,
         isFavourite);
   }
 
-  static List<RoomModel> listFromJSON(List<dynamic> list) {
-    return list.map((e) => RoomModel.fromJSON(e)).toList();
+  static List<LayananModel> listFromJSON(List<dynamic> list) {
+    return list.map((e) => LayananModel.fromJSON(e)).toList();
   }
 
-  static Future<List<RoomModel>> get dummyList async {
+  static Future<List<LayananModel>> get dummyList async {
     dynamic data = json.decode(await getData());
     return listFromJSON(data);
   }

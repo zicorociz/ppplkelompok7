@@ -5,14 +5,14 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:sikilap/controller/my_controller.dart';
 // Ganti path ini dengan path model yang benar di proyekmu
-import 'package:sikilap/model/hotel_model.dart';
-import 'package:sikilap/model/room_model.dart';
+import 'package:sikilap/model/mitra_model.dart';
+import 'package:sikilap/model/layanan_model.dart';
 import 'package:sikilap/helpers/services/booking_service.dart';
 
 class BookingFormController extends MyController {
   // Properti ini sekarang nullable, bisa jadi null jika diakses dari sidebar
-  final HotelModel? hotel;
-  final RoomModel? room;
+  final MitraModel? mitra;
+  final LayananModel? layanan;
 
   // Form
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -25,8 +25,8 @@ class BookingFormController extends MyController {
 
   // Constructor yang dimodifikasi untuk menerima argumen yang mungkin null
   BookingFormController(Map<String, dynamic>? bookingData)
-      : hotel = bookingData?['hotel'],
-        room = bookingData?['room'];
+      : mitra = bookingData?['mitra'],
+        layanan = bookingData?['layanan'];
 
   @override
   void onInit() {
@@ -74,8 +74,8 @@ class BookingFormController extends MyController {
     if (formKey.currentState!.validate()) {
       // Panggil service untuk membuat pesanan baru
       bookingService.createNewBooking(
-        hotel: hotel!,
-        room: room!,
+        mitra: mitra!,
+        layanan: layanan!,
         bookingDate: checkInController.text, // Tanggal
         bookingTime: checkOutController.text, // Waktu
         address: guestsController.text, // Alamat

@@ -106,11 +106,11 @@ class _LeftBarState extends State<LeftBar>
                           MenuItem(
                               title: "List Mitra",
                               isCondensed: isCondensed,
-                              route: '/admin/hotel/list'),
+                              route: '/admin/mitra/list'),
                           MenuItem(
                               title: "Tambah Mitra",
                               isCondensed: isCondensed,
-                              route: '/admin/hotel/add'),
+                              route: '/admin/mitra/add'),
                         ],
                       ),
                       MenuWidget(
@@ -121,11 +121,11 @@ class _LeftBarState extends State<LeftBar>
                           MenuItem(
                               title: "List Layanan",
                               isCondensed: isCondensed,
-                              route: '/admin/room/list'),
+                              route: '/admin/layanan/list'),
                           MenuItem(
                               title: "Tambah Layanan",
                               isCondensed: isCondensed,
-                              route: '/admin/room/add'),
+                              route: '/admin/layanan/add'),
                         ],
                       ),
                       MenuWidget(
@@ -160,11 +160,13 @@ class _LeftBarState extends State<LeftBar>
                           route: '/home'),
                       NavigationItem(
                           iconData: LucideIcons.spray_can, // Ikon lebih relevan
-                          title: "Pilih Layanan", // Room Selection -> Pilih Layanan
+                          title:
+                              "Pilih Layanan", // Room Selection -> Pilih Layanan
                           isCondensed: isCondensed,
                           route: '/room_selection'),
                       NavigationItem(
-                          iconData: LucideIcons.shopping_cart, // Ikon lebih relevan
+                          iconData:
+                              LucideIcons.shopping_cart, // Ikon lebih relevan
                           title: "Pemesanan", // Booking Form -> Pemesanan
                           isCondensed: isCondensed,
                           route: '/booking_form'),

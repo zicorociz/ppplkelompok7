@@ -1,11 +1,11 @@
-// lib/views/admin/manage_room/room_add_screen.dart
+// lib/views/admin/manage_hotels/add_hotel_screen.dartss
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:get/get.dart';
-import 'package:sikilap/controller/admin/manage_room/room_add_controller.dart';
+import 'package:sikilap/controller/admin/manage_mitra/add_mitra_controller.dart';
 import 'package:sikilap/helpers/utils/my_shadow.dart';
 import 'package:sikilap/helpers/utils/ui_mixins.dart';
 import 'package:sikilap/helpers/utils/utils.dart';
@@ -13,6 +13,8 @@ import 'package:sikilap/helpers/widgets/my_breadcrumb.dart';
 import 'package:sikilap/helpers/widgets/my_breadcrumb_item.dart';
 import 'package:sikilap/helpers/widgets/my_card.dart';
 import 'package:sikilap/helpers/widgets/my_container.dart';
+import 'package:sikilap/helpers/widgets/my_flex.dart';
+import 'package:sikilap/helpers/widgets/my_flex_item.dart';
 import 'package:sikilap/helpers/widgets/my_list_extension.dart';
 import 'package:sikilap/helpers/widgets/my_spacing.dart';
 import 'package:sikilap/helpers/widgets/my_text.dart';
@@ -20,22 +22,22 @@ import 'package:sikilap/helpers/widgets/my_text_style.dart';
 import 'package:sikilap/helpers/widgets/responsive.dart';
 import 'package:sikilap/views/layout/layout.dart';
 
-class RoomAddScreen extends StatefulWidget {
-  const RoomAddScreen({super.key});
+class AddHotelScreen extends StatefulWidget {
+  const AddHotelScreen({super.key});
 
   @override
-  State<RoomAddScreen> createState() => _RoomAddScreenState();
+  State<AddHotelScreen> createState() => _AddHotelScreenState();
 }
 
-class _RoomAddScreenState extends State<RoomAddScreen> with UIMixin {
-  RoomAddController controller = Get.put(RoomAddController());
+class _AddHotelScreenState extends State<AddHotelScreen> with UIMixin {
+  AddMitraController controller = Get.put(AddMitraController());
 
   @override
   Widget build(BuildContext context) {
     return Layout(
       child: GetBuilder(
         init: controller,
-        tag: 'room_add_controller',
+        tag: 'add_hotel_controller',
         builder: (controller) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -47,7 +49,7 @@ class _RoomAddScreenState extends State<RoomAddScreen> with UIMixin {
                   children: [
                     MyText.titleMedium(
                       // --- UBAH ISI ---
-                      "Tambah Layanan Baru",
+                      "Tambah Mitra Baru",
                       fontSize: 18,
                       fontWeight: 600,
                     ),
@@ -55,7 +57,7 @@ class _RoomAddScreenState extends State<RoomAddScreen> with UIMixin {
                       children: [
                         MyBreadcrumbItem(name: 'Admin'),
                         // --- UBAH ISI ---
-                        MyBreadcrumbItem(name: 'Tambah Layanan', active: true),
+                        MyBreadcrumbItem(name: 'Tambah Mitra', active: true),
                       ],
                     ),
                   ],
@@ -64,12 +66,27 @@ class _RoomAddScreenState extends State<RoomAddScreen> with UIMixin {
               MySpacing.height(flexSpacing),
               Padding(
                 padding: MySpacing.x(flexSpacing),
-                child: MyCard(
-                    shadow: MyShadow(
-                        elevation: 0.2, position: MyShadowPosition.bottom),
-                    paddingAll: 24,
-                    // --- UBAH ISI ---
-                    child: formTambahLayanan()), // Nama fungsi diubah
+                child: MyFlex(
+                  contentPadding: false,
+                  children: [
+                    MyFlexItem(
+                        child: MyCard(
+                      shadow: MyShadow(
+                          elevation: 0.2, position: MyShadowPosition.bottom),
+                      paddingAll: 24,
+                      // --- UBAH ISI ---
+                      child: detailInformasiMitra(), // Nama fungsi diubah
+                    )),
+                    MyFlexItem(
+                        child: MyCard(
+                      shadow: MyShadow(
+                          elevation: 0.2, position: MyShadowPosition.bottom),
+                      paddingAll: 24,
+                      // --- UBAH ISI ---
+                      child: detailLayananMitra(), // Nama fungsi diubah
+                    )),
+                  ],
+                ),
               )
             ],
           );
@@ -78,22 +95,101 @@ class _RoomAddScreenState extends State<RoomAddScreen> with UIMixin {
     );
   }
 
-  // Widget ini sekarang menjadi form untuk menambah layanan baru
-  Widget formTambahLayanan() {
+  // Widget untuk mengisi informasi dasar mitra
+  Widget detailInformasiMitra() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // --- UBAH ISI ---
-        commonTextField("Nama Layanan", "Contoh: Cuci Exterior Premium"),
+        commonTextField("Nama Usaha Mitra", "Contoh: Kilap Abadi Wash"),
         MySpacing.height(24),
+        // --- UBAH ISI ---
+        MyText.labelMedium('Status Kemitraan'),
+        MySpacing.height(12),
+        DropdownButtonFormField<MitraCategory>(
+          dropdownColor: contentTheme.background,
+          items: MitraCategory.values
+              .map(
+                (category) => DropdownMenuItem<MitraCategory>(
+                    value: category,
+                    child: MyText.labelMedium(category.name.capitalize!)),
+              )
+              .toList(),
+          icon: Icon(LucideIcons.chevron_down, size: 20),
+          style: MyTextStyle.bodySmall(),
+          decoration: InputDecoration(
+            // --- UBAH ISI ---
+            hintText: "Pilih Status",
+            hintStyle: MyTextStyle.bodySmall(),
+            border:
+                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+            focusedErrorBorder:
+                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+            enabledBorder:
+                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+            errorBorder:
+                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+            focusedBorder:
+                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+            disabledBorder:
+                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+            contentPadding: MySpacing.all(12),
+            isCollapsed: true,
+            isDense: true,
+          ),
+          onChanged: controller.basicValidator.onChanged<Object?>('State'),
+        ),
+        MySpacing.height(24),
+        // --- UBAH ISI ---
+        commonTextField("Alamat Utama Mitra", "Contoh: Jl. Mulyorejo No. 123"),
+        MySpacing.height(24),
+        MyFlex(
+          contentPadding: false,
+          children: [
+            MyFlexItem(
+              sizes: 'md-6',
+              // --- UBAH ISI ---
+              child: commonTextField("Area Layanan", "Contoh: Surabaya Timur"),
+            ),
+            MyFlexItem(
+              sizes: 'md-6',
+              // --- UBAH ISI ---
+              child: commonTextField("Kota", "Contoh: Surabaya"),
+            ),
+            MyFlexItem(
+              sizes: 'md-6',
+              // --- UBAH ISI ---
+              child: commonTextField("Provinsi", "Contoh: Jawa Timur"),
+            ),
+            MyFlexItem(
+              sizes: 'md-6',
+              // --- UBAH ISI ---
+              child:
+                  commonTextField("Kode Pos", "Contoh: 60111", numbered: true),
+            ),
+          ],
+        ),
+        MySpacing.height(24),
+        // --- UBAH ISI ---
+        commonTextField("Nomor Telepon", "Contoh: 081234567890",
+            numbered: true),
+      ],
+    );
+  }
+
+  // Widget untuk menambah layanan yang ditawarkan mitra
+  Widget detailLayananMitra() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
         // --- UBAH ISI ---
         MyText.labelMedium('Kategori Layanan'),
         MySpacing.height(12),
-        DropdownButtonFormField<RoomCategory>(
+        DropdownButtonFormField<LayananCategory>(
           dropdownColor: contentTheme.background,
-          items: RoomCategory.values
+          items: LayananCategory.values
               .map(
-                (category) => DropdownMenuItem<RoomCategory>(
+                (category) => DropdownMenuItem<LayananCategory>(
                     value: category,
                     child: MyText.labelMedium(category.name.capitalize!)),
               )
@@ -116,7 +212,7 @@ class _RoomAddScreenState extends State<RoomAddScreen> with UIMixin {
                 OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
             disabledBorder:
                 OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
-            contentPadding: MySpacing.all(10),
+            contentPadding: MySpacing.all(14),
             isCollapsed: true,
             isDense: true,
           ),
@@ -124,10 +220,7 @@ class _RoomAddScreenState extends State<RoomAddScreen> with UIMixin {
         ),
         MySpacing.height(24),
         // --- UBAH ISI ---
-        commonTextField("Harga Dasar (Rp)", "Contoh: 50000", numbered: true),
-        MySpacing.height(24),
-        // --- UBAH ISI ---
-        commonTextField("Estimasi Durasi (Menit)", "Contoh: 30", numbered: true),
+        commonTextField("Harga Layanan (Rp)", "Contoh: 50000", numbered: true),
         MySpacing.height(24),
         // --- UBAH ISI ---
         MyText.labelMedium("Deskripsi Layanan"),
@@ -151,9 +244,47 @@ class _RoomAddScreenState extends State<RoomAddScreen> with UIMixin {
         ),
         MySpacing.height(24),
         // --- UBAH ISI ---
-        MyText.labelMedium("Unggah Foto Ikon Layanan"),
+        MyText.labelMedium("Unggah Foto Hasil Pengerjaan"),
         MySpacing.height(12),
         uploadFile()
+      ],
+    );
+  }
+
+  Widget commonTextField(String title, String hintText,
+      {bool numbered = false}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        MyText.labelMedium(title),
+        MySpacing.height(12),
+        TextField(
+          style: MyTextStyle.labelMedium(),
+          inputFormatters: numbered
+              ? <TextInputFormatter>[
+                  FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                ]
+              : null,
+          decoration: InputDecoration(
+            hintText: hintText,
+            hintStyle: MyTextStyle.labelMedium(xMuted: true),
+            border:
+                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+            focusedErrorBorder:
+                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+            enabledBorder:
+                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+            errorBorder:
+                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+            focusedBorder:
+                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+            disabledBorder:
+                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+            contentPadding: MySpacing.all(14),
+            isCollapsed: true,
+            isDense: true,
+          ),
+        )
       ],
     );
   }
@@ -260,42 +391,6 @@ class _RoomAddScreenState extends State<RoomAddScreen> with UIMixin {
       ],
     );
   }
-
-  Widget commonTextField(String title, String hintText,
-      {bool numbered = false}) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        MyText.labelMedium(title),
-        MySpacing.height(12),
-        TextField(
-          style: MyTextStyle.labelMedium(),
-          inputFormatters: numbered
-              ? <TextInputFormatter>[
-                  FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                ]
-              : null,
-          decoration: InputDecoration(
-            hintText: hintText,
-            hintStyle: MyTextStyle.labelMedium(xMuted: true),
-            border:
-                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
-            focusedErrorBorder:
-                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
-            enabledBorder:
-                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
-            errorBorder:
-                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
-            focusedBorder:
-                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
-            disabledBorder:
-                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
-            contentPadding: MySpacing.all(14),
-            isCollapsed: true,
-            isDense: true,
-          ),
-        )
-      ],
-    );
-  }
 }
+
+class QuillSimpleToolbarConfigurations {}

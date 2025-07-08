@@ -106,7 +106,7 @@
       "room_type": "Single",
       "number_of_guests": 1,
       "payment_status": "Paid",
-      "special_requests": "Quiet room"
+      "special_requests": "Quiet layanan"
     }
   },
   {
@@ -128,7 +128,7 @@
       "room_type": "Suite",
       "number_of_guests": 2,
       "payment_status": "Pending",
-      "special_requests": "Pet-friendly room"
+      "special_requests": "Pet-friendly layanan"
     }
   },
   {

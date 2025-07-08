@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:sikilap/controller/admin/manage_hotels/hotel_detail_controller.dart';
+import 'package:sikilap/controller/admin/manage_mitra/mitra_detail_controller.dart';
 import 'package:sikilap/helpers/utils/my_shadow.dart';
 import 'package:sikilap/helpers/utils/ui_mixins.dart';
 import 'package:sikilap/helpers/widgets/my_breadcrumb.dart';
@@ -16,7 +16,7 @@ import 'package:sikilap/helpers/widgets/my_spacing.dart';
 import 'package:sikilap/helpers/widgets/my_star_rating.dart';
 import 'package:sikilap/helpers/widgets/my_text.dart';
 import 'package:sikilap/helpers/widgets/responsive.dart';
-import 'package:sikilap/model/room_model.dart';
+import 'package:sikilap/model/layanan_model.dart';
 import 'package:sikilap/views/layout/layout.dart';
 
 class HotelDetailScreen extends StatefulWidget {
@@ -27,7 +27,7 @@ class HotelDetailScreen extends StatefulWidget {
 }
 
 class _HotelDetailScreenState extends State<HotelDetailScreen> with UIMixin {
-  HotelDetailController controller = Get.put(HotelDetailController());
+  MitraDetailController controller = Get.put(MitraDetailController());
 
   @override
   Widget build(BuildContext context) {
@@ -91,8 +91,12 @@ class _HotelDetailScreenState extends State<HotelDetailScreen> with UIMixin {
           Wrap(
             spacing: 24,
             runSpacing: 24,
-            children: controller.hotelImage
-                .map((e) => MyContainer(paddingAll: 0, height: 200, width: 200, child: Image.asset(e.toString(), fit: BoxFit.cover)))
+            children: controller.mitraImage
+                .map((e) => MyContainer(
+                    paddingAll: 0,
+                    height: 200,
+                    width: 200,
+                    child: Image.asset(e.toString(), fit: BoxFit.cover)))
                 .toList(),
           ),
         ],
@@ -101,7 +105,7 @@ class _HotelDetailScreenState extends State<HotelDetailScreen> with UIMixin {
   }
 
   Widget details() {
-    List<Widget> tabWidgets = [room(), about(), facility(), location()];
+    List<Widget> tabWidgets = [layanan(), about(), facility(), location()];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -127,11 +131,12 @@ class _HotelDetailScreenState extends State<HotelDetailScreen> with UIMixin {
       onTap: () => controller.onSelectTab(id),
       paddingAll: 12,
       color: isSelected ? contentTheme.primary : null,
-      child: MyText.labelMedium(title, color: isSelected ? contentTheme.onPrimary : null),
+      child: MyText.labelMedium(title,
+          color: isSelected ? contentTheme.onPrimary : null),
     );
   }
 
-  Widget room() {
+  Widget layanan() {
     Widget roomSection(String title, List roomSectionList) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -144,7 +149,9 @@ class _HotelDetailScreenState extends State<HotelDetailScreen> with UIMixin {
                   children: [
                     Icon(LucideIcons.check, size: 12),
                     MySpacing.width(12),
-                    Expanded(child: MyText.labelMedium(e, overflow: TextOverflow.ellipsis)),
+                    Expanded(
+                        child: MyText.labelMedium(e,
+                            overflow: TextOverflow.ellipsis)),
                   ],
                 ),
               )),
@@ -157,9 +164,9 @@ class _HotelDetailScreenState extends State<HotelDetailScreen> with UIMixin {
       paddingAll: 24,
       child: ListView.separated(
         shrinkWrap: true,
-        itemCount: controller.room.length,
+        itemCount: controller.layanan.length,
         itemBuilder: (context, index) {
-          RoomModel room = controller.room[index];
+          LayananModel layanan = controller.layanan[index];
           return MyContainer.bordered(
             paddingAll: 24,
             child: MyFlex(
@@ -173,7 +180,7 @@ class _HotelDetailScreenState extends State<HotelDetailScreen> with UIMixin {
                       child: MyContainer(
                         paddingAll: 0,
                         clipBehavior: Clip.antiAliasWithSaveLayer,
-                        child: Image.asset(room.image, fit: BoxFit.cover),
+                        child: Image.asset(layanan.image, fit: BoxFit.cover),
                       )),
                   MyFlexItem(
                       sizes: 'lg-10 md-10',
@@ -185,20 +192,31 @@ class _HotelDetailScreenState extends State<HotelDetailScreen> with UIMixin {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  MyText.titleMedium(room.roomType, fontWeight: 600, color: contentTheme.primary),
+                                  MyText.titleMedium(layanan.layananType,
+                                      fontWeight: 600,
+                                      color: contentTheme.primary),
                                   MySpacing.height(8),
                                   Row(
                                     children: [
                                       Icon(LucideIcons.bed_single, size: 16),
                                       MySpacing.width(12),
-                                      MyText.labelMedium(room.bedType),
+                                      MyText.labelMedium(layanan.kategori),
                                     ],
                                   ),
                                   MySpacing.height(12),
                                   MyFlex(children: [
-                                    MyFlexItem(sizes: 'lg-4 md-6', child: roomSection("Amenities", room.amenities)),
-                                    MyFlexItem(sizes: 'lg-4 md-6', child: roomSection("Guest Service", room.guestService)),
-                                    MyFlexItem(sizes: 'lg-4 md-6', child: roomSection("Inclusion", room.inclusion)),
+                                    MyFlexItem(
+                                        sizes: 'lg-4 md-6',
+                                        child: roomSection(
+                                            "Amenities", layanan.amenities)),
+                                    MyFlexItem(
+                                        sizes: 'lg-4 md-6',
+                                        child: roomSection("Guest Service",
+                                            layanan.guestService)),
+                                    MyFlexItem(
+                                        sizes: 'lg-4 md-6',
+                                        child: roomSection(
+                                            "Inclusion", layanan.inclusion)),
                                   ]),
                                 ],
                               ),
@@ -206,16 +224,20 @@ class _HotelDetailScreenState extends State<HotelDetailScreen> with UIMixin {
                             SizedBox(
                               height: 100,
                               child: Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
-                                  MyText.titleLarge("\$${room.pricePerNight}", fontWeight: 600),
+                                  MyText.titleLarge("\$${layanan.harga}",
+                                      fontWeight: 600),
                                   MyText.bodySmall("per night"),
                                   MyButton(
                                       onPressed: () {},
                                       backgroundColor: contentTheme.primary,
                                       elevation: 0,
-                                      child: MyText.labelMedium("Book Now", fontWeight: 600, color: contentTheme.onPrimary)),
+                                      child: MyText.labelMedium("Book Now",
+                                          fontWeight: 600,
+                                          color: contentTheme.onPrimary)),
                                 ],
                               ),
                             )
@@ -278,7 +300,11 @@ class _HotelDetailScreenState extends State<HotelDetailScreen> with UIMixin {
           ...items.map((e) => Padding(
                 padding: MySpacing.bottom(4),
                 child: Row(
-                  children: [Icon(LucideIcons.check, size: 12), MySpacing.width(12), MyText.labelMedium(e)],
+                  children: [
+                    Icon(LucideIcons.check, size: 12),
+                    MySpacing.width(12),
+                    MyText.labelMedium(e)
+                  ],
                 ),
               )),
         ],
@@ -293,11 +319,13 @@ class _HotelDetailScreenState extends State<HotelDetailScreen> with UIMixin {
         children: [
           MyFlexItem(
             sizes: 'lg-2.4',
-            child: section("Basic Facility", LucideIcons.circle_check, controller.basicFacility),
+            child: section("Basic Facility", LucideIcons.circle_check,
+                controller.basicFacility),
           ),
           MyFlexItem(
             sizes: 'lg-2.4',
-            child: section("Payment Mode", LucideIcons.wallet_cards, controller.paymentMode),
+            child: section("Payment Mode", LucideIcons.wallet_cards,
+                controller.paymentMode),
           ),
           MyFlexItem(
             sizes: 'lg-2.4',
@@ -305,11 +333,13 @@ class _HotelDetailScreenState extends State<HotelDetailScreen> with UIMixin {
           ),
           MyFlexItem(
             sizes: 'lg-2.4',
-            child: section("Food & Drinks", LucideIcons.hand_platter, controller.foodAndDrinks),
+            child: section("Food & Drinks", LucideIcons.hand_platter,
+                controller.foodAndDrinks),
           ),
           MyFlexItem(
             sizes: 'lg-2.4',
-            child: section("Activities", LucideIcons.dumbbell, controller.activities),
+            child: section(
+                "Activities", LucideIcons.dumbbell, controller.activities),
           ),
         ],
       ),
@@ -324,7 +354,8 @@ class _HotelDetailScreenState extends State<HotelDetailScreen> with UIMixin {
         height: 600,
         child: GoogleMap(
           onMapCreated: controller.onMapCreated,
-          initialCameraPosition: CameraPosition(target: controller.center, zoom: 11.0),
+          initialCameraPosition:
+              CameraPosition(target: controller.center, zoom: 11.0),
         ),
       ),
     );

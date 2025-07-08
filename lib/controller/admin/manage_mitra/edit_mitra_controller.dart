@@ -1,9 +1,10 @@
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:sikilap/controller/my_controller.dart';
 import 'package:sikilap/helpers/widgets/my_form_validator.dart';
 
-enum HotelCategory {
+enum MitraCategory {
   luxury,
   boutique,
   budget,
@@ -12,7 +13,7 @@ enum HotelCategory {
 }
 
 //as
-enum RoomCategory {
+enum LayananCategory {
   single,
   double,
   triple,
@@ -22,7 +23,23 @@ enum RoomCategory {
   tween;
 }
 
-class AddHotelController extends MyController {
+class EditMitraController extends MyController {
+  TextEditingController MitraNameController =
+      TextEditingController(text: "Eden Stay");
+  TextEditingController addressController =
+      TextEditingController(text: "Kompl Duta Mas Fatmawati Bl D-2/15-16, Dki");
+  TextEditingController countryController =
+      TextEditingController(text: "Indonesia");
+  TextEditingController stateController =
+      TextEditingController(text: "Jakarta");
+  TextEditingController cityController =
+      TextEditingController(text: "Jakarta Selatan");
+  TextEditingController zipController = TextEditingController(text: "12150");
+  TextEditingController contactNumberController =
+      TextEditingController(text: "0-217-883-6262");
+  TextEditingController layananPriceController =
+      TextEditingController(text: "\$120.00");
+
   QuillController quillController = QuillController.basic();
   MyFormValidator basicValidator = MyFormValidator();
 

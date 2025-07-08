@@ -1,10 +1,10 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sikilap/controller/my_controller.dart';
 import 'package:sikilap/helpers/widgets/my_text_utils.dart';
-import 'package:sikilap/model/room_model.dart';
+import 'package:sikilap/model/layanan_model.dart';
 
-class HotelDetailController extends MyController {
-  List<RoomModel> room = [];
+class MitraDetailController extends MyController {
+  List<LayananModel> layanan = [];
   int isSelectedTab = 0;
 
   late GoogleMapController mapController;
@@ -19,14 +19,14 @@ class HotelDetailController extends MyController {
   List<String> dummyTexts =
       List.generate(12, (index) => MyTextUtils.getDummyText(60));
 
-  List hotelImage = [
-    "assets/images/dummy/hotel/hotel_1.jpg",
-    "assets/images/dummy/hotel/hotel_2.jpg",
-    "assets/images/dummy/hotel/hotel_3.jpg",
-    "assets/images/dummy/hotel/hotel_4.jpg",
-    "assets/images/dummy/hotel/hotel_5.jpg",
-    "assets/images/dummy/hotel/hotel_6.jpg",
-    "assets/images/dummy/hotel/hotel_7.jpg",
+  List mitraImage = [
+    "assets/images/dummy/mitra/hotel_1.jpg",
+    "assets/images/dummy/mitra/hotel_2.jpg",
+    "assets/images/dummy/mitra/hotel_3.jpg",
+    "assets/images/dummy/mitra/hotel_4.jpg",
+    "assets/images/dummy/mitra/hotel_5.jpg",
+    "assets/images/dummy/mitra/hotel_6.jpg",
+    "assets/images/dummy/mitra/hotel_7.jpg",
   ];
 
   List basicFacility = [
@@ -62,8 +62,8 @@ class HotelDetailController extends MyController {
 
   @override
   void onInit() {
-    RoomModel.dummyList.then((value) {
-      room = value.sublist(0, 4);
+    LayananModel.dummyList.then((value) {
+      layanan = value.sublist(0, 4);
       update();
     });
     super.onInit();

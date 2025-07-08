@@ -4,10 +4,10 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:sikilap/helpers/services/auth_services.dart';
 import 'package:sikilap/helpers/services/payment_service.dart';
-import 'package:sikilap/model/hotel_model.dart';
+import 'package:sikilap/model/mitra_model.dart';
 import 'package:sikilap/model/my_booking_model.dart';
 import 'package:sikilap/model/payment_history_model.dart'; // Ganti dengan path model pembayaran yang benar
-import 'package:sikilap/model/room_model.dart'; // Pastikan path ini sesuai dengan lokasi RoomModel
+import 'package:sikilap/model/layanan_model.dart'; // Pastikan path ini sesuai dengan lokasi RoomModel
 
 class BookingService extends GetxService {
   final RxList<MyBookingModel> bookings = <MyBookingModel>[].obs;
@@ -23,8 +23,8 @@ class BookingService extends GetxService {
 
   /// Membuat pesanan baru dan tagihan pembayaran yang terkait.
   void createNewBooking({
-    required HotelModel hotel,
-    required RoomModel room,
+    required MitraModel mitra,
+    required LayananModel layanan,
     required String bookingDate,
     required String bookingTime,
     required String address,
@@ -40,8 +40,8 @@ class BookingService extends GetxService {
       bookings.length + 1, // id (int)
       uniqueBookingId, // bookingID (String)
       userName, // guestName (String)
-      hotel.hotelName, // hotelName (String) -> Nama Mitra
-      room.roomType, // roomType (String) -> Nama Layanan
+      mitra.mitraName, // hotelName (String) -> Nama Mitra
+      layanan.layananType, // roomType (String) -> Nama Layanan
       jadwalLayanan, // checkInDate (String) -> Jadwal Layanan
       'N/A', // checkOutDate (String) -> Tidak Terpakai
       'IDR', // currency (String)
@@ -51,7 +51,7 @@ class BookingService extends GetxService {
       vehicleType, // specialRequests (String) -> Jenis Kendaraan
       'Menunggu Pembayaran', // paymentMethod (String)
       1, // numberOfGuest (int)
-      room.pricePerNight, // totalPrice (double)
+      layanan.harga, // totalPrice (double)
     );
 
     // 2. Buat objek TAGIHAN baru
@@ -60,12 +60,12 @@ class BookingService extends GetxService {
       uniqueTransactionId, // idTransaksi (String)
       uniqueBookingId, // kodePesanan (String) - SAMA DENGAN bookingID
       userName, // namaPelanggan (String)
-      room.pricePerNight, // jumlahDibayar (double)
+      layanan.harga, // jumlahDibayar (double)
       'IDR', // mataUang (String)
       'Belum Dipilih', // metodePembayaran (String)
       'Belum Lunas', // statusPembayaran (String)
       DateTime.now(), // tanggalPembayaran (DateTime)
-      'Tagihan untuk layanan ${room.roomType}', // catatan (String)
+      'Tagihan untuk layanan ${layanan.layananType}', // catatan (String)
       '', // Tambahkan argumen ke-11 sesuai kebutuhan, misal: '' (String kosong) atau nilai default lain
     );
 

@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sikilap/controller/client/room_selection_controller.dart';
+import 'package:sikilap/controller/client/layanan_selection_controller.dart';
 import 'package:sikilap/helpers/utils/my_shadow.dart';
 import 'package:sikilap/helpers/utils/ui_mixins.dart';
 import 'package:sikilap/helpers/widgets/my_breadcrumb.dart';
@@ -13,7 +13,7 @@ import 'package:sikilap/helpers/widgets/my_container.dart';
 import 'package:sikilap/helpers/widgets/my_spacing.dart';
 import 'package:sikilap/helpers/widgets/my_text.dart';
 import 'package:sikilap/helpers/widgets/responsive.dart';
-import 'package:sikilap/model/room_model.dart';
+import 'package:sikilap/model/layanan_model.dart';
 import 'package:sikilap/views/layout/layout.dart';
 
 class RoomSelectionScreen extends StatefulWidget {
@@ -26,18 +26,18 @@ class RoomSelectionScreen extends StatefulWidget {
 class _RoomSelectionScreenState extends State<RoomSelectionScreen>
     with UIMixin {
   // Ubah cara inisialisasi controller agar sesuai dengan alur yang benar
-  late final RoomSelectionController controller;
+  late final LayananSelectionController controller;
 
   @override
   void initState() {
     super.initState();
-    controller = Get.put(RoomSelectionController(Get.arguments));
+    controller = Get.put(LayananSelectionController(Get.arguments));
   }
 
   @override
   Widget build(BuildContext context) {
     return Layout(
-      child: GetBuilder<RoomSelectionController>(
+      child: GetBuilder<LayananSelectionController>(
         init: controller,
         builder: (controller) {
           return Column(
@@ -63,7 +63,7 @@ class _RoomSelectionScreenState extends State<RoomSelectionScreen>
               Padding(
                 padding: MySpacing.x(flexSpacing),
                 // Tampilkan loading atau pesan jika belum ada layanan
-                child: controller.rooms.isEmpty
+                child: controller.layanan.isEmpty
                     ? Center(
                         child: MyText.bodyLarge(
                             "Tidak ada layanan yang tersedia untuk mitra ini."))
@@ -75,9 +75,9 @@ class _RoomSelectionScreenState extends State<RoomSelectionScreen>
                           mainAxisSpacing: 24,
                           mainAxisExtent: 450,
                         ),
-                        itemCount: controller.rooms.length,
+                        itemCount: controller.layanan.length,
                         itemBuilder: (context, index) {
-                          RoomModel room = controller.rooms[index];
+                          LayananModel layanan = controller.layanan[index];
                           return MyCard(
                             shadow: MyShadow(
                                 elevation: 0.2,
@@ -92,23 +92,23 @@ class _RoomSelectionScreenState extends State<RoomSelectionScreen>
                                       paddingAll: 0,
                                       height: 200,
                                       width: double.infinity,
-                                      child: Image.asset(room.image,
+                                      child: Image.asset(layanan.image,
                                           fit: BoxFit.cover),
                                     ),
                                     Positioned(
                                       right: 12,
                                       top: 12,
                                       child: MyContainer.rounded(
-                                        onTap: () =>
-                                            controller.onFavouriteToggle(room),
+                                        onTap: () => controller
+                                            .onFavouriteToggle(layanan),
                                         paddingAll: 12,
                                         child: Icon(
-                                            room.isFavourite
+                                            layanan.isFavourite
                                                 ? Icons.favorite_rounded
                                                 : Icons
                                                     .favorite_outline_rounded,
                                             size: 16,
-                                            color: room.isFavourite
+                                            color: layanan.isFavourite
                                                 ? contentTheme.danger
                                                 : null,
                                             fill: 0),
@@ -130,26 +130,27 @@ class _RoomSelectionScreenState extends State<RoomSelectionScreen>
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            MyText.bodyMedium(room.roomType,
+                                            MyText.bodyMedium(
+                                                layanan.layananType,
                                                 fontWeight: 600,
                                                 maxLines: 1,
                                                 overflow:
                                                     TextOverflow.ellipsis),
                                             MyText.labelMedium(
-                                                "Kategori: ${room.bedType}"),
+                                                "Kategori: ${layanan.kategori}"),
                                             MyText.labelMedium(
-                                                "Jenis Mobil: ${room.view}"),
+                                                "Jenis Mobil: ${layanan.jenisMobil}"),
                                             MyText.labelMedium(
-                                                "Estimasi: ${room.floor} menit"),
+                                                "Estimasi: ${layanan.estimasiMenit} menit"),
                                             MyText.labelMedium(
-                                                "Mulai dari: Rp ${room.pricePerNight.toInt()}"),
+                                                "Mulai dari: Rp ${layanan.harga.toInt()}"),
                                           ],
                                         ),
                                       ),
                                       // ========== UBAH MyContainer MENJADI MyButton ==========
                                       MyButton(
                                         onPressed: () =>
-                                            controller.goToBookingForm(room),
+                                            controller.goToBookingForm(layanan),
                                         padding: MySpacing.xy(8, 4),
                                         backgroundColor: contentTheme.primary,
                                         elevation: 0,

@@ -41,7 +41,7 @@ class _BookingFormScreenState extends State<BookingFormScreen> with UIMixin {
         builder: (controller) {
           // ========== LOGIKA BARU UNTUK MENAMPILKAN KONTEN ==========
           // Jika tidak ada data, tampilkan pesan. Jika ada, tampilkan form.
-          return controller.hotel == null || controller.room == null
+          return controller.mitra == null || controller.layanan == null
               ? _buildEmptyState()
               : _buildBookingForm();
           // ==========================================================
@@ -117,7 +117,7 @@ class _BookingFormScreenState extends State<BookingFormScreen> with UIMixin {
                   MyText.titleMedium("Anda memesan layanan:", fontWeight: 600),
                   MySpacing.height(8),
                   MyText.bodyLarge(
-                      "${controller.room!.roomType} dari Mitra ${controller.hotel!.hotelName}"),
+                      "${controller.layanan!.layananType} dari Mitra ${controller.mitra!.mitraName}"),
                   Divider(height: 48),
                   _buildTextField(
                     label: "Alamat Lengkap Anda",
